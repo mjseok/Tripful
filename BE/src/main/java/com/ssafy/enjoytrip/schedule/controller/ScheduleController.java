@@ -27,7 +27,7 @@ public class ScheduleController {
 	@Autowired
 	ScheduleService scheduleService;
 
-	@GetMapping()
+	@GetMapping
 	public ModelAndView schedule(HttpServletRequest request) throws Exception {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
