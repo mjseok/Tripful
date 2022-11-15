@@ -28,7 +28,7 @@ public class UserController {
 	UserService userService;
 
 	
-	@GetMapping("/mypage")
+	@GetMapping("/mypage") //test
 	public ModelAndView myPage() {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("user/mypage");
