@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.enjoytrip.spot.mapper.SpotMapper">
+
+	<select id="getSidoList" resultType="map">
+		select sidoid, name
+		from sido
+	</select>
+	
+	<select id="getGugunList" parameterType="int" resultType="map">
+		select gugunid, replace(name, char(13), '') as name
+		from gugun
+		where sidoid=#{sidoid}
+	</select>
+	
+	<select id="getSpotList" parameterType="map" resultType="Spot">
+		select spotid,title,address,hit,theme,image,lat,lang
+		from spot
+		where gugunid=#{gugun} and sidoid=#{sido}
+		order by hit desc
+		limit #{pageno},12
+	</select>
+	
+	<select id="countSpot" resultType="int">
+		select count(*)
+		from spot
+	</select>
+
+	<select id="getSpot" parameterType="int" resultType="Spot">
+		select s.spotid,s.title,s.tel,s.address,s.theme,s.image, s.lat, s.lang, d.`desc`
+		from spot s, description d
+		where s.spotid=#{spotId} and s.contentId=d.contentId
+	</select>
+	
+	<select id="getHotSpotList" parameterType="map" resultType="Spot">
+		select spotid,title,address,hit,theme,image
+		from spot
+		where theme=#{theme} and sidoid=#{sido}
+		order by hit desc
+		limit 3
+	</select>
+	
+	<!-- <insert id="signUp" parameterType="User">
+		insert into user (name, id, pwd, email, isadmin)
+		values (#{name}, #{id}, #{pwd}, #{email}, false)
+	</insert>
+
+	 -->
+	
+	<!-- <select id="listMember" resultMap="memberAll">
+		select user_name, user_id, user_password, email_id, email_domain, join_date
+		from members
+		order by join_date
+	</select>
+	
+	<select id="getMember" parameterType="string" resultMap="memberAll">
+		select user_id, user_name, user_password, email_id, email_domain, join_date
+		from members
+		where user_id = #{userId}
+	</select>
+	
+	<update id="updateMember" parameterType="memberDto">
+		update members
+		<trim prefix="set" suffixOverrides=",">
+			<if test="userPwd != null">user_password = #{userPwd},</if>
+			<if test="emailId != null">email_id = #{emailId},</if>
+			<if test="emailDomain != null">email_domain = #{emailDomain},</if>
+		</trim>
+		where user_id = #{userId}
+	</update>
+	
+	<delete id="deleteMember" parameterType="String">
+		delete from members
+		where user_id = #{userId}
+	</delete> -->
+	
+</mapper>

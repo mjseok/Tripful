@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.ssafy.enjoytrip.schedule.mapper.ScheduleMapper">
+	<resultMap type="Schedule" id="schedule">
+		<result column="scheduleid" property="scheduleid" />
+		<result column="uid" property="uid" />
+		<result column="title" property="title" />
+		<result column="theme" property="theme" />
+	</resultMap>
+	<resultMap type="Spot" id="likedSpots">
+		<result column="spotid" property="spotid" />
+		<result column="title" property="title" />
+		<result column="address" property="address" />
+		<result column="hit" property="hit" />
+		<result column="theme" property="theme" />
+		<result column="image" property="image" />
+		<result column="lat" property="lat" />
+		<result column="lang" property="lang" />
+	</resultMap>
+	<resultMap type="Spot" id="spot">
+		<result column="spotid" property="spotid" />
+		<result column="title" property="title" />
+		<result column="image" property="image" />
+	</resultMap>
+	<select id="likeSpots" parameterType="int" resultMap="likedSpots">
+		select
+		s.spotid,s.title,s.address,s.hit,s.theme,s.image,s.lat,s.lang
+		from spot
+		as s join
+		(select spotid from `like` where uid = #{uid} and spotid is not
+		null) as l
+		on s.spotid = l.spotid
+	</select>
+	<insert id="write" parameterType="Schedule">
+		insert into schedule (uid,title, theme)
+		values (#{uid},#{title},#{theme})
+	</insert>
+	<insert id="addSpot" parameterType="map">
+		insert into schedulespot (scheduleid, spotid)
+		values (#{scheduleid},#{spotid})
+	</insert>
+	<select id="getScheduleid" parameterType="int" resultType="int">
+		select scheduleid
+		from schedule
+		where uid = #{uid}
+		order by scheduleid desc limit 1
+	</select>
+	<select id="scheduleList" parameterType="int" resultMap="schedule">
+		select scheduleid, uid, title, theme
+		from schedule
+		where uid = #{uid}
+	</select>
+		<select id="allSchedule" parameterType="int" resultMap="schedule">
+		select scheduleid, uid, title, theme
+		from schedule
+	</select>
+	<select id="getSpots" parameterType ="int" resultMap="spot">
+		select s1.spotid, s1.title, s1.image
+        from spot as s1 join schedulespot as s2
+        on s1.spotid = s2.spotid
+        where s2.scheduleid = #{scheduleid}
+        order by s2.ssid
+	</select>
+	<delete id="deleteSpots">
+		delete from schedulespot
+		where scheduleid = #{scheduleid}
+	</delete>
+	<delete id="deleteSchedule">
+		delete from schedule
+		where scheduleid = #{scheduleid}
+	</delete>
+	<!-- <select id="idCheck" parameterType="String" resultType="int"> select 
+		count(user_id) from members where user_id = #{userid} </select> -->
+
+
+</mapper>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.enjoytrip.social.mapper.SocialMapper">
+
+	<select id="checkLikeSpot" parameterType="like" resultType="int">
+		select count(*) 
+		from `like`
+		where spotid = #{spotid} and uid = #{uid}
+	</select>
+	
+	<select id="getLikedSpots" parameterType="int" resultType="Spot">
+		select s.spotid, s.title, s.address, s.hit, s.theme, s.image, s.lat, s.lang
+		from spot as s join `like` as l
+		on s.spotid = l.spotid
+		where l.uid = #{uid}
+	</select>
+	
+	<insert id="addReview" parameterType="review">
+		insert into review (spotid, uid, content, score)
+		values (#{spotid}, #{uid}, #{content}, #{score})
+	</insert>
+	
+	<insert id="addLikeSpot" parameterType="like">
+		insert into `like` (uid, spotid)
+		values (#{uid}, #{spotid})
+	</insert>
+	
+	<delete id="deleteLikeSpot" parameterType="like">
+		delete from `like`
+		where uid = #{uid} and spotid = #{spotid}
+	</delete>
+	
+	<select id="getRecentReviews" parameterType="int" resultType="Review">
+		select r.reviewid, r.spotid, r.uid, r.content, r.score, s.title, s.image
+		from review as r join spot as s
+		on r.spotid = s.spotid
+		where r.uid = #{uid}
+	</select>
+	
+	<select id="getUserReviews" resultType="Review">
+		select r.reviewid,r.content,r.score,s.image,sido.name,r.uid,s.title
+		from review as r inner join spot as s
+		on r.spotid = s.spotid inner join sido
+		on sido.sidoid = s.sidoid order by reviewid desc limit 4
+	</select>
+	
+	<update id="updateReview" parameterType="Review">
+		update review
+		set content = #{content}, score = #{score}
+		where reviewid = #{reviewid}
+	</update>
+	
+	<delete id="deleteReview" parameterType="int">
+		delete from review
+		where reviewid = #{reviewid}
+	</delete>
+	<select id="checkLikeSchedule" parameterType="map" resultType="int">
+	select count(*) from `like`
+	where scheduleid = #{scheduleid} and uid = #{uid}
+	</select>
+</mapper>
