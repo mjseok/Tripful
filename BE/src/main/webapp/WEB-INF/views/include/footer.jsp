@@ -29,8 +29,7 @@
 					<p class="p-small statement">
 						Copyright © <a href="https://github.com/tykwon97" class="authors">Taeyoon
 							Kwon</a>, <a href="https://github.com/mjseok" class="authors">Minji
-							Seok</a>, <a href="https://github.com/Suminig" class="authors">Sumin
-							Lee</a>
+							Seok</a>
 					</p>
 				</div>
 			</div>
