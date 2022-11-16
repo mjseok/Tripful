@@ -1,13 +1,17 @@
 <template>
   <div id="app">
     <the-nav-bar></the-nav-bar>
+    <app-carousel></app-carousel>
   </div>
 </template>
 <script>
 import TheNavBar from "@/layout/TheNavBar";
+import AppCarousel from "@/components/AppCarousel";
+
 export default {
   components: {
     TheNavBar,
+    AppCarousel,
   },
 };
 </script>
