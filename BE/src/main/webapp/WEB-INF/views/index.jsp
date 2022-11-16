@@ -415,7 +415,7 @@
       }
 
       function getCurWeather(city) {
-        const apiUrl = `http://api.openweathermap.org/data/2.5/weather?q=\${city}&appid=672ac239bb48007f9a27b0159bb6976a&units=metric`;
+        const apiUrl = `http://api.openweathermap.org/data/2.5/weather?q=\${city}&appid=${appid}&units=metric`;
         fetch(`\${apiUrl}`)
           .then((res) => res.json())
           .then((json) => {
@@ -430,7 +430,7 @@
           });
       }
       function getWeekWeather(city) {
-        const apiUrl = `http://api.openweathermap.org/data/2.5/forecast?q=\${city}&appid=672ac239bb48007f9a27b0159bb6976a&units=metric`;
+        const apiUrl = `http://api.openweathermap.org/data/2.5/forecast?q=\${city}&appid=${appid}&units=metric`;
         fetch(`\${apiUrl}`)
           .then((res) => res.json())
           .then((json) => {
