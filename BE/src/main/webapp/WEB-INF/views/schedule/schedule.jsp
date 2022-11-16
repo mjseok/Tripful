@@ -5,10 +5,10 @@
 <%@ include file="/WEB-INF/views/include/header.jsp"%>
 </head>
 <body data-bs-spy="scroll" data-bs-target="#navbarExample">
- <script
-    type="text/javascript"
-    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=efa330ac5683d9992020711b21de6185&libraries=services"
-  ></script>
+	 <script
+	    type="text/javascript"
+	    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=efa330ac5683d9992020711b21de6185&libraries=services"
+	  ></script>
   <script
     type="text/javascript"
     src="//dapi.kakao.com/v2/maps/sdk.js?appkey=efa330ac5683d9992020711b21de6185"
