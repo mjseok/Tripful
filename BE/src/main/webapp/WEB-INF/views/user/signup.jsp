@@ -13,36 +13,35 @@
 		<h2 class="text-center mt-5 mb-3">회원가입</h2>
 
 		<div class="d-flex p-3 m-3 justify-content-center align-items-center">
-			<form class="text-center" id="signup-form" method="POST"
-				style="width: 40%">
-				 <input
-					type="text"
-					class="login-form-item form-control border rounded-5 p-3"
-					id="signup-form-id" name="id" placeholder="아이디" />
-				<div id="idcheck-result"></div>
-				<input type="text"
-					class="login-form-item form-control border rounded-5 p-3"
-					id="signup-form-name" name="name" placeholder="이름" /> <input
-					type="email"
-					class="login-form-item form-control border rounded-5 p-3"
-					id="signup-form-email" name="email" placeholder="E-mail" />
-				<div id="emailcheck-result"></div>
-				<input type="password"
-					class="login-form-item form-control border rounded-5 p-3"
-					id="signup-form-pwd" name="pwd" placeholder="비밀번호" /><input
-					type="password"
-					class="login-form-item form-control border rounded-5 p-3"
-					id="signup-form-pwd-confirm" placeholder="비밀번호 확인" />
-				<div id="pwdcheck-result"></div>
+			<!-- <form class="text-center" id="signup-form" method="POST"
+				style="width: 40%"> -->
+			<input type="text"
+				class="login-form-item form-control border rounded-5 p-3"
+				id="id" name="id" placeholder="아이디" />
+			<div id="idcheck-result"></div>
+			<input type="text"
+				class="login-form-item form-control border rounded-5 p-3"
+				id="name" name="name" placeholder="이름" /> <input
+				type="email"
+				class="login-form-item form-control border rounded-5 p-3"
+				id="email" name="email" placeholder="E-mail" />
+			<div id="emailcheck-result"></div>
+			<input type="password"
+				class="login-form-item form-control border rounded-5 p-3"
+				id="pwd" name="pwd" placeholder="비밀번호" /><input
+				type="password"
+				class="login-form-item form-control border rounded-5 p-3"
+				id="pwd-confirm" placeholder="비밀번호 확인" />
+			<div id="pwdcheck-result"></div>
 
-				<button type="button" class="btn btn-solid-lg ms-2 mt-4 mb-4"
-					id="btn-signup">회원가입</button>
-			</form>
+			<button type="button" class="btn btn-solid-lg ms-2 mt-4 mb-4"
+				id="btn-signup">회원가입</button>
+			<!-- </form> -->
 		</div>
 	</div>
 
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
-	 <script>
+	<script>
 	/* let isUseId = false;
 	document.querySelector("#signup-form-id").addEventListener("keyup", function () {
 	   	 let userid = this.value;
@@ -128,19 +127,19 @@
 	}); */
 	
 	document.querySelector("#btn-signup").addEventListener("click", function () {
-        if (!document.querySelector("#signup-form-id").value) {
+        if (!document.querySelector("#id").value) {
           alert("아이디 입력!!");
           return;
-        } else if (!document.querySelector("#signup-form-name").value) {
+        } else if (!document.querySelector("#name").value) {
           alert("이름 입력!!");
           return;
-        } else if (!document.querySelector("#signup-form-email").value) {
+        } else if (!document.querySelector("#email").value) {
           alert("E-mail 입력!!");
           return;
-        } else if (!document.querySelector("#signup-form-pwd").value) {
+        } else if (!document.querySelector("#pwd").value) {
           alert("비밀번호 입력!!");
           return;
-        } else if (!document.querySelector("#signup-form-pwd-confirm").value) {
+        } else if (!document.querySelector("#pwd-confirm").value) {
             alert("비밀번호 확인 입력!!");
             return;
         /* } else if (!isUseId) {
@@ -154,9 +153,27 @@
           return; */
         } else {
           console.log("회원 가입 중~~");
-          let form = document.querySelector("#signup-form");
-          form.setAttribute("action", "${root}/user/signUp");
-          form.submit();
+          /* let form = document.querySelector("#signup-form");
+          form.setAttribute("action", "${root}/user");
+          form.submit(); */
+          
+          let registerInfo = {
+                  id: document.querySelector("#id").value,
+                  pwd: document.querySelector("#pwd").value,
+                  name: document.querySelector("#name").value,
+                  email: document.querySelector("#email").value,
+          };
+          let config = {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify(registerInfo),
+          };
+          console.log(config);
+          fetch(`${root}/user`, config)
+                  .then((response) => response.json())
+                  .then((data) => console.log(data));
+          
+          /* location.href = "${root}/user/login"; */
         }
       });
 	</script>
