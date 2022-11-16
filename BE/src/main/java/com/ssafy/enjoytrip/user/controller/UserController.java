@@ -6,12 +6,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.mybatis.logging.Logger;
+import org.mybatis.logging.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ssafy.enjoytrip.user.User;
 import com.ssafy.enjoytrip.user.service.UserService;
+
 
 @RestController
 @RequestMapping("/user")
@@ -48,6 +54,7 @@ public class UserController {
 
 		String id = map.get("id");
 		String pwd = map.get("pwd");
+		
 //		System.out.println("size : "+map.size());
 //		System.out.println("id : "+map.get("id"));
 //		System.out.println("pwd : "+map.get("pwd"));
@@ -83,13 +90,20 @@ public class UserController {
 		return mav;
 	}
 	
-	@PostMapping("/signUp")
-	public ModelAndView signUp(User user) throws Exception {
-		userService.signUp(user);
+	// 회원 가입
+	@PostMapping("")
+	public ResponseEntity<?> userSignUp(@RequestBody User user){
+		System.out.println("userRegister user : "+user);
 		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("user/login");
-		return mav;
+		try {
+			userService.signUp(user);
+			return new ResponseEntity<User>(user,HttpStatus.OK);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
 	}
 	@GetMapping("/Find/{kind}")
 	public ModelAndView find(@PathVariable("kind") String kind) throws Exception {
