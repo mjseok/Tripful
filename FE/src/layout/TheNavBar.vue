@@ -14,11 +14,11 @@
 
       <b-navbar-nav>
         <b-nav-item href="#"
-          ><router-link :to="{ name: 'home' }" class="link"
+          ><router-link :to="{ name: 'schedule' }" class="link"
             ><b-icon icon="house" font-scale="1.5"></b-icon> 홈</router-link
           ></b-nav-item
         >
-        <b-nav-item href="#"
+        <!-- <b-nav-item href="#"
           ><router-link :to="{ name: 'board' }" class="link"
             ><b-icon icon="calendar-range" font-scale="1.5"></b-icon>
             일정</router-link
@@ -50,7 +50,7 @@
               ><b-icon icon="key"></b-icon> 로그인</router-link
             ></b-dropdown-item
           >
-        </b-nav-item-dropdown>
+        </b-nav-item-dropdown>-->
       </b-navbar-nav>
     </b-navbar>
   </div>
