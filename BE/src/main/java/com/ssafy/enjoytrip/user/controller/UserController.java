@@ -54,6 +54,7 @@ public class UserController {
 
 		String id = map.get("id");
 		String pwd = map.get("pwd");
+		
 //		System.out.println("size : "+map.size());
 //		System.out.println("id : "+map.get("id"));
 //		System.out.println("pwd : "+map.get("pwd"));
@@ -92,16 +93,12 @@ public class UserController {
 	// 회원 가입
 	@PostMapping("")
 	public ResponseEntity<?> userSignUp(@RequestBody User user){
-		
-//		ModelAndView mav = new ModelAndView();
-//		mav.setViewName("user/login");
-//		return mav;
-		
 		System.out.println("userRegister user : "+user);
+		
 		try {
 			userService.signUp(user);
 			return new ResponseEntity<User>(user,HttpStatus.OK);
-//			return new ResponseEntity<Integer>(cnt, HttpStatus.CREATED);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
