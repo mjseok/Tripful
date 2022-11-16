@@ -1,15 +1,29 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-// import HomeView from "../views/HomeView.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
-  // {
-  //   path: '/',
-  //   name: 'home',
-  //   component: HomeView
-  // },
+  {
+    path: "/",
+    name: "index",
+    component: () => import("@/components/AppCarousel"),
+  },
+  {
+    path: "/spot",
+    name: "spot",
+    component: () => import("@/views/LocationView"),
+  },
+  {
+    path: "/map",
+    name: "map",
+    component: () => import("@/views/MapView"),
+  },
+  {
+    path: "/login",
+    name: "login",
+    component: () => import("@/views/LoginView"),
+  },
   // {
   //   path: '/about',
   //   name: 'about',
