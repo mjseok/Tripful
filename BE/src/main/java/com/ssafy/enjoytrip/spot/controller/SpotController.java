@@ -22,38 +22,31 @@ public class SpotController {
 	SpotService spotService;
 	private static final String SUCCESS = "success";
 	private static final String FAIL = "fail";
+	//Todo : 지워야됨
+	@GetMapping("/spot/map")
+	public ModelAndView mapSearch() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("search/mapSearch");
+		return mav;
+	} //->vue로 하는거같음...(?)
 	
-//	@GetMapping("/spot/map")
-//	public ResponseEntity<> mapSearch() {
-//		ModelAndView mav = new ModelAndView();
-//		mav.setViewName("search/mapSearch");
-//		return mav;
-//	} ->vue로 하는거같음...(?)
-//	
-//	@GetMapping("/locationSearch")
-//	public ModelAndView locationSearch() throws Exception {
-//		ModelAndView mav = new ModelAndView();
-//		List<String[]> sidoList = spotService.getSidoList();
-////		System.out.println(sidoList);
-//		mav.addObject("sidos", sidoList);
-//		mav.setViewName("search/locationSearch");
-//		return mav;
-//	}
+	//Todo : 지워야됨
+	@GetMapping("/locationSearch")
+	public ModelAndView locationSearch() throws Exception {
+		ModelAndView mav = new ModelAndView();
+		List<String[]> sidoList = spotService.getSidoList();
+//		System.out.println(sidoList);
+		mav.addObject("sidos", sidoList);
+		mav.setViewName("search/locationSearch");
+		return mav;
+	}
 	
 	@GetMapping("/list/{sidoid}/{gugunid}/{pageno}")
-	public ModelAndView list(@PathVariable("sidoid") int sido, @PathVariable("gugunid") int gugun, @PathVariable("pageno") int pageno) throws Exception {
-				
-		ModelAndView mav = new ModelAndView();
-		List<Spot> spotList = spotService.getSpotList(gugun, sido, pageno);
-		
-		System.out.println("list : "+spotList);
-		
-		int spotNum = spotService.countSpot();
-		
-		mav.setViewName("search/spot");
-		mav.addObject("spots", spotList);
-		mav.addObject("spotNum", spotNum);
-		return mav;
+	public ResponseEntity<List<Spot>> list(@PathVariable("sidoid") int sido, @PathVariable("gugunid") int gugun, @PathVariable("pageno") int pageno) throws Exception {
+		//int spotNum = spotService.countSpot();
+		//mav.addObject("spotNum", spotNum);
+		List<Spot> list = spotService.getSpotList(gugun, sido, pageno);
+		return new ResponseEntity<List<Spot>>(list,HttpStatus.OK);
 	}
 	@GetMapping("/sido")
 	public ResponseEntity<List<String[]>> sidoList() throws Exception{
