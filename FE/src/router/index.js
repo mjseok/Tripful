@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import ScheduleView from "@/views/ScheduleView";
-import IndexView from "@/views/IndexView";
+// import ScheduleView from "@/views/ScheduleView";
+// import IndexView from "@/views/IndexView";
 
 Vue.use(VueRouter);
 
