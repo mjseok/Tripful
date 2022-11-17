@@ -2,6 +2,7 @@ package com.ssafy.enjoytrip.spot.service;
 
 import java.util.List;
 
+import com.ssafy.enjoytrip.spot.Sido;
 import com.ssafy.enjoytrip.spot.Spot;
 
 public interface SpotService {
@@ -15,7 +16,7 @@ public interface SpotService {
 	
 	//시도 리스트
 	//List<Map<Integer,String>> getSidoList() throws SQLException;
-	List<String[]> getSidoList() throws Exception;
+	List<Sido> getSidoList() throws Exception;
 	
 //	//구군 리스트
 	List<String[]> getGugunList(int sidoid) throws Exception;

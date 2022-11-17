@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ssafy.enjoytrip.spot.Sido;
 import com.ssafy.enjoytrip.spot.Spot;
 import com.ssafy.enjoytrip.spot.service.SpotService;
 
@@ -49,8 +50,10 @@ public class SpotController {
 		return new ResponseEntity<List<Spot>>(list,HttpStatus.OK);
 	}
 	@GetMapping("/sido")
-	public ResponseEntity<List<String[]>> sidoList() throws Exception{
-		return new ResponseEntity<List<String[]>>(spotService.getSidoList(),HttpStatus.OK);
+	public ResponseEntity<List<Sido>> sidoList() throws Exception{
+		List<Sido> sidoList = spotService.getSidoList();
+		System.out.println("sidoList : "+sidoList);
+		return new ResponseEntity<List<Sido>>(sidoList,HttpStatus.OK);
 	}
 	@GetMapping("/gugun")
 	public ResponseEntity<List<String[]>> gugunList(@PathVariable("sidoid") int sidoId) throws Exception{

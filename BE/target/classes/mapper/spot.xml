@@ -4,7 +4,7 @@
 
 <mapper namespace="com.ssafy.enjoytrip.spot.mapper.SpotMapper">
 
-	<select id="getSidoList" resultType="map">
+	<select id="getSidoList" resultType="Sido">
 		select sidoid, name
 		from sido
 	</select>
