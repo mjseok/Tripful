@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ssafy.enjoytrip.spot.Sido;
 import com.ssafy.enjoytrip.spot.Spot;
 import com.ssafy.enjoytrip.spot.mapper.SpotMapper;
 import com.ssafy.util.SizeConstant;
@@ -41,7 +42,7 @@ public class SpotServiceImpl implements SpotService {
 //	}
 	
 	@Override
-	public List<String[]> getSidoList() throws Exception {
+	public List<Sido> getSidoList() throws Exception {
 		return spotMapper.getSidoList();
 	}
 	
