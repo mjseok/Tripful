@@ -4,6 +4,7 @@
     <router-view />
   </div>
 </template>
+
 <script>
 import TheNavBar from "@/layout/TheNavBar";
 
@@ -13,9 +14,15 @@ export default {
   },
 };
 </script>
+
 <style>
+@font-face {
+  font-family: "BMHANNAAir_ttf";
+  src: url("@/assets/fonts/BMHANNAAir_ttf.ttf") format("truetype");
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: "BMHANNAAir_ttf";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
