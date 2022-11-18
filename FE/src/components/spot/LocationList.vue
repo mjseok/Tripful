@@ -4,10 +4,11 @@
     <div class="row filter" style="padding-top: 40px">
       <div class="col-lg-12">
         <!-- Filter -->
+
+        <!-- style="display: none" -->
         <div
           class="button-group filters-button-group"
           id="filters-button-group"
-          style="display: none"
         >
           <button id="btn-select-all" class="button is-checked" data-filter="*">
             전체
