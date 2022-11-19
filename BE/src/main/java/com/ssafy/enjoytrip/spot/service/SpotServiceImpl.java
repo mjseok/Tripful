@@ -26,13 +26,13 @@ public class SpotServiceImpl implements SpotService {
 	}
 
 	@Override
-	public List<Spot> getSpotList(int gugun, int sido,int pageno) throws Exception {
+	public List<Spot> getSpotList(int gugun, int sido,int pageno, int theme) throws Exception {
 //		System.out.println("spotListImpl");
 		int limit = SizeConstant.SIZE_PER_LIST;
 		pageno=(pageno-1)*limit;
 //		List<Spot> list = ;
 //		System.out.println("Impl에서 List : "+list);
-		return spotMapper.getSpotList(gugun, sido,pageno);
+		return spotMapper.getSpotList(gugun, sido,pageno,theme);
 	}
 
 	@Override

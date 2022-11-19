@@ -45,11 +45,11 @@ public class SpotController {
 	}
 	
 	@GetMapping("/list")
-	public ResponseEntity<List<Spot>> list(@RequestParam("sidoid") int sido, @RequestParam("gugunid") int gugun, @RequestParam("pageno") int pageno) throws Exception {
+	public ResponseEntity<List<Spot>> list(@RequestParam("sidoid") int sido, @RequestParam("gugunid") int gugun, @RequestParam("pageno") int pageno, @RequestParam("theme") int theme) throws Exception {
 		//int spotNum = spotService.countSpot();
 		//mav.addObject("spotNum", spotNum);
 //		System.out.println("gugun : "+gugun + " sido : "+sido+" pageno : "+pageno);
-		List<Spot> list = spotService.getSpotList(gugun, sido, pageno);
+		List<Spot> list = spotService.getSpotList(gugun, sido, pageno, theme);
 //		System.out.println("리스트는 : "+list);
 		return new ResponseEntity<List<Spot>>(list,HttpStatus.OK);
 	}

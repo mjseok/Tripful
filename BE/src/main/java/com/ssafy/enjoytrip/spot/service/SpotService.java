@@ -11,7 +11,7 @@ public interface SpotService {
 	List<Spot> getHotSpotList(String theme, int sido) throws Exception;
 	
 //	//지역별 조회,페이지네이션
-	List<Spot> getSpotList(int gugun,int sido,int pageno) throws Exception;
+	List<Spot> getSpotList(int gugun,int sido,int pageno,int theme) throws Exception;
 //	//장소detail
 	Spot getSpot(int spotid) throws Exception;
 	

@@ -7,9 +7,11 @@
     :class="{ 'mouse-over-bgcolor': isColor }"
   >
     <b-col cols="2" class="text-center align-self-center">
-      <b-img thumbnail :src= location.image alt="No Image"></b-img>
+      <b-img thumbnail :src="location.image" alt="No Image"></b-img>
     </b-col>
-    <b-col cols="10" class="align-self-center"> [{{ location.title }}] {{ location.address }} </b-col>
+    <b-col cols="10" class="align-self-center">
+      [{{ location.title }}] {{ location.address }}
+    </b-col>
   </b-row>
 </template>
 
@@ -34,6 +36,7 @@ export default {
       // console.log("listRow : ", this.house);
       // this.$store.dispatch("getHouse", this.house);
       this.detailLocation(this.location);
+      this.$router.push("detail");
     },
     colorChange(flag) {
       this.isColor = flag;

@@ -35,6 +35,7 @@ const locationStore = {
       state.locations = locations;
     },
     SET_DETAIL_LOCATION(state, location) {
+      console.log("location : "+location);
       state.location = location;
     },
   },
@@ -64,11 +65,12 @@ const locationStore = {
         }
       );
     },
-    getLocationList: ({ commit }, { sidoCode, gugunCode }) => {
+    getLocationList: ({ commit }, { sidoCode, gugunCode,themeCode }) => {
       console.log("list sidoCode : " + sidoCode + " gugunCode : " + gugunCode);
       const params = {
         sidoid: sidoCode,
         gugunid: gugunCode,
+        theme:themeCode,
         pageno: 1,
       };
       locationList(
@@ -82,9 +84,10 @@ const locationStore = {
         }
       );
     },
-    detaillocation: ({ commit }, location) => {
+    detailLocation: ({ commit }, location) => {
       // 나중에 house.일련번호를 이용하여 API 호출
-      commit("SET_DETAIL_location", location);
+      commit("SET_DETAIL_LOCATION", location);
+
     },
   },
 };
