@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.ssafy.enjoytrip.spot.Gugun;
 import com.ssafy.enjoytrip.spot.Sido;
 import com.ssafy.enjoytrip.spot.Spot;
 
@@ -22,7 +23,7 @@ public interface SpotMapper {
 	List<Sido> getSidoList() throws SQLException;
 	
 //	//구군 리스트
-	List<String[]> getGugunList(int sidoid) throws SQLException;
+	List<Gugun> getGugunList(int sidoid) throws SQLException;
 	
 	int countSpot() throws SQLException;
 }

@@ -9,7 +9,7 @@
 		from sido
 	</select>
 	
-	<select id="getGugunList" parameterType="int" resultType="map">
+	<select id="getGugunList" parameterType="int" resultType="Gugun">
 		select gugunid, replace(name, char(13), '') as name
 		from gugun
 		where sidoid=#{sidoid}

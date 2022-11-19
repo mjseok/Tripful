@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import locationStore from "@/store/modules/locationStore";
 
 Vue.use(Vuex)
 
@@ -13,5 +14,6 @@ export default new Vuex.Store({
   actions: {
   },
   modules: {
+    locationStore,
   }
 })
