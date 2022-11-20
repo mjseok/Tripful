@@ -31,6 +31,11 @@ const routes = [
     name: "login",
     component: () => import("@/views/LoginView"),
   },
+  {
+    path: "/signup",
+    name: "signup",
+    component: () => import("@/views/SignUpView"),
+  },
   // {
   //   path: '/',
   //   name: 'home',
