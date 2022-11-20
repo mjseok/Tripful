@@ -9,7 +9,12 @@
       <b-navbar-brand href="#">
         <router-link to="/">Tripful</router-link>
       </b-navbar-brand>
-
+      <b-nav-item href="#">
+        <app-input></app-input>
+        <router-link :to="{ name: 'map' }" class="link">
+          <button>검색!</button>
+        </router-link>
+      </b-nav-item>
       <b-navbar-toggle target="nav-collapse">햄버거</b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
@@ -21,9 +26,7 @@
           <b-nav-item-dropdown right>
             <template #button-content> 관광지 조회 </template>
             <b-nav-item href="#">
-              <router-link :to="{ name: 'spot' }" class="link"
-                >지역별조회</router-link
-              >
+              <router-link :to="{ name: 'spot' }" class="link">지역별조회</router-link>
             </b-nav-item>
             <b-nav-item href="#"
               ><router-link :to="{ name: 'map' }" class="link">
@@ -33,17 +36,13 @@
           </b-nav-item-dropdown>
 
           <b-nav-item href="#"
-            ><router-link :to="{ name: 'schedule' }" class="link"
-              >스케줄</router-link
-            ></b-nav-item
+            ><router-link :to="{ name: 'schedule' }" class="link">스케줄</router-link></b-nav-item
           >
 
           <b-nav-item-dropdown right>
             <template #button-content> 커뮤니티 </template>
             <b-nav-item href="#"
-              ><router-link :to="{ name: 'test1' }" class="link"
-                >test1
-              </router-link></b-nav-item
+              ><router-link :to="{ name: 'test1' }" class="link">test1 </router-link></b-nav-item
             >
             <b-nav-item href="#"
               ><router-link :to="{ name: 'test2' }" class="link"
@@ -53,16 +52,12 @@
           </b-nav-item-dropdown>
 
           <b-nav-item href="#">
-            <router-link :to="{ name: 'mypage' }" class="link">
-              마이페이지
-            </router-link>
+            <router-link :to="{ name: 'mypage' }" class="link"> 마이페이지 </router-link>
           </b-nav-item>
 
           <b-nav-item href="#">
             <!-- v-if="userInfo" -->
-            <router-link :to="{ name: 'login' }" class="link">
-              로그인/로그아웃
-            </router-link>
+            <router-link :to="{ name: 'login' }" class="link"> 로그인/로그아웃 </router-link>
           </b-nav-item>
         </b-navbar-nav>
       </b-collapse>
@@ -71,8 +66,12 @@
 </template>
 
 <script>
+import AppInput from "@/components/common/AppInput";
 export default {
   name: "TheNavBar",
+  components: {
+    AppInput,
+  },
 };
 </script>
 
