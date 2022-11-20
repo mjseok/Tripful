@@ -1,121 +1,79 @@
 <template>
-  <div>
-    <!-- Header -->
-    <div class="header bg-gradient-success py-7 py-lg-8 pt-lg-9">
-      <b-container>
-        <div class="header-body text-center mb-7">
-          <b-row class="justify-content-center">
-            <b-col xl="5" lg="6" md="8" class="px-5">
-              <h1 class="text-white">Welcome!</h1>
-              <p class="text-lead text-white">
-                Use these awesome forms to login or create new account in your
-                project for free.
-              </p>
-            </b-col>
-          </b-row>
-        </div>
-      </b-container>
-    </div>
-    <!-- Page content -->
-    <b-container class="mt--8 pb-5">
-      <b-row class="justify-content-center">
-        <b-col lg="5" md="7">
-          <b-card no-body class="bg-secondary border-0 mb-0">
-            <b-card-header class="bg-transparent pb-5">
-              <div class="text-muted text-center mt-2 mb-3">
-                <small>Sign in with</small>
-              </div>
-              <div class="btn-wrapper text-center">
-                <a href="#" class="btn btn-neutral btn-icon">
-                  <span class="btn-inner--icon"
-                    ><b-icon icon="github"></b-icon
-                  ></span>
-                  <span class="btn-inner--text">Github</span>
-                </a>
-                <a href="#" class="btn btn-neutral btn-icon">
-                  <span class="btn-inner--icon"
-                    ><b-icon icon="github"></b-icon
-                  ></span>
-                  <span class="btn-inner--text">Google</span>
-                </a>
-              </div>
-            </b-card-header>
-            <b-card-body class="px-lg-5 py-lg-5">
-              <div class="text-center text-muted mb-4">
-                <small>Or sign in with credentials</small>
-              </div>
-              <validation-observer
-                v-slot="{ handleSubmit }"
-                ref="formValidator"
-              >
-                <b-form role="form" @submit.prevent="handleSubmit(onSubmit)">
-                  <base-input
-                    alternative
-                    class="mb-3"
-                    name="Email"
-                    :rules="{ required: true, email: true }"
-                    prepend-icon="ni ni-email-83"
-                    placeholder="Email"
-                    v-model="model.email"
-                  >
-                  </base-input>
-
-                  <base-input
-                    alternative
-                    class="mb-3"
-                    name="Password"
-                    :rules="{ required: true, min: 6 }"
-                    prepend-icon="ni ni-lock-circle-open"
-                    type="password"
-                    placeholder="Password"
-                    v-model="model.password"
-                  >
-                  </base-input>
-
-                  <b-form-checkbox v-model="model.rememberMe"
-                    >Remember me</b-form-checkbox
-                  >
-                  <div class="text-center">
-                    <base-button
-                      type="primary"
-                      native-type="submit"
-                      class="my-4"
-                      >Sign in</base-button
-                    >
+<div >
+  <div class="container pt-lg-md mt-5">
+      <div class="row justify-content-center">
+          <div class="col-lg-5">
+                  <app-card shadow
+                  type="light"
+                      header-classes="bg-white pb-5"
+                      body-classes="px-lg-5 py-lg-5"
+                      class="border-0">
+                  <template>
+                      <div class="text-muted text-center mb-2">
+                          <large>Sign in with</large>
+                      </div>
+                      <div class="btn-wrapper text-center mb-4">
+                          <app-button type="neutral" @click="gitHubLogin()">
+                              <b-icon-github/>
+                              Github
+                          </app-button>
+                      </div>
+                  </template>
+                  <template>
+                      <div class="text-center text-muted mb-4">
+                          Or sign in with credentials
+                      </div>
+                      <form role="form">
+                           <app-input alternative
+                                      class="mb-3"
+                                      placeholder="Id"
+                                      addonLeftIcon="person-badge-fill"
+                                      >
+                          </app-input>
+                          <app-input alternative
+                                      type="password"
+                                      placeholder="Password"
+                                      addonLeftIcon="key-fill"
+                                      >
+                          </app-input>
+                        
+                          <div class="text-center">
+                              <app-button type="theme" class="my-4">Sign In</app-button>
+                              <app-button type="theme" class="my-4"  @click="movePage">Sign Up</app-button>
+                          </div>
+                      </form>
+                  </template>
+                  <div class="row mt-3">
+                  <div class="col-6">
+                      <app-button type="theme">아이디 찾기</app-button>
                   </div>
-                </b-form>
-              </validation-observer>
-            </b-card-body>
-          </b-card>
-          <b-row class="mt-3">
-            <b-col cols="6">
-              <router-link to="/dashboard" class="text-light"
-                ><small>Forgot password?</small></router-link
-              >
-            </b-col>
-            <b-col cols="6" class="text-right">
-              <router-link to="/register" class="text-light"
-                ><small>Create new account</small></router-link
-              >
-            </b-col>
-          </b-row>
-        </b-col>
-      </b-row>
-    </b-container>
+                  <div class="col-6">
+                     <app-button type="theme">비밀번호 찾기</app-button>
+                  </div>
+                 
+              </div>
+              </app-card>
+              
+          </div>
+      </div>
   </div>
+</div>
 </template>
 
 <script>
+import AppInput from "@/components/user/AppInput";
+import AppButton from "@/components/user/AppButton";
+import AppCard from "@/components/common/AppCard";
 // import UserLogin from "@/components/user/UserLogin";
 export default {
   name: "LoginView",
-  // components: { UserLogin },
+  components: { AppInput,AppButton,AppCard },
   data() {
     return {
       model: {
-        email: "",
+        id: "",
         password: "",
-        rememberMe: false,
+        // rememberMe: false,
       },
     };
   },
@@ -123,9 +81,19 @@ export default {
     onSubmit() {
       // this will be called only after form is valid. You can do api call here to login
     },
+    movePage(){
+      this.$router.push({ name: "signup" });
+    },
+    gitHubLogin(){
+      
+    }
   },
 };
 // library.add();
 </script>
 
-<style></style>
+<style lang="scss">
+@import "@/assets/styles/User/_card.scss"; 
+@import "@/assets/styles/User/_button.scss"; 
+
+</style>
