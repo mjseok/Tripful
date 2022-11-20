@@ -12,6 +12,9 @@
     <b-col cols="10" class="align-self-center">
       [{{ location.title }}] {{ location.address }}
     </b-col>
+    <b-col cols="2" class="align-self-center">
+      <button @click="detailViewLocation">자세히보기</button>
+    </b-col>
   </b-row>
 </template>
 
@@ -36,6 +39,16 @@ export default {
       // console.log("listRow : ", this.house);
       // this.$store.dispatch("getHouse", this.house);
       this.detailLocation(this.location);
+
+      // 잠깐 페이지 이동 막아두기(지도에 마커 표시 먼저!!)
+      // this.$router.push("detail");
+    },
+    detailViewLocation() {
+      // console.log("listRow : ", this.house);
+      // this.$store.dispatch("getHouse", this.house);
+      this.detailLocation(this.location);
+
+      // 잠깐 페이지 이동 막아두기(지도에 마커 표시 먼저!!)
       this.$router.push("detail");
     },
     colorChange(flag) {
