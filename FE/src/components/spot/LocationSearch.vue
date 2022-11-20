@@ -23,7 +23,7 @@
           class="button is-checked"
           data-filter="*"
           value="0"
-          @click="test($event)"
+          @click="clickTheme($event)"
         >
           전체
         </button>
@@ -32,27 +32,31 @@
           class="button"
           data-filter=".hotspot"
           value="12"
-          @click="test($event)"
+          @click="clickTheme($event)"
         >
           관광지
         </button>
-        <button class="button" data-filter=".culture" value="14" @click="test($event)">
+        <button class="button" data-filter=".culture" value="14" @click="clickTheme($event)">
           문화시설
         </button>
-        <button class="button" data-filter=".festival" value="15" @click="test($event)">
+        <button class="button" data-filter=".festival" value="15" @click="clickTheme($event)">
           행사/공연
         </button>
-        <button class="button" data-filter=".course" value="25" @click="test($event)">
+        <button class="button" data-filter=".course" value="25" @click="clickTheme($event)">
           여행코스
         </button>
-        <button class="button" data-filter=".sports" value="28" @click="test($event)">
+        <button class="button" data-filter=".sports" value="28" @click="clickTheme($event)">
           레포츠
         </button>
-        <button class="button" data-filter=".hotel" value="32" @click="test($event)">숙박</button>
-        <button class="button" data-filter=".shopping" value="38" @click="test($event)">
+        <button class="button" data-filter=".hotel" value="32" @click="clickTheme($event)">
+          숙박
+        </button>
+        <button class="button" data-filter=".shopping" value="38" @click="clickTheme($event)">
           쇼핑
         </button>
-        <button class="button" data-filter=".food" value="39" @click="test($event)">음식점</button>
+        <button class="button" data-filter=".food" value="39" @click="clickTheme($event)">
+          음식점
+        </button>
       </div>
     </div>
   </div>
@@ -99,7 +103,7 @@ export default {
       if (this.gugunCode)
         this.getLocationList({ sidoCode: this.sidoCode, gugunCode: this.gugunCode, themeCode: 0 });
     },
-    test(event) {
+    clickTheme(event) {
       // console.log("this :", event.target.value);
       this.themeCode = event.target.value;
       if (this.gugunCode)
