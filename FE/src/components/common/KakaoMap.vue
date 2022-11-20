@@ -8,6 +8,7 @@
 import { mapState } from "vuex";
 
 const locationStore = "locationStore";
+const mapStore = "mapStore";
 
 export default {
   name: "KakaoMap",
@@ -18,7 +19,7 @@ export default {
       const script = document.createElement("script");
       /* global kakao */
       script.onload = () => kakao.maps.load(this.initMap);
-      script.src = `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${process.env.VUE_APP_KAKAOAPI}`;
+      script.src = `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${process.env.VUE_APP_KAKAOAPI}&libraries=services,clusterer,drawing`;
       document.head.appendChild(script);
     }
   },
@@ -30,6 +31,7 @@ export default {
   },
   computed: {
     ...mapState(locationStore, ["location", "locations"]),
+    ...mapState(mapStore, ["keyword"]),
   },
   watch: {
     location(a, b) {
@@ -39,6 +41,63 @@ export default {
     locations(a, b) {
       console.log(a, b);
       this.displayMarker();
+    },
+    keyword(a, b) {
+      console.log("길이 : " + this.markers.length);
+      if (this.markers.length > 0) {
+        this.markers.forEach((marker) => {
+          console.log(marker);
+          marker.setMap(null);
+        });
+      }
+
+      console.log(a, b);
+      // 키워드로 장소를 검색합니다
+      this.ps.keywordSearch(this.keyword, placesSearchCB);
+      // function내에서 this 사용이 안되서 밖에서 따로 빼줌...
+      let map = this.map;
+      // 키워드 검색 완료 시 호출되는 콜백함수 입니다.
+      function placesSearchCB(data, status, pagination) {
+        if (status === kakao.maps.services.Status.OK) {
+          // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+          // LatLngBounds 객체에 좌표를 추가합니다
+          var bounds = new kakao.maps.LatLngBounds();
+          for (var i = 0; i < data.length; i++) {
+            // console.log("Data[" + i + "] : " + JSON.stringify(data[i]));
+            displayMarker(data[i]);
+            bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
+          }
+
+          // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+          map.setBounds(bounds);
+        }
+        console.log("pagination" + pagination);
+      }
+      // 지도에 마커를 표시하는 함수입니다
+      function displayMarker(place) {
+        // 마커를 생성합니다
+        var marker = new kakao.maps.Marker({
+          map: map,
+          position: new kakao.maps.LatLng(place.y, place.x),
+        });
+        // 마커가 지도 위에 표시되도록 설정합니다
+        marker.setMap(map);
+
+        // console.log("this위치는 : " + this);
+        this.markers.push(marker);
+
+        var iwContent = `<div style="padding:3px;">${place.place_name} <br><a href="https://map.kakao.com/link/map/${place.place_name},${place.y},${place.x}" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/${place.place_name},${place.y},${place.x}" style="color:blue" target="_blank">길찾기</a></div>`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+          iwPosition = new kakao.maps.LatLng(place.y, place.x); //인포윈도우 표시 위치입니다
+
+        // 인포윈도우를 생성합니다
+        var infowindow = new kakao.maps.InfoWindow({
+          position: iwPosition,
+          content: iwContent,
+        });
+
+        // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+        infowindow.open(map, marker);
+      }
     },
   },
   methods: {
@@ -52,6 +111,9 @@ export default {
       //지도 객체를 등록합니다.
       //지도 객체는 반응형 관리 대상이 아니므로 initMap에서 선언합니다.
       this.map = new kakao.maps.Map(container, options);
+
+      // 장소 검색 객체를 생성합니다
+      this.ps = new kakao.maps.services.Places();
     },
     displayMarker() {
       if (this.markers.length > 0) {
@@ -99,9 +161,9 @@ export default {
 
       if (this.location != null) {
         iwPosition = new kakao.maps.LatLng(this.location.lat, this.location.lang);
-        console.log("위치 변경!!");
+        // console.log("위치 변경!!");
       }
-      console.log("이건 나와야지!!");
+      // console.log("이건 나와야지!!");
       this.infowindow = new kakao.maps.InfoWindow({
         map: this.map, // 인포윈도우가 표시될 지도
         position: iwPosition,
