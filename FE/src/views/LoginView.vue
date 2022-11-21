@@ -15,16 +15,14 @@
                 <large>Sign in with</large>
               </div>
               <div class="btn-wrapper text-center mb-4">
-                <app-button type="neutral" @click="gitHubLogin()">
+                <app-button type="neutral">
                   <b-icon-github />
                   Github
                 </app-button>
               </div>
             </template>
             <template>
-              <div class="text-center text-muted mb-4">
-                Or sign in with credentials
-              </div>
+              <div class="text-center text-muted mb-4">Or sign in with credentials</div>
               <form role="form">
                 <app-input
                   alternative
@@ -44,12 +42,8 @@
                 </app-input>
 
                 <div class="text-center">
-                  <app-button type="theme" class="my-4" @click="confirm"
-                    >Sign In</app-button
-                  >
-                  <app-button type="theme" class="my-4" @click="movePage"
-                    >Sign Up</app-button
-                  >
+                  <app-button type="theme" class="my-4" @click="confirm">Sign In</app-button>
+                  <app-button type="theme" class="my-4" @click="movePage">Sign Up</app-button>
                 </div>
               </form>
             </template>
@@ -75,7 +69,7 @@ const userStore = "userStore";
 import AppInput from "@/components/user/AppInput";
 import AppButton from "@/components/user/AppButton";
 import AppCard from "@/components/common/AppCard";
-// import UserLogin from "@/components/user/UserLogin";
+
 export default {
   name: "LoginView",
   components: { AppInput, AppButton, AppCard },
@@ -111,7 +105,6 @@ export default {
     gitHubLogin() {},
   },
 };
-// library.add();
 </script>
 
 <style lang="scss">
