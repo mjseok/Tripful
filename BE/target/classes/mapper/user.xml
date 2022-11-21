@@ -47,6 +47,29 @@
 		set pwd = #{pwd}, name = #{name}, email = #{email}
 		where uid = #{uid}
 	</update>
+	
+	<select id="getRefreshToken" parameterType="string" resultType="string">
+		select token
+		from user
+		where id = #{id}
+	</select>
+	
+	<update id="saveRefreshToken" parameterType="map">
+		update user
+		set token = #{token}
+		where id = #{id}
+	</update>
+	
+	<update id="deleteRefreshToken" parameterType="map">
+		update user
+		set token = #{token, jdbcType=VARCHAR}
+		where id = #{id}
+	</update>
+		<select id="userInfo" parameterType="string" resultType="User">
+		select name, id, email
+		from user
+		where id = #{id}
+	</select>
 	<!-- <select id="listMember" resultMap="memberAll"> select user_name, user_id, 
 		user_password, email_id, email_domain, join_date from members order by join_date 
 		</select> <select id="getMember" parameterType="string" resultMap="memberAll"> 
