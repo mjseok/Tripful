@@ -1,5 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import locationStore from "@/store/modules/locationStore";
+import mapStore from "@/store/modules/mapStore";
 
 import userStore from "@/store/modules/userStore";
 
@@ -11,6 +13,8 @@ export default new Vuex.Store({
   mutations: {},
   actions: {},
   modules: {
+    locationStore,
+    mapStore,
     userStore,
   },
 });

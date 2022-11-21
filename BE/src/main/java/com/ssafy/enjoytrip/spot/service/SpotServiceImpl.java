@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ssafy.enjoytrip.spot.Gugun;
+import com.ssafy.enjoytrip.spot.Sido;
 import com.ssafy.enjoytrip.spot.Spot;
 import com.ssafy.enjoytrip.spot.mapper.SpotMapper;
 import com.ssafy.util.SizeConstant;
@@ -24,10 +26,13 @@ public class SpotServiceImpl implements SpotService {
 	}
 
 	@Override
-	public List<Spot> getSpotList(int gugun, int sido,int pageno) throws Exception {
+	public List<Spot> getSpotList(int gugun, int sido,int pageno, int theme) throws Exception {
+//		System.out.println("spotListImpl");
 		int limit = SizeConstant.SIZE_PER_LIST;
 		pageno=(pageno-1)*limit;
-		return spotMapper.getSpotList(gugun, sido,pageno);
+//		List<Spot> list = ;
+//		System.out.println("Impl에서 List : "+list);
+		return spotMapper.getSpotList(gugun, sido,pageno,theme);
 	}
 
 	@Override
@@ -41,12 +46,12 @@ public class SpotServiceImpl implements SpotService {
 //	}
 	
 	@Override
-	public List<String[]> getSidoList() throws Exception {
+	public List<Sido> getSidoList() throws Exception {
 		return spotMapper.getSidoList();
 	}
 	
 	@Override
-	public List<String[]> getGugunList(int sidoid) throws Exception {
+	public List<Gugun> getGugunList(int sidoid) throws Exception {
 		System.out.println("sidoId : "+sidoid);
 		return spotMapper.getGugunList(sidoid);
 	}

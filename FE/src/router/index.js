@@ -1,7 +1,9 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+
 import ScheduleView from "@/views/ScheduleView";
 import IndexView from "@/views/IndexView";
+import LocationDetail from "@/components/spot/LocationDetail";
 
 Vue.use(VueRouter);
 
@@ -35,6 +37,16 @@ const routes = [
     path: "/signup",
     name: "signup",
     component: () => import("@/views/SignUpView"),
+  },
+  {
+    path: "/mypage",
+    name: "mypage",
+    component: () => import("@/views/MyPageView"),
+  },
+  {
+    path: "/detail",
+    name: "detail",
+    component: LocationDetail,
   },
   // {
   //   path: '/',
