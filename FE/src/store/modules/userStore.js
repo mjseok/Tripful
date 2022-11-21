@@ -151,6 +151,7 @@ const userStore = {
             alert("회원가입 성공");
             commit("SET_USER_INFO", data.userInfo);
           }
+          router.push({ name: 'login' });
         },
         (error) => {
           console.log(error);
