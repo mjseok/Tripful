@@ -1,31 +1,23 @@
 <template>
   <div>
-    <p>리스트입니다</p>
     <div class="row filter" style="padding-top: 40px">
       <div class="col-lg-12">
         <!-- Filter -->
 
         <!-- style="display: none" -->
-        <div
-          class="button-group filters-button-group"
-          id="filters-button-group"
-        >
-          <button id="btn-select-all" class="button is-checked" data-filter="*">
-            전체
-          </button>
-          <button id="btn-select-hotspot" class="button" data-filter=".hotspot">
-            관광지
-          </button>
-          <button class="button" data-filter=".culture">문화시설</button>
-          <button class="button" data-filter=".festival">행사/공연</button>
-          <button class="button" data-filter=".course">여행코스</button>
-          <button class="button" data-filter=".sports">레포츠</button>
-          <button class="button" data-filter=".hotel">숙박</button>
-          <button class="button" data-filter=".shopping">쇼핑</button>
-          <button class="button" data-filter=".food">음식점</button>
-        </div>
+        
         <!-- end of button group -->
         <div class="grid" id="element-grid"></div>
+
+        <b-container v-if="locations && locations.length != 0" class="bv-example-row mt-3">
+          <location-list-item v-for="(location, index) in locations" :key="index" :location="location" />
+         </b-container>
+        <b-container v-else class="bv-example-row mt-3">
+          <b-row>
+            <b-col><b-alert show>관광지 정보가 없습니다.</b-alert></b-col>
+          </b-row>
+        </b-container>
+
         <!-- end of grid -->
         <!-- end of filter -->
       </div>
@@ -49,8 +41,25 @@
 </template>
 
 <script>
+import LocationListItem from "@/components/spot/LocationListItem"
+import { mapState } from "vuex";
+
+const locationStore = "locationStore";
+
 export default {
   name: "LocationList",
+  components: {
+    LocationListItem,
+  },
+  data() {
+    return {};
+  },
+  computed: {
+    ...mapState(locationStore, ["locations"]),
+    // houses() {
+    //   return this.$store.state.houses;
+    // },
+  },
 };
 </script>
 

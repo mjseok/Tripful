@@ -9,7 +9,7 @@
 		from sido
 	</select>
 	
-	<select id="getGugunList" parameterType="int" resultType="map">
+	<select id="getGugunList" parameterType="int" resultType="Gugun">
 		select gugunid, replace(name, char(13), '') as name
 		from gugun
 		where sidoid=#{sidoid}
@@ -18,7 +18,10 @@
 	<select id="getSpotList" parameterType="map" resultType="Spot">
 		select spotid,title,address,hit,theme,image,lat,lang
 		from spot
-		where gugunid=#{gugun} and sidoid=#{sido}
+		where gugunid=#{gugun} and sidoid=#{sido} 
+		<if test="theme != 0">
+			and theme=#{theme}
+		</if>
 		order by hit desc
 		limit #{pageno},12
 	</select>

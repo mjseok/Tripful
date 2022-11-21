@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 
 import ScheduleView from "@/views/ScheduleView";
 import IndexView from "@/views/IndexView";
+import LocationDetail from "@/components/spot/LocationDetail";
 
 Vue.use(VueRouter);
 
@@ -37,6 +38,11 @@ const routes = [
     name: "mypage",
     component: () => import("@/views/MyPageView"),
   },
+  {
+    path: "/detail",
+    name: "detail",
+    component: LocationDetail,
+  }
 ];
 
 const router = new VueRouter({

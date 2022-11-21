@@ -9,7 +9,14 @@
       <b-navbar-brand href="#">
         <router-link to="/">Tripful</router-link>
       </b-navbar-brand>
-
+      <b-nav-item href="#">
+        <app-input></app-input>
+      </b-nav-item>
+      <b-nav-item href="#">
+        <router-link :to="{ name: 'map' }" class="link">
+          <button>검색!</button>
+        </router-link>
+      </b-nav-item>
       <b-navbar-toggle target="nav-collapse">햄버거</b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
@@ -71,8 +78,12 @@
 </template>
 
 <script>
+import AppInput from "@/components/common/AppInput";
 export default {
   name: "TheNavBar",
+  components: {
+    AppInput,
+  },
 };
 </script>
 

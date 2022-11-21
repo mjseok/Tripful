@@ -2,15 +2,18 @@
   <div id="app">
     <the-nav-bar></the-nav-bar>
     <router-view />
+    <the-footer></the-footer>
   </div>
 </template>
 
 <script>
 import TheNavBar from "@/layout/TheNavBar";
+import TheFooter from "@/layout/TheFooter";
 
 export default {
   components: {
     TheNavBar,
+    TheFooter,
   },
 };
 </script>
