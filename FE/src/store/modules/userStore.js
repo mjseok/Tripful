@@ -1,4 +1,4 @@
-import { signUp, login, tokenRegeneration, logout, findById } from "@/api/user";
+import { signUp, login, tokenRegeneration, logout, findById, resign } from "@/api/user";
 import jwtDecode from "jwt-decode";
 import router from "@/router";
 
@@ -152,6 +152,20 @@ const userStore = {
             commit("SET_USER_INFO", data.userInfo);
           }
           router.push({ name: 'login' });
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
+    async userResign({ commit }, user) {
+      await resign(
+        user,
+        ({ data }) => {
+          if (data.message === "success") {
+            alert("회원탈퇴 성공");
+            commit("SET_USER_INFO", null);
+          }
         },
         (error) => {
           console.log(error);
