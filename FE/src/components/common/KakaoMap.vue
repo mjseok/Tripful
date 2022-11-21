@@ -9,7 +9,11 @@ import { mapState } from "vuex";
 
 const locationStore = "locationStore";
 const mapStore = "mapStore";
+
 var markers = [];
+var infowindow = null;
+var infowindows = [];
+
 export default {
   name: "KakaoMap",
   mounted() {
@@ -24,10 +28,7 @@ export default {
     }
   },
   data() {
-    return {
-      // markers: [],
-      infowindow: null,
-    };
+    return {};
   },
   computed: {
     ...mapState(locationStore, ["location", "locations"]),
@@ -44,6 +45,7 @@ export default {
     },
     keyword(a, b) {
       this.removeMarker();
+      removeInfoWindow();
 
       console.log(a, b);
 
@@ -61,11 +63,24 @@ export default {
             displayMarker(data[i]);
             bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
           }
-
           // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
           map.setBounds(bounds);
         }
         console.log("pagination" + pagination);
+      }
+      function removeInfoWindow() {
+        if (infowindow && infowindow.getMap()) {
+          //이미 생성한 인포윈도우가 있기 때문에 지도 중심좌표를 인포윈도우 좌표로 이동시킨다.
+          // this.map.setCenter(infowindow.getPosition());
+          // return;
+          console.log(infowindow);
+          // 이미 생성한 인포윈도우 닫기
+
+          console.log("infoWindow 삭제");
+        }
+        for (var i = 0; i < infowindows.length; i++) {
+          infowindows[i].close();
+        }
       }
       // 지도에 마커를 표시하는 함수입니다
       function displayMarker(place) {
@@ -78,19 +93,20 @@ export default {
         marker.setMap(map);
         markers.push(marker);
 
-        // var iwContent = `<div style="padding:3px;">${place.place_name} <br><a href="https://map.kakao.com/link/map/${place.place_name},${place.y},${place.x}" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/${place.place_name},${place.y},${place.x}" style="color:blue" target="_blank">길찾기</a></div>`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-        //   iwPosition = new kakao.maps.LatLng(place.y, place.x); //인포윈도우 표시 위치입니다
+        var iwContent = `<div style="padding:3px;">${place.place_name} <br><a href="https://map.kakao.com/link/map/${place.place_name},${place.y},${place.x}" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/${place.place_name},${place.y},${place.x}" style="color:blue" target="_blank">길찾기</a></div>`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+          iwPosition = new kakao.maps.LatLng(place.y, place.x); //인포윈도우 표시 위치입니다
 
-        // // 인포윈도우를 생성합니다
-        // var infowindow = new kakao.maps.InfoWindow({
-        //   position: iwPosition,
-        //   content: iwContent,
-        // });
+        // 인포윈도우를 생성합니다
+        infowindow = new kakao.maps.InfoWindow({
+          position: iwPosition,
+          content: iwContent,
+        });
 
-        // // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
-        // infowindow.open(map, marker);
+        // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+        infowindow.open(map, marker);
+        infowindows.push(infowindow);
       }
-    },
+    }, //----------------------------------------------------------------------------------------------------------------------------------------------
   },
   methods: {
     initMap() {
@@ -133,14 +149,7 @@ export default {
       }
     },
     displayInfoWindow() {
-      if (this.infowindow && this.infowindow.getMap()) {
-        //이미 생성한 인포윈도우가 있기 때문에 지도 중심좌표를 인포윈도우 좌표로 이동시킨다.
-        // this.map.setCenter(this.infowindow.getPosition());
-        // return;
-
-        // 이미 생성한 인포윈도우 닫기
-        this.infowindow.close();
-      }
+      this.removeInfoWindow();
 
       var iwContent = `<div style="padding:5px;">${this.location.title}</div>`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
         iwPosition = new kakao.maps.LatLng(33.450701, 126.570667), //인포윈도우 표시 위치입니다
@@ -152,7 +161,7 @@ export default {
           this.location.lang
         );
       }
-      this.infowindow = new kakao.maps.InfoWindow({
+      infowindow = new kakao.maps.InfoWindow({
         map: this.map, // 인포윈도우가 표시될 지도
         position: iwPosition,
         content: iwContent,
@@ -166,6 +175,17 @@ export default {
         markers.forEach((marker) => {
           marker.setMap(null);
         });
+      }
+    },
+    removeInfoWindow() {
+      if (infowindow && infowindow.getMap()) {
+        //이미 생성한 인포윈도우가 있기 때문에 지도 중심좌표를 인포윈도우 좌표로 이동시킨다.
+        // this.map.setCenter(infowindow.getPosition());
+        // return;
+        console.log(infowindow);
+        // 이미 생성한 인포윈도우 닫기
+        infowindow.close();
+        console.log("infoWindow 삭제");
       }
     },
   },
