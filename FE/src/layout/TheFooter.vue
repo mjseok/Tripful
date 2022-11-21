@@ -5,10 +5,10 @@
         <div style="height: 20px"></div>
         <div class="row">
           <div class="col-lg-12">
-            <h3>Tripful</h3>
-            <h4>
-              "Trip"에 접미사 "-ful"을 붙여 여행 가기 전날의 설렘 가득한 기분을 선사하고자한다.
-            </h4>
+            <h6>
+              "Trip"에 접미사 "-ful"을 붙여 여행 가기 전날의 설렘 가득한 기분을
+              선사하고자한다.
+            </h6>
           </div>
         </div>
       </div>
@@ -27,7 +27,10 @@
 
           <div class="col-lg-5">
             <p class="p-small statement">
-              Copyright © <a href="https://github.com/tykwon97" class="authors">Taeyoon Kwon</a>,
+              Copyright ©
+              <a href="https://github.com/tykwon97" class="authors"
+                >Taeyoon Kwon</a
+              >,
               <a href="https://github.com/mjseok" class="authors">Minji Seok</a>
             </p>
           </div>
