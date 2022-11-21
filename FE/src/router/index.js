@@ -48,6 +48,23 @@ const routes = [
     name: "detail",
     component: LocationDetail,
   },
+  {
+    path: "/board",
+    name: faChessBoard,
+    redirect: "/board/community",
+    children: [
+      {
+        path: "/notice",
+        name: "notice",
+        component: () => import("@/views/NoticeView"),
+      },
+      {
+        path: "/community",
+        name: "community",
+        component: () => import("@/views/CommunityView"),
+      },
+    ],
+  },
   // {
   //   path: '/',
   //   name: 'home',
