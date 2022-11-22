@@ -1,6 +1,7 @@
 <template>
-  <div>Notice
-    <boad-list title="Notice"></boad-list>
+  <div>
+    <h2>Notice</h2>
+    <board-list></board-list>
   </div>
 </template>
 
@@ -8,10 +9,11 @@
 import BoardList from "@/components/board/BoardList";
 
 export default {
-    
-}
+  name: "NoticeView",
+  components: {
+    BoardList,
+  },
+};
 </script>
 
-<style>
-
-</style>
+<style></style>
