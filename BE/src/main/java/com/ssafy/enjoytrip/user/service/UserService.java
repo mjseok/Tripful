@@ -16,5 +16,9 @@ public interface UserService {
 	User findId(String name, String email) throws Exception;
 
 	String findPwd(String id, String email) throws Exception;
+	public User userInfo(String userid) throws Exception;
+	public void saveRefreshToken(String id, String refreshToken) throws Exception;
+	public Object getRefreshToken(String id) throws Exception;
+	public void deleRefreshToken(String id) throws Exception;
 
 }

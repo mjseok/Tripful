@@ -8,9 +8,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ssafy.enjoytrip.spot.Gugun;
 import com.ssafy.enjoytrip.spot.Sido;
 import com.ssafy.enjoytrip.spot.Spot;
 import com.ssafy.enjoytrip.spot.service.SpotService;
@@ -35,29 +37,33 @@ public class SpotController {
 	@GetMapping("/locationSearch")
 	public ModelAndView locationSearch() throws Exception {
 		ModelAndView mav = new ModelAndView();
-		List<String[]> sidoList = spotService.getSidoList();
+		List<Sido> sidoList = spotService.getSidoList();
 //		System.out.println(sidoList);
 		mav.addObject("sidos", sidoList);
 		mav.setViewName("search/locationSearch");
 		return mav;
 	}
 	
-	@GetMapping("/list/{sidoid}/{gugunid}/{pageno}")
-	public ResponseEntity<List<Spot>> list(@PathVariable("sidoid") int sido, @PathVariable("gugunid") int gugun, @PathVariable("pageno") int pageno) throws Exception {
+	@GetMapping("/list")
+	public ResponseEntity<List<Spot>> list(@RequestParam("sidoid") int sido, @RequestParam("gugunid") int gugun, @RequestParam("pageno") int pageno, @RequestParam("theme") int theme) throws Exception {
 		//int spotNum = spotService.countSpot();
 		//mav.addObject("spotNum", spotNum);
-		List<Spot> list = spotService.getSpotList(gugun, sido, pageno);
+//		System.out.println("gugun : "+gugun + " sido : "+sido+" pageno : "+pageno);
+		List<Spot> list = spotService.getSpotList(gugun, sido, pageno, theme);
+//		System.out.println("리스트는 : "+list);
 		return new ResponseEntity<List<Spot>>(list,HttpStatus.OK);
 	}
 	@GetMapping("/sido")
 	public ResponseEntity<List<Sido>> sidoList() throws Exception{
 		List<Sido> sidoList = spotService.getSidoList();
-		System.out.println("sidoList : "+sidoList);
+//		System.out.println("sidoList : "+sidoList);
 		return new ResponseEntity<List<Sido>>(sidoList,HttpStatus.OK);
 	}
 	@GetMapping("/gugun")
-	public ResponseEntity<List<String[]>> gugunList(@PathVariable("sidoid") int sidoId) throws Exception{
-		return new ResponseEntity<List<String[]>>(spotService.getGugunList(sidoId),HttpStatus.OK);
+	public ResponseEntity<List<Gugun>> gugunList(@RequestParam("sidoid") int sidoId) throws Exception{
+		List<Gugun> gugunList = spotService.getGugunList(sidoId);
+//		System.out.println("gugunList : "+gugunList);
+		return new ResponseEntity<List<Gugun>>(gugunList, HttpStatus.OK);
 	}
 	
 	@GetMapping("/{spotid}")

@@ -1,5 +1,9 @@
 package com.ssafy.enjoytrip.user.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,7 +12,6 @@ import com.ssafy.enjoytrip.user.mapper.UserMapper;
 
 @Service
 public class UserServiceImpl implements UserService {
-	
 	
 	@Autowired
 	private UserMapper userMapper;
@@ -63,5 +66,29 @@ public class UserServiceImpl implements UserService {
 		System.out.println("service에서 비번찾기 후 변경 문제없음");
 		return tempPwd;
 	}
+	@Override
+	public void saveRefreshToken(String id, String refreshToken) throws Exception {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("id", id);
+		map.put("token", refreshToken);
+		userMapper.saveRefreshToken(map);
+	}
 
+	@Override
+	public Object getRefreshToken(String id) throws Exception {
+		return userMapper.getRefreshToken(id);
+	}
+	
+	@Override
+	public User userInfo(String userid) throws Exception {
+		return userMapper.userInfo(userid);
+	}
+	
+	@Override
+	public void deleRefreshToken(String id) throws Exception {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("id", id);
+		map.put("token", null);
+		userMapper.deleteRefreshToken(map);
+	}
 }

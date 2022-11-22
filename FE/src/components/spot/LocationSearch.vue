@@ -3,66 +3,115 @@
     <h2 class="text-center mt-3 mb-3">지역별 관광지 조회</h2>
     <div class="row col-md-12 justify-content-center mb-2">
       <div class="form-group col-md-2">
-        <select class="form-select bg-secondary text-light" id="sido">
-          <option value="">시도선택</option>
-          <!-- <c:forEach var="sido" items="${sidos}">
-              <option value="${sido.sidoid}">${sido.name}</option>
-            </c:forEach> -->
+        <b-form-select v-model="sidoCode" :options="sidos" @change="gugunList"></b-form-select>
+      </div>
 
-          <option :key="i" :value="sido.sidoid" v-for="(sido, i) in sidos">
-            {{ sido.name }}
-          </option>
-        </select>
-      </div>
       <div class="form-group col-md-2">
-        <select class="form-select bg-secondary text-light" id="gugun">
-          <option value="">구군선택</option>
-          <!-- <c:forEach var="gugun" items="${guguns}">
-						<option value="${gugun}">${gugun}</option>
-					</c:forEach>-->
-        </select>
+        <b-form-select
+          v-model="gugunCode"
+          :options="guguns"
+          @change="searchLocation"
+        ></b-form-select>
       </div>
-      <div class="form-group col-md-2">
-        <button type="button" id="list-btn" class="btn btn-solid-lg">
-          조회하기
-        </button>
-      </div>
+
       <div class="form-group col-md-12 text-center">
         <span>지금 가고 싶은 여행지를 선택해주세요</span>
+      </div>
+      <div class="button-group filters-button-group" id="filters-button-group">
+        <button
+          id="btn-select-all"
+          class="button is-checked"
+          data-filter="*"
+          value="0"
+          @click="clickTheme($event)"
+        >
+          전체
+        </button>
+        <button
+          id="btn-select-hotspot"
+          class="button"
+          data-filter=".hotspot"
+          value="12"
+          @click="clickTheme($event)"
+        >
+          관광지
+        </button>
+        <button class="button" data-filter=".culture" value="14" @click="clickTheme($event)">
+          문화시설
+        </button>
+        <button class="button" data-filter=".festival" value="15" @click="clickTheme($event)">
+          행사/공연
+        </button>
+        <button class="button" data-filter=".course" value="25" @click="clickTheme($event)">
+          여행코스
+        </button>
+        <button class="button" data-filter=".sports" value="28" @click="clickTheme($event)">
+          레포츠
+        </button>
+        <button class="button" data-filter=".hotel" value="32" @click="clickTheme($event)">
+          숙박
+        </button>
+        <button class="button" data-filter=".shopping" value="38" @click="clickTheme($event)">
+          쇼핑
+        </button>
+        <button class="button" data-filter=".food" value="39" @click="clickTheme($event)">
+          음식점
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { sidoList } from "@/api/location";
+import { mapState, mapActions, mapMutations } from "vuex";
+
+const locationStore = "locationStore";
+
 export default {
   name: "LocationSearch",
   data() {
     return {
-      sidos: [],
+      sidoCode: null,
+      gugunCode: null,
+      themeCode: null,
     };
   },
-  created() {
-    sidoList(
-      ({ data }) => {
-        this.sidos = data;
-        console.log(data);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+  computed: {
+    ...mapState(locationStore, ["sidos", "guguns", "locations"]),
   },
+  created() {
+    this.CLEAR_SIDO_LIST();
+    this.CLEAR_LOCATION_LIST();
+    this.getSido();
+  },
+
   methods: {
-    moveWrite() {
-      this.$router.push({ name: "boardwrite" });
+    ...mapActions(locationStore, ["getSido", "getGugun", "getLocationList"]),
+    ...mapMutations(locationStore, ["CLEAR_SIDO_LIST", "CLEAR_GUGUN_LIST", "CLEAR_LOCATION_LIST"]),
+    // sidoList() {
+    //   this.getSido();
+    // },
+    gugunList() {
+      // console.log(this.sidoCode);
+      this.CLEAR_GUGUN_LIST();
+      this.gugunCode = null;
+      if (this.sidoCode) this.getGugun(this.sidoCode);
     },
-    viewArticle(article) {
-      this.$router.push({
-        name: "boardview",
-        params: { articleno: article.articleno },
-      });
+    searchLocation() {
+      console.log(this.sidoCode);
+      console.log(this.gugunCode);
+      if (this.gugunCode)
+        this.getLocationList({ sidoCode: this.sidoCode, gugunCode: this.gugunCode, themeCode: 0 });
+    },
+    clickTheme(event) {
+      // console.log("this :", event.target.value);
+      this.themeCode = event.target.value;
+      if (this.gugunCode)
+        this.getLocationList({
+          sidoCode: this.sidoCode,
+          gugunCode: this.gugunCode,
+          themeCode: this.themeCode,
+        });
     },
   },
 };
