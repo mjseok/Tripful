@@ -12,7 +12,7 @@ public interface BoardService {
 //
 //	void writeBoard(Board board) throws Exception;
 //
-//	Board getBoard(int boardid) throws Exception;
+	Board getBoard(int boardid) throws Exception;
 //
 //	void updateBoardHit(int boardid) throws Exception;
 //

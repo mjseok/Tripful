@@ -9,17 +9,16 @@
     </b-row>
     <b-row>
       <b-col>
-        <b-table hover :items="boards" :fields="fields"> </b-table>
+        <b-table hover :items="boards" :fields="fields" @row-clicked="viewBoard"> </b-table>
       </b-col>
     </b-row>
   </b-container>
 </template>
 
 <script>
-import { boardLists } from "@/api/board";
-import api from "@/api/http";
-
+import { boardList } from "@/api/board";
 import { mapState } from "vuex";
+
 const userStore = "userStore";
 export default {
   name: "BoardList",
@@ -40,18 +39,11 @@ export default {
   },
   created() {
     let pgno = 1;
-    console.log(typeof boardLists);
-    api
-      .get(`board/community/list/${pgno}`)
-      .then(({ data }) => console.log(data + "석민지짱"))
-      .catch((e) => console.log(e));
-
-    console.log("a");
-    boardLists(
+    boardList(
       pgno,
       ({ data }) => {
         console.log(data);
-        // this.boards = data;
+        this.boards = data;
       },
       (error) => {
         console.log(error);
@@ -60,14 +52,14 @@ export default {
   },
   methods: {
     moveWrite() {
-      this.$router.push({ name: "boardwrite" });
+      this.$router.push({ name: "boardWrite" });
     },
-    // viewBoard(board) {
-    //   this.$router.push({
-    //     name: "boardview",
-    //     params: { boardid: board.boardid },
-    //   });
-    // },
+    viewBoard(board) {
+      this.$router.push({
+        name: "boardView",
+        params: { boardid: board.boardid },
+      });
+    },
   },
 };
 </script>

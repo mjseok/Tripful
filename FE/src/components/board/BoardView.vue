@@ -25,8 +25,8 @@
     <b-row class="mb-1">
       <b-col>
         <b-card
-          :header-html="`<h3>${article.articleno}.
-          ${article.subject} [${article.hit}]</h3><div><h6>${article.userid}</div><div>${article.regtime}</h6></div>`"
+          :header-html="`<h3>${board.boardid}.
+          ${board.subject} [${board.hit}]</h3><div><h6>${board.uid}</div><div>${board.date}</h6></div>`"
           class="mb-2"
           border-variant="dark"
           no-body
@@ -42,7 +42,7 @@
 
 <script>
 // import moment from "moment";
-import { getArticle } from "@/api/board";
+import { getBoard } from "@/api/board";
 import { mapState } from "vuex";
 
 const userStore = "userStore";
@@ -57,14 +57,14 @@ export default {
   computed: {
     ...mapState(userStore, ["userInfo"]),
     message() {
-      if (this.article.content)
-        return this.article.content.split("\n").join("<br>");
+      if (this.board.content)
+        return this.board.content.split("\n").join("<br>");
       return "";
     },
   },
   created() {
-    let param = this.$route.params.articleno;
-    getArticle(
+    let param = this.$route.params.boardid;
+    getBoard(
       param,
       ({ data }) => {
         this.article = data;
@@ -78,7 +78,7 @@ export default {
     moveModifyArticle() {
       this.$router.replace({
         name: "boardmodify",
-        params: { articleno: this.article.articleno },
+        params: { boardid: this.board.boardid },
       });
       //   this.$router.push({ path: `/board/modify/${this.article.articleno}` });
     },
@@ -86,7 +86,7 @@ export default {
       if (confirm("정말로 삭제?")) {
         this.$router.replace({
           name: "boarddelete",
-          params: { articleno: this.article.articleno },
+           params: { boardid: this.board.boardid },
         });
       }
     },

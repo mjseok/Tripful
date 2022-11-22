@@ -14,7 +14,7 @@ public interface BoardMapper {
 
 //	void writeBoard(Board board) throws SQLException;
 //
-//	Board getBoard(int boardid) throws SQLException;
+	Board getBoard(int boardid) throws SQLException;
 //
 //	void updateBoardHit(int boardid) throws SQLException;
 //

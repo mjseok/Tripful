@@ -67,6 +67,11 @@ const routes = [
             path: "write",
             name: "boardWrite",
           },
+          {
+            path: "view/:boardid",
+            name: "boardView",
+            component: () => import("@/components/board/BoardView"),
+          },
         ],
       },
     ],

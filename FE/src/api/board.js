@@ -10,11 +10,14 @@ function noticeList(pgno, success, fail) {
 }
 
 //게시글 하나 가져오기
-
+function getBoard(boardid, success, fail) {
+  console.log(boardid);
+  api.get(`board/community/${boardid}`).then(success).catch(fail);
+}
 //게시글 작성하기
 
 //게시글 수정하기
 
 //게시글 삭제하기
 
-export { boardList, noticeList };
+export { boardList, noticeList, getBoard };

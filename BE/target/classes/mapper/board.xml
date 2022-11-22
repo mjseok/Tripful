@@ -27,4 +27,9 @@
 		from notice as n join user as u on n.uid = u.uid
 		order by n.noticeid desc limit #{start},#{spl}
 	</select>
+	<select id="getBoard" parameterType="Integer" resultType="board"  >
+		select b.boardid, u.uid, b.title, b.content, u.name, b.date, b.hit
+		from board as b join user as u on b.uid = u.uid
+		where b.boardid = #{boardid}
+	</select>
 </mapper>

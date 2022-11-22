@@ -39,6 +39,11 @@ public class BoardController {
 		List<Board> list = boardService.listBoard(map);
 		return new ResponseEntity<List<Board>>(list,HttpStatus.OK);
 	}
+	@GetMapping("/community/{boardid}")
+	public ResponseEntity<Board> getBoard(@PathVariable("boardid") int boardid) throws Exception{
+		Board board = boardService.getBoard(boardid);
+		return new ResponseEntity<Board>(board,HttpStatus.OK);
+	}
 //	ModelAndView listNotice(@PathVariable("pageno") String pageNo) {
 //		System.out.println("pageNo : "+pageNo);
 //		ModelAndView mav = new ModelAndView();

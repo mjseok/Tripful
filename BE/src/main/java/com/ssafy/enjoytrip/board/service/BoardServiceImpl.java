@@ -30,10 +30,10 @@ public class BoardServiceImpl implements BoardService {
 //		boardMapper.writeBoard(board);
 //	}
 //
-//	@Override
-//	public Board getBoard(int boardid) throws Exception {
-//		return boardMapper.getBoard(boardid);
-//	}
+	@Override
+	public Board getBoard(int boardid) throws Exception {
+		return boardMapper.getBoard(boardid);
+	}
 //
 //	@Override
 //	public void updateBoardHit(int boardid) throws Exception {
