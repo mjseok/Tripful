@@ -21,7 +21,23 @@ async function findById(id, success, fail) {
   await api.get(`/user/info/${id}`).then(success).catch(fail);
 }
 
+async function resign(user, success, fail) {
+  api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
+  console.log(JSON.stringify(user));
+  await api
+    .post(`/user/resign`, JSON.stringify(user))
+    .then(success)
+    .catch(fail);
+}
+async function update(user, success, fail) {
+  api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
+  console.log(JSON.stringify(user));
+  await api
+    .post(`/user/update`, JSON.stringify(user))
+    .then(success)
+    .catch(fail);
+}
 // async function githubLogin() {
 //   await api.get("/login/github");
 // }
-export { signUp, login, tokenRegeneration, logout, findById };
+export { signUp, login, tokenRegeneration, logout, findById, resign, update };
