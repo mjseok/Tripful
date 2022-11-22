@@ -47,7 +47,10 @@
 		set pwd = #{pwd}, name = #{name}, email = #{email}
 		where uid = #{uid}
 	</update>
-	
+	<delete id="removeUser" parameterType="int">
+		delete from user
+		where uid = #{uid}
+	</delete>
 	<select id="getRefreshToken" parameterType="string" resultType="string">
 		select token
 		from user
@@ -66,7 +69,7 @@
 		where id = #{id}
 	</update>
 		<select id="userInfo" parameterType="string" resultType="User">
-		select name, id, email, isadmin
+		select name, id, email, uid, pwd, isadmin
 		from user
 		where id = #{id}
 	</select>

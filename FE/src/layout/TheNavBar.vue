@@ -59,28 +59,9 @@
             >
           </b-nav-item-dropdown>
 
-          <!-- <b-nav-item href="#"
-          ><router-link :to="{ name: 'house' }" class="link"
-            ><b-icon icon="house-fill" font-scale="1.5"></b-icon>
-            게시판</router-link
-          ></b-nav-item
-        >
-        <b-nav-item-dropdown right>
-          <template #button-content>
-            <b-icon icon="people" font-scale="2"></b-icon>
-          </template>
-          <b-dropdown-item href="#"
-            ><router-link :to="{ name: 'signUp' }" class="link"
-              ><b-icon icon="person-circle"></b-icon> 회원가입</router-link
-            ></b-dropdown-item
-          > -->
           <!-- after login -->
           <b-navbar-nav class="ml-auto" v-if="userInfo">
             <b-nav-item class="align-self-center">
-              <!-- <b-avatar
-              variant="primary"
-              v-text="userInfo.id.charAt(0).toUpperCase()"
-            ></b-avatar> -->
               {{ userInfo.name }}({{ userInfo.id }})님 환영합니다.
             </b-nav-item>
             <b-nav-item class="align-self-center">
@@ -97,12 +78,13 @@
             >
           </b-navbar-nav>
           <!-- before login -->
+
           <b-navbar-nav class="ml-auto" v-else>
-            <b-dropdown-item href="#"
-              ><router-link :to="{ name: 'login' }" class="link"
-                ><b-icon icon="key"></b-icon> 로그인</router-link
-              ></b-dropdown-item
-            >
+            <b-nav-item href="#">
+              <router-link :to="{ name: 'login' }" class="link">
+                로그인</router-link
+              >
+            </b-nav-item>
           </b-navbar-nav>
           <!-- </b-nav-item-dropdown> -->
         </b-navbar-nav>
