@@ -19,6 +19,7 @@
                   placeholder="Id"
                   addonLeftIcon="person-badge-fill"
                   v-model="user.id"
+                  @change="idcheck"
                 >
                 </app-input>
                 <app-input
@@ -46,9 +47,7 @@
                 >
                 </app-input>
                 <div class="text-center">
-                  <app-button type="primary" class="my-4" @click="signUp"
-                    >Sign Up</app-button
-                  >
+                  <app-button type="primary" class="my-4" @click="signUp">Sign Up</app-button>
                 </div>
               </form>
             </template>
@@ -80,9 +79,13 @@ export default {
     };
   },
   methods: {
-    ...mapActions(userStore, ["userSignUp"]),
+    ...mapActions(userStore, ["userSignUp", "userIdcheck"]),
     async signUp() {
       await this.userSignUp(this.user);
+    },
+    idcheck() {
+      this.userIdcheck(this.user);
+      console.log("아이디 체크중");
     },
   },
 };

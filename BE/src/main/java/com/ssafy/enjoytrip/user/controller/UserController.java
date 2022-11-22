@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -39,7 +40,18 @@ public class UserController {
 	@Autowired
 	UserService userService;
 
-	
+	@GetMapping("/{userid}")
+	public ResponseEntity<Integer> idCheck(@PathVariable("userid") String userId) throws Exception {
+		
+		try {
+			System.out.println("idCheck userid : "+ userId);
+			int cnt = userService.idcheck(userId);
+			return new ResponseEntity<Integer>(cnt,HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 	@GetMapping("/mypage")
 	public ModelAndView myPage() {
 		ModelAndView mav = new ModelAndView();

@@ -6,7 +6,9 @@ import {
   findById,
   resign,
   update,
+  idcheck,
 } from "@/api/user";
+
 import jwtDecode from "jwt-decode";
 import router from "@/router";
 
@@ -191,6 +193,22 @@ const userStore = {
         user,
         ({ data }) => {
           if (data.message === "success") {
+            alert("회원 정보 업데이트 성공");
+            commit("SET_USER_INFO", data.userInfo);
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
+    async userIdcheck({ commit }, user) {
+      await idcheck(
+        user,
+        ({ data }) => {
+          if (data.message === "success") {
+            alert(data);
+          } else {
             alert("회원 정보 업데이트 성공");
             commit("SET_USER_INFO", data.userInfo);
           }
