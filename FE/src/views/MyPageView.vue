@@ -11,53 +11,55 @@
             class="border-0"
           >
             <template>
-              <div class="text-muted text-center mb-2">
-                <large>회원 정보 수정</large>
-              </div>
+              <div class="text-muted text-center mb-2">회원 정보 수정</div>
             </template>
             <template>
               <form role="form">
                 <app-input
                   alternative
+                  text="아이디"
                   class="mb-3"
                   placeholder="Id"
-                  addonLeftIcon="person-badge-fill"
                   v-model="user.id"
                 >
                 </app-input>
                 <app-input
                   alternative
                   class="mb-3"
+                  text="이름"
                   placeholder="name"
-                  addonLeftIcon="person-badge-fill"
                   v-model="user.name"
                 >
                 </app-input>
                 <app-input
                   alternative
+                  text="이메일"
                   placeholder="email"
-                  addonLeftIcon="key-fill"
                   v-model="user.email"
                 >
                 </app-input>
                 <app-input
                   alternative
+                  text="비밀번호"
                   placeholder="Password"
-                  addonLeftIcon="key-fill"
                   v-model="user.pwd"
                 >
                 </app-input>
                 <app-input
                   alternative
+                  text="비밀번호 확인"
                   placeholder="Password"
-                  addonLeftIcon="key-fill"
                   v-model="user.pwdCheck"
                 >
                 </app-input>
 
                 <div class="text-center">
-                  <app-button type="theme" class="my-4" @click="modify">회원정보 수정</app-button>
-                  <app-button type="theme" class="my-4" @click="resign">회원 탈퇴</app-button>
+                  <app-button type="theme" class="my-4" @click="modify"
+                    >회원정보 수정</app-button
+                  >
+                  <app-button type="theme" class="my-4" @click="resign"
+                    >회원 탈퇴</app-button
+                  >
                 </div>
               </form>
             </template>
@@ -82,7 +84,7 @@ export default {
   data() {
     return {
       user: {
-        id: 3,
+        id: null,
         pwd: null,
         pwdCheck: null,
         name: null,
@@ -90,28 +92,46 @@ export default {
       },
     };
   },
-  mounted: {},
+  // mounted: {
+  // },
   computed: {
     ...mapState(userStore, ["isLogin", "isLoginError", "userInfo"]),
   },
   methods: {
-    ...mapActions(userStore, ["userConfirm", "getUserInfo", "userResign"]),
+    ...mapActions(userStore, [
+      "userConfirm",
+      "getUserInfo",
+      "userResign",
+      "userLogout",
+    ]),
     onSubmit() {
       // this will be called only after form is valid. You can do api call here to login
     },
     async modify() {
-      await this.userConfirm(this.user);
-      let token = sessionStorage.getItem("access-token");
-      // console.log("1. confirm() token >> " + token);
-      if (this.isLogin) {
-        await this.getUserInfo(token);
-        console.log("4. confirm() userInfo :: ", this.userInfo);
-        this.$router.push({ name: "index" });
-      }
+      // await this.userConfirm(this.user);
+      // let token = sessionStorage.getItem("access-token");
+      // // console.log("1. confirm() token >> " + token);
+      // if (this.isLogin) {
+      //   await this.getUserInfo(token);
+      //   console.log("4. confirm() userInfo :: ", this.userInfo);
+      //   this.$router.push({ name: "index" });
+      // }
     },
-    async resign() {
-      await this.userResign(this.user);
-      // this.$router.push({ name: "index" });
+    resign() {
+      this.$bvModal
+        .msgBoxConfirm("정말로 회원 탈퇴하실 건가요?")
+        .then((flag) => {
+          if (flag) {
+            this.userLogout(this.userInfo.id);
+            sessionStorage.removeItem("access-token"); //저장된 토큰 없애기
+            sessionStorage.removeItem("refresh-token"); //저장된 토큰 없애기
+            this.userResign(this.userInfo);
+            this.$router.push({ name: "index" });
+          }
+        })
+        .catch(() => {
+          console.log("취소");
+        });
     },
   },
 };
