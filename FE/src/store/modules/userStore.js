@@ -17,6 +17,7 @@ const userStore = {
     isLoginError: false,
     userInfo: null,
     isValidToken: false,
+    isAdmin: false,
   },
   getters: {
     checkUserInfo: function (state) {
@@ -39,6 +40,9 @@ const userStore = {
     SET_USER_INFO: (state, userInfo) => {
       state.isLogin = true;
       state.userInfo = userInfo;
+    },
+    SET_IS_ADMIN: (state, isAdmin) => {
+      state.isAdmin = isAdmin;
     },
   },
   actions: {
@@ -68,10 +72,7 @@ const userStore = {
     },
 
     async tokenRegeneration({ commit, state }) {
-      console.log(
-        "토큰 재발급 >> 기존 토큰 정보 : {}",
-        sessionStorage.getItem("access-token")
-      );
+      console.log("토큰 재발급 >> 기존 토큰 정보 : {}", sessionStorage.getItem("access-token"));
       await tokenRegeneration(
         JSON.stringify(state.userInfo),
         ({ data }) => {
@@ -122,6 +123,11 @@ const userStore = {
             // console.log("3. getUserInfo data >> ", data);
           } else {
             console.log("유저 정보 없음!!!!");
+          }
+          if (data.userInfo.admin) {
+            commit("SET_IS_ADMIN", true);
+          } else {
+            commit("SET_IS_ADMIN", false);
           }
         },
         async (error) => {

@@ -69,7 +69,7 @@
 		where id = #{id}
 	</update>
 		<select id="userInfo" parameterType="string" resultType="User">
-		select name, id, email, uid, pwd
+		select name, id, email, uid, pwd, isadmin
 		from user
 		where id = #{id}
 	</select>

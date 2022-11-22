@@ -3,10 +3,12 @@ package com.ssafy.enjoytrip.board.service;
 import java.util.List;
 import java.util.Map;
 
+import com.ssafy.enjoytrip.board.Board;
+
 
 public interface BoardService {
 
-//	List<Board> listBoard(Map<String, String> map) throws Exception;
+	List<Board> listBoard(Map<String, Integer> map) throws Exception;
 //
 //	void writeBoard(Board board) throws Exception;
 //
@@ -20,7 +22,7 @@ public interface BoardService {
 //
 //	int countBoard() throws Exception;
 //	
-//	List<Board> listNotice(Map<String, String> map) throws Exception;
+//	List<Board> listNotice(Map<String, Integer> map) throws Exception;
 //
 //	void writeNotice(Board notice) throws Exception;
 //

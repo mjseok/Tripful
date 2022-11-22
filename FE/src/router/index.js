@@ -48,6 +48,29 @@ const routes = [
     name: "detail",
     component: LocationDetail,
   },
+  {
+    path: "/board",
+    name: "board",
+    component: () => import("@/views/BoardView"),
+    children: [
+      {
+        path: "notice",
+        name: "notice",
+        component: () => import("@/views/NoticeView"),
+      },
+      {
+        path: "community",
+        name: "community",
+        component: () => import("@/views/CommunityView"),
+        children: [
+          {
+            path: "write",
+            name: "boardWrite",
+          },
+        ],
+      },
+    ],
+  },
   // {
   //   path: '/',
   //   name: 'home',
