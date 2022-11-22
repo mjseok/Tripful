@@ -225,10 +225,12 @@ public class UserController {
 
 	@PostMapping("/resign")
 	public ResponseEntity<?> removeUser(@RequestBody User user) {
-		
-		System.out.println("들어온다잉 "+user.getId());
 		try {
-			int uid = user.getUid();
+			System.out.println("user : "+user);
+			String id = user.getId();
+			User fullUser = userService.userInfo(id);
+			int uid = fullUser.getUid();
+			System.out.println("uid : "+uid);
 			userService.removeUser(uid);
 			return new ResponseEntity<User>(user,HttpStatus.OK);
 			
