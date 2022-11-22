@@ -30,6 +30,22 @@
     </slot>
     <slot v-bind="slotData">
       <input
+        v-if="isReadOnly"
+        :value="value"
+        v-on="listeners"
+        v-bind="$attrs"
+        class="form-control"
+        readonly
+        :class="[
+          { 'is-valid': valid === true },
+          { 'is-invalid': valid === false },
+          inputClasses,
+        ]"
+        aria-describedby="addon-right addon-left"
+        style="font-family: 'Lucida Casual'"
+      />
+      <input
+        v-else
         :value="value"
         v-on="listeners"
         v-bind="$attrs"
@@ -56,7 +72,7 @@
         class="text-danger invalid-feedback"
         style="display: block"
         :class="{ 'mt-2': hasIcon }"
-        v-if="error"
+        v-if="notSame"
       >
         {{ error }}
       </div>
@@ -112,6 +128,14 @@ export default {
     text: {
       type: String,
       description: "Input text",
+    },
+    isReadOnly: {
+      type: Boolean,
+      description: "Input ReadOnly Type",
+    },
+    notSame: {
+      type: Boolean,
+      description: "Is password same?",
     },
   },
   data() {

@@ -215,12 +215,17 @@ public class UserController {
 		System.out.println("tempPwd는  "+tempPwd);
 		return tempPwd;
 	}
-	@PostMapping("/updateUser")
-	public ModelAndView updateUser(User user) throws Exception {
-		ModelAndView mav = new ModelAndView();
-		userService.updateUser(user);
-		mav.setViewName("index");
-		return mav;
+	@PostMapping("/update")
+	public ResponseEntity<?> updateUser(@RequestBody User user) throws Exception {
+		try {
+			System.out.println("업데이트 하자~ : "+user);
+			userService.updateUser(user);
+			return new ResponseEntity<User>(user,HttpStatus.OK);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@PostMapping("/resign")

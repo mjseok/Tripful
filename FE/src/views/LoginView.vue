@@ -22,7 +22,9 @@
               </div>
             </template>
             <template>
-              <div class="text-center text-muted mb-4">Or sign in with credentials</div>
+              <div class="text-center text-muted mb-4">
+                Or sign in with credentials
+              </div>
               <form role="form">
                 <app-input
                   alternative
@@ -42,8 +44,12 @@
                 </app-input>
 
                 <div class="text-center">
-                  <app-button type="theme" class="my-4" @click="confirm">Sign In</app-button>
-                  <app-button type="theme" class="my-4" @click="movePage">Sign Up</app-button>
+                  <app-button type="theme" class="my-4" @click="confirm"
+                    >Sign In</app-button
+                  >
+                  <app-button type="theme" class="my-4" @click="movePage"
+                    >Sign Up</app-button
+                  >
                 </div>
               </form>
             </template>
