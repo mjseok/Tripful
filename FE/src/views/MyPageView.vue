@@ -20,7 +20,7 @@
                   text="아이디"
                   class="mb-3"
                   placeholder="Id"
-                  v-model="user.id"
+                  v-model="userInfo.id"
                   v-bind:isReadOnly="true"
                 >
                 </app-input>
@@ -29,7 +29,7 @@
                   class="mb-3"
                   text="이름"
                   placeholder="name"
-                  v-model="user.name"
+                  v-model="userInfo.name"
                   v-bind:isReadOnly="flag"
                 >
                 </app-input>
@@ -37,7 +37,7 @@
                   alternative
                   text="이메일"
                   placeholder="email"
-                  v-model="user.email"
+                  v-model="userInfo.email"
                   v-bind:isReadOnly="flag"
                 >
                 </app-input>
@@ -45,8 +45,7 @@
                   alternative
                   text="비밀번호"
                   placeholder="Password"
-                  v-bind:value="pwd"
-                  v-on:input="updatePwd"
+                  v-model="userInfo.pwd"
                   v-bind:isReadOnly="flag"
                   @change="change"
                 >
@@ -100,13 +99,6 @@ export default {
   components: { AppInput, AppButton, AppCard },
   data() {
     return {
-      user: {
-        name: null,
-        id: null,
-        // pwd: null,
-        email: null,
-      },
-      pwd: "",
       pwdCheck: "",
       flag: true,
       password: true,
@@ -116,19 +108,10 @@ export default {
     ...mapState(userStore, ["userInfo"]),
   },
   watch: {
-    pwd: {
-      handler() {
-        if (this.pwdCheck == this.pwd) {
-          this.password = false;
-        } else {
-          this.password = true;
-        }
-        // console.log(this.pwdCheck);
-      },
-    },
+    ...mapState(userStore, ["userInfo"]),
     pwdCheck: {
       handler() {
-        if (this.pwdCheck == this.pwd) {
+        if (this.pwdCheck == this.userInfo.pwd) {
           this.password = false;
         } else {
           this.password = true;
@@ -169,17 +152,14 @@ export default {
           console.log("취소");
         });
     },
-    updatePwd() {
-      console.log("기존 : " + this.pwd + " 확인 : " + this.pwdCheck);
+    change() {
+      console.log("기존 : " + this.userInfo.pwd + " 확인 : " + this.pwdCheck);
+      if (this.pwdCheck == this.userInfo.pwd) {
+        this.password = false;
+      } else {
+        this.password = true;
+      }
     },
-    // change() {
-    //   console.log("기존 : " + this.user.pwd + " 확인 : " + this.pwdCheck);
-    //   if (this.pwdCheck == this.user.pwd) {
-    //     this.password = false;
-    //   } else {
-    //     this.password = true;
-    //   }
-    // },
   },
 };
 // library.add();
