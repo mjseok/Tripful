@@ -50,18 +50,24 @@ const routes = [
   },
   {
     path: "/board",
-    name: faChessBoard,
-    redirect: "/board/community",
+    name: "board",
+    component: () => import("@/views/BoardView"),
     children: [
       {
-        path: "/notice",
+        path: "notice",
         name: "notice",
         component: () => import("@/views/NoticeView"),
       },
       {
-        path: "/community",
+        path: "community",
         name: "community",
         component: () => import("@/views/CommunityView"),
+        children: [
+          {
+            path: "write",
+            name: "boardWrite",
+          },
+        ],
       },
     ],
   },
