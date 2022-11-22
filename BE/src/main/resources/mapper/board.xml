@@ -6,16 +6,25 @@
 	namespace="com.ssafy.enjoytrip.board.mapper.BoardMapper">
 	<resultMap type="Board" id="board">
 		<result column="boardid" property="boardid" />
-		<result column="uid" property="uid" />
 		<result column="title" property="title" />
 		<result column="content" property="content" />
+		<result column="date" property="date" />
+		<result column="hit" property="hit" />
+		<collection property="user" resultMap="User"/>
 	</resultMap>
-
-	<select id="list" parameterType="map" >
-		select b.boardid, u.uid, b.title, b.content, u.name, date_format(b.date, '%Y.%m.%d') as date, b.hit
+	<resultMap type="User" id="user">
+		<result column="name" property="name"/>
+		<result column="uid" property="uid"/>
+	</resultMap>
+	<select id="listBoard" parameterType="map" resultType="board">
+		select b.boardid, u.uid, b.title, b.content, u.name, b.date as date, b.hit
 		from board as b join user as u on b.uid = u.uid
 		order by b.boardid desc limit #{start},#{spl}
 	</select>
 	
-
+	<select id="listNotice" parameterType="map">
+		select n.noticeid, n.uid, n.title, n.content, u.name, date_format(n.date, '%Y.%m.%d') as date, n.hit
+		from notice as n join user as u on n.uid = u.uid
+		order by n.noticeid desc limit #{start},#{spl}
+	</select>
 </mapper>
