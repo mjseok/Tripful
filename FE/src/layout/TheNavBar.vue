@@ -48,12 +48,12 @@
           <b-nav-item-dropdown right>
             <template #button-content> 커뮤니티 </template>
             <b-nav-item href="#"
-              ><router-link :to="{ name: 'test1' }" class="link"
-                >test1
+              ><router-link :to="{ name: 'community' }" class="link"
+                >커뮤니티
               </router-link></b-nav-item
             >
             <b-nav-item href="#"
-              ><router-link :to="{ name: 'test2' }" class="link"
+              ><router-link :to="{ name: 'notice' }" class="link"
                 >test2 조회</router-link
               ></b-nav-item
             >
