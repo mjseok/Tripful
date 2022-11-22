@@ -226,10 +226,7 @@ public class UserController {
 	@PostMapping("/resign")
 	public ResponseEntity<?> removeUser(@RequestBody User user) {
 		try {
-			System.out.println("user : "+user);
-			String id = user.getId();
-			User fullUser = userService.userInfo(id);
-			int uid = fullUser.getUid();
+			int uid = user.getUid();
 			System.out.println("uid : "+uid);
 			userService.removeUser(uid);
 			return new ResponseEntity<User>(user,HttpStatus.OK);
