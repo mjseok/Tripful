@@ -26,6 +26,9 @@
       </span>
     </div>
     <slot v-bind="slotData">
+      <div v-if="text">{{ text }}</div>
+    </slot>
+    <slot v-bind="slotData">
       <input
         :value="value"
         v-on="listeners"
@@ -105,6 +108,10 @@ export default {
     addonLeftIcon: {
       type: String,
       description: "Addont left icon",
+    },
+    text: {
+      type: String,
+      description: "Input text",
     },
   },
   data() {
