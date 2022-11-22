@@ -1,14 +1,18 @@
 <template>
-  <div>Community
-    <boad-list title="Community"></boad-list>
+  <div>
+    <h2>COMMUNITY</h2>
+    <board-list></board-list>
   </div>
 </template>
-<script>
-export default {
 
-}
+<script>
+import BoardList from "@/components/board/BoardList";
+
+export default {
+  components: {
+    BoardList,
+  },
+};
 </script>
 
-<style>
-
-</style>
+<style></style>
