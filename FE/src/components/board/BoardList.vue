@@ -16,8 +16,7 @@
 </template>
 
 <script>
-import { boardLists } from "@/api/board";
-import api from "@/api/http";
+import { boardList } from "@/api/board";
 
 import { mapState } from "vuex";
 const userStore = "userStore";
@@ -41,13 +40,8 @@ export default {
   created() {
     let pgno = 1;
     console.log(typeof boardLists);
-    api
-      .get(`board/community/list/${pgno}`)
-      .then(({ data }) => console.log(data + "석민지짱"))
-      .catch((e) => console.log(e));
 
-    console.log("a");
-    boardLists(
+    boardList(
       pgno,
       ({ data }) => {
         console.log(data);
