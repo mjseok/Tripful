@@ -20,7 +20,7 @@
                   placeholder="Id"
                   addonLeftIcon="person-badge-fill"
                   v-model="user.id"
-                  @change="idcheck"
+                  @input="idcheck"
                   v-bind:notSame="isExist"
                   v-bind:error="errMessage"
                 >
@@ -120,6 +120,7 @@ export default {
     },
     idcheck() {
       console.log("아이디 체크중");
+      console.log(this.user.id.length);
       //길이 체크
       if (this.user.id.length < 6 || this.user.id.length > 16) {
         this.userIdWrongLength(true);

@@ -47,7 +47,7 @@
                   placeholder="Password"
                   v-model="userInfo.pwd"
                   v-bind:isReadOnly="flag"
-                  @keyup.enter="change"
+                  @input="change"
                 >
                 </app-input>
                 <app-input
@@ -59,17 +59,23 @@
                   v-bind:isReadOnly="flag"
                   v-bind:notSame="password"
                   error="비밀번호가 일치하지 않습니다."
-                  @keyup.enter="change"
+                  @input="change"
                 >
                 </app-input>
                 <div class="text-center">
-                  <app-button v-if="flag" type="theme" class="my-4" @click="modify"
+                  <app-button
+                    v-if="flag"
+                    type="theme"
+                    class="my-4"
+                    @click="modify"
                     >회원정보 수정</app-button
                   >
                   <app-button type="theme" class="my-4" v-else @click="save"
                     >회원정보 저장</app-button
                   >
-                  <app-button type="theme" class="my-4" @click="resign">회원 탈퇴</app-button>
+                  <app-button type="theme" class="my-4" @click="resign"
+                    >회원 탈퇴</app-button
+                  >
                 </div>
               </form>
             </template>
