@@ -12,6 +12,14 @@
 		<result column="hit" property="hit" />
 		<collection property="user" resultMap="User"/>
 	</resultMap>
+	<resultMap type="Board" id="notice">
+		<result column="noticeid" property="noticeid" />
+		<result column="title" property="title" />
+		<result column="content" property="content" />
+		<result column="date" property="date" />
+		<result column="hit" property="hit" />
+		<collection property="user" resultMap="User"/>
+	</resultMap>
 	<resultMap type="User" id="user">
 		<result column="name" property="name"/>
 		<result column="uid" property="uid"/>
@@ -28,6 +36,11 @@
 		order by n.noticeid desc limit #{start},#{spl}
 	</select>
 	<select id="getBoard" parameterType="Integer" resultType="board"  >
+		select b.boardid, u.uid, b.title, b.content, u.name, b.date, b.hit
+		from board as b join user as u on b.uid = u.uid
+		where b.boardid = #{boardid}
+	</select>
+	<select id="getNotice" parameterType="Integer" resultType="board"  >
 		select b.boardid, u.uid, b.title, b.content, u.name, b.date, b.hit
 		from board as b join user as u on b.uid = u.uid
 		where b.boardid = #{boardid}
