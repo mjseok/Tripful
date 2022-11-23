@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Notice</h2>
-    <board-list></board-list>
+    <board-list type="notice"></board-list>
   </div>
 </template>
 

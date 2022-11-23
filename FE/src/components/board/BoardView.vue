@@ -9,7 +9,7 @@
       <b-col class="text-left">
         <b-button variant="outline-primary" @click="moveList">목록</b-button>
       </b-col>
-      <b-col class="text-right" v-if="userInfo.id === board.uid">
+      <b-col class="text-right" v-if="userInfo && userInfo.uid === board.uid">
         <b-button
           variant="outline-info"
           size="sm"
@@ -26,7 +26,7 @@
       <b-col>
         <b-card
           :header-html="`<h3>${board.boardid}.
-          ${board.subject} [${board.hit}]</h3><div><h6>${board.uid}</div><div>${board.date}</h6></div>`"
+          ${board.title} [${board.hit}]</h3><div><h6>${board.author}</div><div>${board.date}</h6></div>`"
           class="mb-2"
           border-variant="dark"
           no-body
@@ -42,7 +42,7 @@
 
 <script>
 // import moment from "moment";
-import { getBoard } from "@/api/board";
+import { getBoard, deleteBoard } from "@/api/board";
 import { mapState } from "vuex";
 
 const userStore = "userStore";
@@ -67,7 +67,8 @@ export default {
     getBoard(
       param,
       ({ data }) => {
-        this.article = data;
+        console.log(data);
+        this.board = data;
       },
       (error) => {
         console.log(error);
@@ -77,21 +78,40 @@ export default {
   methods: {
     moveModifyArticle() {
       this.$router.replace({
-        name: "boardmodify",
+        name: "boardModify",
         params: { boardid: this.board.boardid },
       });
       //   this.$router.push({ path: `/board/modify/${this.article.articleno}` });
     },
+
     deleteArticle() {
       if (confirm("정말로 삭제?")) {
+        deleteBoard(
+          this.board.boardid,
+          ({ data }) => {
+            console.log("data : " + data);
+            // let msg = "삭제 처리시 문제가 발생했습니다.";
+            // if (data === "success") {
+            //   msg = "삭제가 완료되었습니다.";
+            // }
+
+            let msg = "삭제 처리시 문제가 발생했습니다.";
+            alert(msg);
+            this.moveList();
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+
         this.$router.replace({
-          name: "boarddelete",
-           params: { boardid: this.board.boardid },
+          name: "boardList",
+          params: { boardid: this.board.boardid },
         });
       }
     },
     moveList() {
-      this.$router.push({ name: "boardlist" });
+      this.$router.push({ name: "community" });
     },
   },
   // filters: {

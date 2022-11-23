@@ -15,9 +15,30 @@ function getBoard(boardid, success, fail) {
   api.get(`board/community/${boardid}`).then(success).catch(fail);
 }
 //게시글 작성하기
-
+function writeBoard(board, success, fail) {
+  api
+    .post(`board/community/register`, JSON.stringify(board))
+    .then(success)
+    .catch(fail);
+}
 //게시글 수정하기
-
+function modifyBoard(board, success, fail) {
+  // console.log(boardid);
+  api
+    .post(`board/community/modify`, JSON.stringify(board))
+    .then(success)
+    .catch(fail);
+}
 //게시글 삭제하기
-
-export { boardList, noticeList, getBoard };
+function deleteBoard(boardid, success, fail) {
+  console.log(boardid);
+  api.post(`board/community/delete`, boardid).then(success).catch(fail);
+}
+export {
+  boardList,
+  noticeList,
+  getBoard,
+  modifyBoard,
+  writeBoard,
+  deleteBoard,
+};

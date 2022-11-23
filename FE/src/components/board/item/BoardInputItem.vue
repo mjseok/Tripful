@@ -2,21 +2,21 @@
   <b-row class="mb-1">
     <b-col style="text-align: left">
       <b-form @submit="onSubmit" @reset="onReset">
-        <b-form-group id="userid-group" label="작성자:" label-for="userid" description="작성자를 입력하세요.">
+        <!-- <b-form-group id="userid-group" label="작성자:" label-for="userid">
           <b-form-input
-            id="userid"
+            id="uid"
             :disabled="isUserid"
-            v-model="article.userid"
+            v-model="board.uid"
             type="text"
             required
             placeholder="작성자 입력..."
           ></b-form-input>
-        </b-form-group>
+        </b-form-group> -->
 
-        <b-form-group id="subject-group" label="제목:" label-for="subject" description="제목을 입력하세요.">
+        <b-form-group id="subject-group" label="제목:" label-for="title">
           <b-form-input
-            id="subject"
-            v-model="article.subject"
+            id="title"
+            v-model="board.title"
             type="text"
             required
             placeholder="제목 입력..."
@@ -26,15 +26,23 @@
         <b-form-group id="content-group" label="내용:" label-for="content">
           <b-form-textarea
             id="content"
-            v-model="article.content"
+            v-model="board.content"
             placeholder="내용 입력..."
             rows="10"
             max-rows="15"
           ></b-form-textarea>
         </b-form-group>
 
-        <b-button type="submit" variant="primary" class="m-1" v-if="this.type === 'register'">글작성</b-button>
-        <b-button type="submit" variant="primary" class="m-1" v-else>글수정</b-button>
+        <b-button
+          type="submit"
+          variant="primary"
+          class="m-1"
+          v-if="this.type === 'register'"
+          >글작성</b-button
+        >
+        <b-button type="submit" variant="primary" class="m-1" v-else
+          >글수정</b-button
+        >
         <b-button type="reset" variant="danger" class="m-1">초기화</b-button>
       </b-form>
     </b-col>
@@ -42,16 +50,18 @@
 </template>
 
 <script>
-import { writeArticle, modifyArticle, getArticle } from "@/api/board";
+import { writeBoard, modifyBoard, getBoard } from "@/api/board";
+import { mapState } from "vuex";
 
+const userStore = "userStore";
 export default {
   name: "BoardInputItem",
   data() {
     return {
-      article: {
-        articleno: 0,
-        userid: "",
-        subject: "",
+      board: {
+        boardid: 0,
+        uid: 0,
+        title: "",
         content: "",
       },
       isUserid: false,
@@ -62,15 +72,16 @@ export default {
   },
   created() {
     if (this.type === "modify") {
-      let param = this.$route.params.articleno;
-      getArticle(
+      let param = this.$route.params.boardid;
+      getBoard(
         param,
         ({ data }) => {
+          console.log(data);
           // this.article.articleno = data.article.articleno;
           // this.article.userid = data.article.userid;
           // this.article.subject = data.article.subject;
           // this.article.content = data.article.content;
-          this.article = data;
+          this.board = data;
         },
         (error) => {
           console.log(error);
@@ -79,33 +90,42 @@ export default {
       this.isUserid = true;
     }
   },
+  computed: {
+    ...mapState(userStore, ["userInfo"]),
+  },
   methods: {
     onSubmit(event) {
       event.preventDefault();
 
       let err = true;
       let msg = "";
-      !this.article.userid && ((msg = "작성자 입력해주세요"), (err = false), this.$refs.userid.focus());
-      err && !this.article.subject && ((msg = "제목 입력해주세요"), (err = false), this.$refs.subject.focus());
-      err && !this.article.content && ((msg = "내용 입력해주세요"), (err = false), this.$refs.content.focus());
+      err &&
+        !this.board.title &&
+        ((msg = "제목 입력해주세요"), (err = false), this.$refs.title.focus());
+      err &&
+        !this.board.content &&
+        ((msg = "내용 입력해주세요"),
+        (err = false),
+        this.$refs.content.focus());
 
       if (!err) alert(msg);
-      else this.type === "register" ? this.registArticle() : this.modifyArticle();
+      else this.type === "register" ? this.registBoard() : this.modifyBoard();
     },
     onReset(event) {
       event.preventDefault();
-      this.article.articleno = 0;
-      this.article.subject = "";
-      this.article.content = "";
-      this.moveList();
+      this.board.boardid = 0;
+      this.board.title = "";
+      this.board.content = "";
+      // this.moveList();
     },
-    registArticle() {
+    registBoard() {
+      console.log("id : " + this.userInfo.uid);
       let param = {
-        userid: this.article.userid,
-        subject: this.article.subject,
-        content: this.article.content,
+        uid: this.userInfo.uid,
+        title: this.board.title,
+        content: this.board.content,
       };
-      writeArticle(
+      writeBoard(
         param,
         ({ data }) => {
           let msg = "등록 처리시 문제가 발생했습니다.";
@@ -120,14 +140,14 @@ export default {
         }
       );
     },
-    modifyArticle() {
+    modifyBoard() {
       let param = {
-        articleno: this.article.articleno,
-        userid: this.article.userid,
-        subject: this.article.subject,
-        content: this.article.content,
+        boardid: this.board.boardid,
+        // uid: this.board.uid,
+        title: this.board.title,
+        content: this.board.content,
       };
-      modifyArticle(
+      modifyBoard(
         param,
         ({ data }) => {
           let msg = "수정 처리시 문제가 발생했습니다.";
@@ -144,7 +164,7 @@ export default {
       );
     },
     moveList() {
-      this.$router.push({ name: "boardlist" });
+      this.$router.push({ name: "community" });
     },
   },
 };

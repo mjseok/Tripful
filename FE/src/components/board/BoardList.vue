@@ -1,7 +1,7 @@
 <template>
   <b-container class="bv-example-row mt-3">
     <b-row class="mb-1">
-      <b-col class="text-right" v-if="isAdmin">
+      <b-col class="text-right" v-if="isAdmin || type === 'community'">
         <b-button variant="outline-primary" @click="moveWrite()"
           >글쓰기</b-button
         >
@@ -9,7 +9,13 @@
     </b-row>
     <b-row>
       <b-col>
-        <b-table hover :items="boards" :fields="fields" @row-clicked="viewBoard"> </b-table>
+        <b-table
+          hover
+          :items="boards"
+          :fields="fields"
+          @row-clicked="viewBoard"
+        >
+        </b-table>
       </b-col>
     </b-row>
   </b-container>
@@ -22,6 +28,12 @@ import { mapState } from "vuex";
 const userStore = "userStore";
 export default {
   name: "BoardList",
+  props: {
+    type: {
+      type: String,
+      description: "community인지 notice인지",
+    },
+  },
   data() {
     return {
       boards: [],
