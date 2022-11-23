@@ -150,11 +150,11 @@ export default {
       this.userSetLikes(this.likes, params.uid);
     },
   },
-  methods:{
+ 
     NoImg(e){
       e.target.src=require("@/assets/img/noImg.jpg");
     }
-  }
+  
 };
 </script>
 
