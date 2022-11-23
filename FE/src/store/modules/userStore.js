@@ -21,8 +21,12 @@ const userStore = {
     isValidToken: false,
     isAdmin: false,
     isExist: false,
+    likes: {},
   },
   getters: {
+    selectLikesInfo: function (state) {
+      return state.likes;
+    },
     checkUserInfo: function (state) {
       return state.userInfo;
     },
@@ -49,6 +53,17 @@ const userStore = {
     },
     SET_IS_EXIST: (state, isExist) => {
       state.isExist = isExist;
+    },
+    SET_IS_LIKES: (state, likes) => {
+      state.likes = likes;
+    },
+    SET_LIKES_LIST(state, { likes, spotid }) {
+      likes.forEach((like,index) => {
+        console.log(like);
+        if (like.spotid == spotid) {
+          state.likes.splice(index,1);
+        }
+      });
     },
   },
   actions: {
@@ -224,6 +239,13 @@ const userStore = {
     },
     userIdWrongLength: ({ commit }, flag) => {
       commit("SET_IS_EXIST", flag);
+    },
+    userLikesInit: ({ commit }, likes) => {
+      commit("SET_IS_LIKES", likes);
+    },
+    userSetLikes: ({ commit }, { likes, spotid }) => {
+      console.log("액션스 : likes : "+likes+" spotid : "+spotid)
+      commit("SET_LIKES_LIST", { likes, spotid });
     },
   },
 };

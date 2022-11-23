@@ -13,7 +13,7 @@ public interface SocialService {
 
 	int checkLikeSpot(Like like) throws Exception;
 	
-//	int addLikeSchedule(Like like) throws Exception;
+	int addLikeSchedule(Like like) throws Exception;
 //
 //    List<Schedule> getLikedSchedule(int uid) throws Exception;
     
