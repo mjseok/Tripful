@@ -3,7 +3,7 @@
     <h2 class="mb-5">{{ location.title }}</h2>
     <div class="row">
       <div class="col-6">
-        <img :src="location.image" style="width: 100%" />
+        <img :src="location.image" @error="NoImg" style="width: 100%" />
         <!-- onerror="this.src='${root}/assets/img/noImg.jpg'" -->
       </div>
       <div class="mb-4 col-6 d-flex align-items-center" id="info">
@@ -150,6 +150,11 @@ export default {
       this.userSetLikes(this.likes, params.uid);
     },
   },
+  methods:{
+    NoImg(e){
+      e.target.src=require("@/assets/img/noImg.jpg");
+    }
+  }
 };
 </script>
 
