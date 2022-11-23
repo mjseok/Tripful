@@ -7,7 +7,7 @@
     :class="{ 'mouse-over-bgcolor': isColor }"
   >
     <b-col cols="2" class="text-center align-self-center">
-      <b-img thumbnail :src="location.image" alt="No Image"></b-img>
+      <b-img thumbnail :src="location.image" alt="No Image" @error="NoImg"></b-img>
     </b-col>
     <b-col cols="8" class="align-self-center">
       [{{ location.title }}] {{ location.address }}
@@ -66,6 +66,9 @@ export default {
     colorChange(flag) {
       this.isColor = flag;
     },
+    NoImg(e){
+      e.target.src=require("@/assets/img/noImg.jpg");
+    }
   },
 };
 </script>
