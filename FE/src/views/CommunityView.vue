@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>COMMUNITY</h2>
-    <board-list></board-list>
+    <board-list type="community"></board-list>
   </div>
 </template>
 

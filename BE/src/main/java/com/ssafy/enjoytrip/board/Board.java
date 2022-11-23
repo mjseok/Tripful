@@ -2,19 +2,20 @@ package com.ssafy.enjoytrip.board;
 
 public class Board {
 	int boardid, uid;
-	String title, content, author, date;
+	String title, content, name, date;
 	int hit;
 
 	public Board() {
 	}
 
-	public Board(int boardid, int uid, String title, String content, String author, String date, int hit) {
+	public Board(int boardid, int uid, String title, String content, String name, String date, int hit) {
 		this.boardid = boardid;
 		this.uid = uid;
 		this.title = title;
 		this.content = content;
 		this.date = date;
 		this.hit = hit;
+		this.name = name;
 	}
 
 	public int getBoardid() {
@@ -49,13 +50,7 @@ public class Board {
 		this.content = content;
 	}
 
-	public String getAuthor() {
-		return author;
-	}
-
-	public void setAuthor(String author) {
-		this.author = author;
-	}
+	
 
 	public String getDate() {
 		return date;
@@ -72,4 +67,19 @@ public class Board {
 	public void setHit(int hit) {
 		this.hit = hit;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	@Override
+	public String toString() {
+		return "Board [boardid=" + boardid + ", uid=" + uid + ", title=" + title + ", content=" + content + ", name="
+				+ name + ", date=" + date + ", hit=" + hit + "]";
+	}
+	
 }
