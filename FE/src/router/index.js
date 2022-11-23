@@ -71,6 +71,28 @@ const routes = [
       },
     ],
   },
+  {
+    path: "/user",
+    name: "user",
+    component: () => import("@/views/UserView"),
+    children: [
+      {
+        path: "idfind",
+        name: "idfind",
+        component: () => import("@/components/user/UserIdFind"),
+      },
+      {
+        path: "pwdfind",
+        name: "pwdfind",
+        component: () => import("@/components/user/UserPwdFind"),
+      },
+      {
+        path: "findresult",
+        name: "findresult",
+        component: () => import("@/components/user/UserFindResult"),
+      },
+    ],
+  },
   // {
   //   path: '/',
   //   name: 'home',

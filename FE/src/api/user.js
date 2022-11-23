@@ -41,6 +41,20 @@ async function idcheck(user, success, fail) {
   api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
   await api.get(`/user/check/${user.id}`).then(success).catch(fail);
 }
+async function idfind(user, success, fail) {
+  api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
+  await api
+    .get(`/user/findId/${user.name}/${user.email}`)
+    .then(success)
+    .catch(fail);
+}
+async function pwdfind(user, success, fail) {
+  api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
+  await api
+    .get(`/user/findPwd/${user.id}/${user.email}`)
+    .then(success)
+    .catch(fail);
+}
 // async function githubLogin() {
 //   await api.get("/login/github");
 // }
@@ -53,4 +67,6 @@ export {
   resign,
   update,
   idcheck,
+  idfind,
+  pwdfind,
 };
