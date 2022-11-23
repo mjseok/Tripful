@@ -18,26 +18,35 @@
     </div>
     <!-- <c:if test="${!empty user}"> -->
     <p class="map-btn mt-4 mb-4">
-      <button class="btn-solid-sm-point" id="btn-like-spot">
+      <app-button
+        type="theme"
+        class="btn-solid-sm-point"
+        id="btn-like-spot"
+        @click="addLike"
+      >
         <i class="bi bi-suit-heart-fill" style="color: inherit"></i>
         &nbsp; 찜 추가하기
-      </button>
-      <button
+      </app-button>
+
+      <app-button
+        type="theme"
         class="btn-solid-sm-point"
         style="display: none"
         id="btn-unlike-spot"
       >
         <i class="bi bi-x-lg" style="color: inherit"></i>&nbsp; 찜 취소하기
-      </button>
-      <button
-        class="btn-solid-sm"
+      </app-button>
+
+      <app-button
+        type="theme"
+        cclass="btn-solid-sm"
         data-bs-toggle="modal"
         data-bs-target="#writeReview"
         id="btn-write-review"
       >
         <i class="bi bi-chat-square-quote" style="color: inherit"></i>
         &nbsp; 리뷰 남기기
-      </button>
+      </app-button>
     </p>
     <!-- </c:if> -->
     <div
@@ -51,11 +60,14 @@
 <script>
 import { mapState } from "vuex";
 import api from "@/api/http";
+import AppButton from "@/components/user/AppButton";
 
 const locationStore = "locationStore";
+const userStore = "userStore";
 
 export default {
   name: "LocationDetail",
+  components: { AppButton },
   data() {
     return {
       loc: {
@@ -76,10 +88,29 @@ export default {
   },
 
   computed: {
+    ...mapState(userStore, ["userInfo"]),
     ...mapState(locationStore, ["location"]),
     // house() {
     //   return this.$store.state.house;
     // },
+  },
+  methods: {
+    addLike() {
+      console.log("info : " + this.userInfo.uid);
+      let params = {
+        spotid: this.location.spotid,
+        uid: this.userInfo.uid,
+      };
+
+      api
+        .get(`/social/addLikeSpot`, JSON.stringify(params))
+        .then((data) => {
+          console.log("data 는 : " + data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   },
 };
 </script>

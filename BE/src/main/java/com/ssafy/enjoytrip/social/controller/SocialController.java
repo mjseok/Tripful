@@ -7,9 +7,12 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,13 +40,17 @@ public class SocialController {
 		return socialService.checkLikeSpot(like);
 	}
 
-	@GetMapping("/addLikeSpot/{spotid}")
-	public int addLikeSpot(@PathVariable("spotid") int spotId, HttpSession session) throws Exception {
-		User user = (User) session.getAttribute("user");
-		Like like = new Like();
-		like.setSpotid(spotId);
-		like.setUid(user.getUid());
-		return socialService.addLikeSpot(like);
+	@GetMapping("/addLikeSpot")
+	public ResponseEntity<?> addLikeSpot(@RequestBody Like like) throws Exception {
+		try {
+			System.out.println("하트 추가 하자~ : "+like);
+			socialService.addLikeSpot(like);
+			return new ResponseEntity<Void>(HttpStatus.OK);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@GetMapping("/deleteLikeSpot/{spotid}")
