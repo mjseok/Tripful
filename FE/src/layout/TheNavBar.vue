@@ -4,14 +4,14 @@
       toggleable="lg"
       type="transparent"
       variant="transparent"
-      class="nav justify-content-center"
+      class="nav"
     >
-      <b-navbar-brand id="nav" href="#" class="nav justify-content-start">
+      <b-navbar-brand id="nav" href="#" >
         <router-link to="/"
           ><img
             src="@/assets/logo2.png"
             alt=""
-            width="40%"
+            width="25%"
             style="text-align: 'left'"
         /></router-link>
         <!-- <router-link to="/">Tripful</router-link> -->
@@ -129,7 +129,6 @@ export default {
 
 <style>
 #nav {
-  text-align: left;
   max-height:75px;
   font-size:10px;
 

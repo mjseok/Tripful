@@ -51,8 +51,7 @@ export default {
   },
   created() {
     let pgno = 1;
-    console.log(typeof boardLists);
-    boardList(
+      boardList(
       pgno,
       ({ data }) => {
         console.log(data);
