@@ -5,13 +5,20 @@
         <!-- Filter -->
 
         <!-- style="display: none" -->
-        
+
         <!-- end of button group -->
         <div class="grid" id="element-grid"></div>
 
-        <b-container v-if="locations && locations.length != 0" class="bv-example-row mt-3">
-          <location-list-item v-for="(location, index) in locations" :key="index" :location="location" />
-         </b-container>
+        <b-container
+          v-if="locations && locations.length != 0"
+          class="bv-example-row mt-3"
+        >
+          <location-list-item
+            v-for="(location, index) in locations"
+            :key="index"
+            :location="location"
+          />
+        </b-container>
         <b-container v-else class="bv-example-row mt-3">
           <b-row>
             <b-col><b-alert show>관광지 정보가 없습니다.</b-alert></b-col>
@@ -24,7 +31,7 @@
       <!-- end of col -->
     </div>
     <!-- end of row -->
-    <div class="row" id="pagination-div" style="display: none">
+    <div class="row" id="pagination-div">
       <ul class="pagination justify-content-center" id="pagination-contents">
         <li class="page-item"><a class="page-link" href="#">이전</a></li>
         <li class="page-item active first-item">
@@ -41,7 +48,7 @@
 </template>
 
 <script>
-import LocationListItem from "@/components/spot/LocationListItem"
+import LocationListItem from "@/components/spot/LocationListItem";
 import { mapState } from "vuex";
 
 const locationStore = "locationStore";
