@@ -40,7 +40,7 @@ public class UserController {
 	@Autowired
 	UserService userService;
 
-	@GetMapping("/{userid}")
+	@GetMapping("/check/{userid}")
 	public ResponseEntity<Integer> idCheck(@PathVariable("userid") String userId) throws Exception {
 		
 		try {

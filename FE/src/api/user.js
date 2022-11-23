@@ -25,7 +25,7 @@ async function resign(user, success, fail) {
   api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
   console.log(JSON.stringify(user));
   await api
-    .post(`/user/resign`, JSON.stringify(                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   b ))
+    .post(`/user/resign`, JSON.stringify(user))
     .then(success)
     .catch(fail);
 }
@@ -39,12 +39,18 @@ async function update(user, success, fail) {
 }
 async function idcheck(user, success, fail) {
   api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
-  await api
-    .get(`/user/check/${user.id}`)
-    .then(success)
-    .catch(fail);idcheck
+  await api.get(`/user/check/${user.id}`).then(success).catch(fail);
 }
 // async function githubLogin() {
 //   await api.get("/login/github");
 // }
-export { signUp, login, tokenRegeneration, logout, findById, resign, update,idcheck };
+export {
+  signUp,
+  login,
+  tokenRegeneration,
+  logout,
+  findById,
+  resign,
+  update,
+  idcheck,
+};

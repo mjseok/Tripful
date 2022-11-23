@@ -16,10 +16,10 @@
 		<result column="email" property="email" />
 		<result column="isadmin" property="isadmin" />
 	</resultMap>
-	<select id="idCheck" parameterType="String" resultType="int"> 
-		select count(user_id) 
-		from members 
-		where user_id = #{userid} 
+	<select id="idcheck" parameterType="String" resultType="int"> 
+		select count(id) 
+		from user 
+		where id = #{id} 
 	</select>
 
 	<insert id="signUp" parameterType="User">

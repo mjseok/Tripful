@@ -20,6 +20,7 @@ const userStore = {
     userInfo: null,
     isValidToken: false,
     isAdmin: false,
+    isExist: false,
   },
   getters: {
     checkUserInfo: function (state) {
@@ -45,6 +46,9 @@ const userStore = {
     },
     SET_IS_ADMIN: (state, isAdmin) => {
       state.isAdmin = isAdmin;
+    },
+    SET_IS_EXIST: (state, isExist) => {
+      state.isExist = isExist;
     },
   },
   actions: {
@@ -74,7 +78,10 @@ const userStore = {
     },
 
     async tokenRegeneration({ commit, state }) {
-      console.log("토큰 재발급 >> 기존 토큰 정보 : {}", sessionStorage.getItem("access-token"));
+      console.log(
+        "토큰 재발급 >> 기존 토큰 정보 : {}",
+        sessionStorage.getItem("access-token")
+      );
       await tokenRegeneration(
         JSON.stringify(state.userInfo),
         ({ data }) => {
@@ -206,17 +213,17 @@ const userStore = {
       await idcheck(
         user,
         ({ data }) => {
-          if (data.message === "success") {
-            alert(data);
-          } else {
-            alert("회원 정보 업데이트 성공");
-            commit("SET_USER_INFO", data.userInfo);
+          if (data > 0) {
+            commit("SET_IS_EXIST", true);
           }
         },
         (error) => {
           console.log(error);
         }
       );
+    },
+    userIdWrongLength: ({ commit }, flag) => {
+      commit("SET_IS_EXIST", flag);
     },
   },
 };
