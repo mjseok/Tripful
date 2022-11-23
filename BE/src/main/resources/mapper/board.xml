@@ -32,4 +32,17 @@
 		from board as b join user as u on b.uid = u.uid
 		where b.boardid = #{boardid}
 	</select>
+	<update id="modifyBoard" parameterType="board">
+	update board
+	set title = #{title}, content = #{content}, date = now()
+	where boardid = #{boardid}
+	</update>
+	<delete id="deleteBoard" parameterType="int">
+		delete from board
+		where boardid = #{boardid}
+	</delete>
+	<insert id="writeBoard" parameterType="board">
+		insert into board (uid, title, content, date)
+		values (#{uid}, #{title}, #{content}, now())
+	</insert>
 </mapper>

@@ -12,16 +12,16 @@ import com.ssafy.enjoytrip.board.Board;
 public interface BoardMapper {
 	List<Board> listBoard(Map<String, Integer> map) throws SQLException;
 
-//	void writeBoard(Board board) throws SQLException;
+	int writeBoard(Board board) throws SQLException;
 //
 	Board getBoard(int boardid) throws SQLException;
 //
 //	void updateBoardHit(int boardid) throws SQLException;
 //
-//	void modifyBoard(Board board) throws SQLException;
-//
-//	void deleteBoard(int boardid) throws SQLException;
-//
+	int modifyBoard(Board board) throws SQLException;
+
+	void deleteBoard(int boardid) throws SQLException;
+
 //	int countBoard() throws SQLException;
 //	
 //	List<Board> listNotice(Map<String, Integer> map) throws SQLException;
