@@ -31,16 +31,20 @@ public class SocialController {
 	@Autowired
 	SocialService socialService;
 
-	@GetMapping("/checkLikeSpot/{spotid}")
-	public int checkLikeSpot(@PathVariable("spotid") int spotId, HttpSession session) throws Exception {
-		User user = (User) session.getAttribute("user");
-		Like like = new Like();
-		like.setSpotid(spotId);
-		like.setUid(user.getUid());
-		return socialService.checkLikeSpot(like);
+	@PostMapping("/checkLikeSpot")
+	public ResponseEntity<Integer> checkLikeSpot(@RequestBody Like like) throws Exception { 
+		try {
+			System.out.println("하트 check해보자~ : "+like);
+			int count = socialService.checkLikeSpot(like);
+			return new ResponseEntity<Integer>(count, HttpStatus.OK);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
-	@GetMapping("/addLikeSpot")
+	@PostMapping("/addLikeSpot")
 	public ResponseEntity<?> addLikeSpot(@RequestBody Like like) throws Exception {
 		try {
 			System.out.println("하트 추가 하자~ : "+like);
@@ -53,22 +57,33 @@ public class SocialController {
 		}
 	}
 
-	@GetMapping("/deleteLikeSpot/{spotid}")
-	public int deleteLikeSpot(@PathVariable("spotid") int spotId, HttpSession session) throws Exception {
-		User user = (User) session.getAttribute("user");
-		Like like = new Like();
-		like.setSpotid(spotId);
-		like.setUid(user.getUid());
-		return socialService.deleteLikeSpot(like);
+	@PostMapping("/deleteLikeSpot")
+	public ResponseEntity<?> deleteLikeSpot(@RequestBody Like like) throws Exception {
+
+		try {
+			System.out.println("하트 추가 하자~ : "+like);
+			socialService.deleteLikeSpot(like);
+			return new ResponseEntity<Void>(HttpStatus.OK);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
-	@GetMapping("/getLikedSpots")
-	public List<Spot> getLikedSpots(HttpSession session) throws Exception {
-		User user = (User) session.getAttribute("user");
-		int uid = user.getUid();
-		List<Spot> likedSpots = socialService.getLikedSpots(uid);
-		System.out.println("likedSpots : " + likedSpots);
-		return likedSpots;
+	@GetMapping("/getLikedSpots/{uid}")
+	public ResponseEntity<?> getLikedSpots(@PathVariable int uid) throws Exception {
+//		List<Spot>
+		
+		try {
+			System.out.println("getLikedSpots : "+uid);
+			List<Spot> likedSpots = socialService.getLikedSpots(uid);
+			return new ResponseEntity<List<Spot>>(likedSpots, HttpStatus.OK);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	// 리뷰~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

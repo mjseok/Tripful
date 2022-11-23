@@ -31,11 +31,11 @@ public class SocialServiceImpl implements SocialService {
 		return socialMapper.checkLikeSpot(like);
 	}
 
-//	@Override
-//	public int addLikeSchedule(Like like) throws Exception {
-//		return socialDao.addLikeSchedule(like);
-//	}
-//
+	@Override
+	public int addLikeSchedule(Like like) throws Exception {
+		return socialMapper.addLikeSchedule(like);
+	}
+
 //    @Override
 //    public List<Schedule> getLikedSchedule(int uid) throws Exception {
 //        return socialDao.getLikedSchedule(uid);

@@ -23,6 +23,7 @@
         class="btn-solid-sm-point"
         id="btn-like-spot"
         @click="addLike"
+        v-if="!isHearted"
       >
         <i class="bi bi-suit-heart-fill" style="color: inherit"></i>
         &nbsp; 찜 추가하기
@@ -31,8 +32,9 @@
       <app-button
         type="theme"
         class="btn-solid-sm-point"
-        style="display: none"
         id="btn-unlike-spot"
+        v-else
+        @click="deleteLike"
       >
         <i class="bi bi-x-lg" style="color: inherit"></i>&nbsp; 찜 취소하기
       </app-button>
@@ -49,16 +51,12 @@
       </app-button>
     </p>
     <!-- </c:if> -->
-    <div
-      class="mb-4 mt-4 col"
-      id="map"
-      style="width: 100%; height: 400px"
-    ></div>
+    <div class="mb-4 mt-4 col" id="map" style="width: 100%; height: 400px"></div>
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapGetters, mapState } from "vuex";
 import api from "@/api/http";
 import AppButton from "@/components/user/AppButton";
 
@@ -73,7 +71,16 @@ export default {
       loc: {
         desc: null,
       },
+      isHearted: false,
     };
+  },
+  computed: {
+    ...mapState(userStore, ["userInfo", "likes"]),
+    ...mapState(locationStore, ["location"]),
+    ...mapGetters(userStore, [
+      "checkUserInfo",
+      // ...
+    ]),
   },
   mounted() {
     api
@@ -85,15 +92,26 @@ export default {
       .catch((error) => {
         console.log(error);
       });
+
+    let params = {
+      spotid: this.location.spotid,
+      uid: this.checkUserInfo.uid,
+    };
+    console.log(params);
+    api
+      .post(`/social/checkLikeSpot`, JSON.stringify(params))
+      .then((data) => {
+        console.log("check data 는 : " + JSON.stringify(data));
+        if (data.data > 0) {
+          this.isHearted = true;
+        }
+        console.log("이미 처리된적 있어~ " + data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
 
-  computed: {
-    ...mapState(userStore, ["userInfo"]),
-    ...mapState(locationStore, ["location"]),
-    // house() {
-    //   return this.$store.state.house;
-    // },
-  },
   methods: {
     addLike() {
       console.log("info : " + this.userInfo.uid);
@@ -103,13 +121,33 @@ export default {
       };
 
       api
-        .get(`/social/addLikeSpot`, JSON.stringify(params))
+        .post(`/social/addLikeSpot`, JSON.stringify(params))
         .then((data) => {
           console.log("data 는 : " + data);
+          this.isHearted = true;
         })
         .catch((error) => {
           console.log(error);
         });
+    },
+    deleteLike() {
+      console.log("info : " + this.userInfo.uid);
+      let params = {
+        spotid: this.location.spotid,
+        uid: this.userInfo.uid,
+      };
+
+      api
+        .post(`/social/deleteLikeSpot`, JSON.stringify(params))
+        .then((data) => {
+          console.log("data 는 : " + data);
+          this.isHearted = false;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+      this.userSetLikes(this.likes, params.uid);
     },
   },
 };
