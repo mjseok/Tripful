@@ -107,6 +107,18 @@ export default {
         await this.getUserInfo(token);
         console.log("4. confirm() userInfo :: ", this.userInfo);
         this.$router.push({ name: "index" });
+      }else{
+        // alert("로그인 실패!");
+        this.$bvModal
+        .msgBoxConfirm("등록되어있지 않은 회원입니다. 다시 한 번 확인해주세요.")
+        .then((flag) => {
+          if (flag) {
+            this.$router.push({ name: "login" });
+          }
+        })
+        .catch(() => {
+          console.log("취소");
+        });
       }
     },
     signup() {
