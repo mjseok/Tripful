@@ -8,11 +8,7 @@
     >
       <b-navbar-brand id="nav" href="#" class="nav justify-content-start">
         <router-link to="/"
-          ><img
-            src="@/assets/logo2.png"
-            alt=""
-            width="20%"
-            style="text-align: 'left'"
+          ><img src="@/assets/logo2.png" alt="" width="20%" style="text-align: 'left'"
         /></router-link>
         <!-- <router-link to="/">Tripful</router-link> -->
       </b-navbar-brand>
@@ -27,9 +23,7 @@
           <b-nav-item-dropdown right>
             <template #button-content> 관광지 조회 </template>
             <b-nav-item href="#">
-              <router-link :to="{ name: 'spot' }" class="link"
-                >지역별조회</router-link
-              >
+              <router-link :to="{ name: 'spot' }" class="link">지역 별 조회</router-link>
             </b-nav-item>
             <b-nav-item href="#"
               ><router-link :to="{ name: 'map' }" class="link">
@@ -39,9 +33,7 @@
           </b-nav-item-dropdown>
 
           <b-nav-item href="#"
-            ><router-link :to="{ name: 'schedule' }" class="link"
-              >스케줄</router-link
-            ></b-nav-item
+            ><router-link :to="{ name: 'schedule' }" class="link">스케줄</router-link></b-nav-item
           >
 
           <b-nav-item-dropdown right>
@@ -52,9 +44,7 @@
               </router-link></b-nav-item
             >
             <b-nav-item href="#"
-              ><router-link :to="{ name: 'notice' }" class="link"
-                >test2 조회</router-link
-              ></b-nav-item
+              ><router-link :to="{ name: 'notice' }" class="link">공지사항</router-link></b-nav-item
             >
           </b-nav-item-dropdown>
 
@@ -63,16 +53,22 @@
             <b-nav-item class="align-self-center">
               {{ userInfo.name }}({{ userInfo.id }})님 환영합니다.
             </b-nav-item>
-            <b-nav-item class="align-self-center">
-              <router-link
-                :to="{ name: 'mypage' }"
-                class="link align-self-center"
-                >내정보보기</router-link
-              >
-            </b-nav-item>
-            <b-nav-item
-              class="align-self-center link"
-              @click.prevent="onClickLogout"
+
+            <b-nav-item-dropdown right>
+              <template #button-content> 내 정보 보기 </template>
+              <b-nav-item class="align-self-center">
+                <router-link :to="{ name: 'info' }" class="link align-self-center"
+                  >개인 정보 수정</router-link
+                >
+              </b-nav-item>
+              <b-nav-item class="align-self-center">
+                <router-link :to="{ name: 'like' }" class="link align-self-center"
+                  >찜하기 목록</router-link
+                >
+              </b-nav-item>
+            </b-nav-item-dropdown>
+
+            <b-nav-item class="align-self-center link" @click.prevent="onClickLogout"
               >로그아웃</b-nav-item
             >
           </b-navbar-nav>
@@ -80,9 +76,7 @@
 
           <b-navbar-nav class="ml-auto" v-else>
             <b-nav-item href="#">
-              <router-link :to="{ name: 'login' }" class="link">
-                로그인</router-link
-              >
+              <router-link :to="{ name: 'login' }" class="link"> 로그인</router-link>
             </b-nav-item>
           </b-navbar-nav>
           <!-- </b-nav-item-dropdown> -->

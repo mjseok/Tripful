@@ -61,6 +61,19 @@ const routes = [
     path: "/mypage",
     name: "mypage",
     component: () => import("@/views/MyPageView"),
+    redirect : "info",
+    children: [
+      {
+        path: "info",
+        name: "info",
+        component: () => import("@/components/user/UserInfo"),
+      },
+      {
+        path: "like",
+        name: "like",
+        component: () => import("@/components/user/UserLikeList"),
+      },
+    ],
   },
   {
     path: "/detail",
