@@ -1,9 +1,13 @@
 <template>
-  <div class="container">
-    <h2 class="text-center mt-3 mb-3">지역별 관광지 조회</h2>
+  <div class="container contents">
+    <h2 class="mb-2">지역별 관광지 조회</h2>
     <div class="row col-md-12 justify-content-center mb-2">
       <div class="form-group col-md-2">
-        <b-form-select v-model="sidoCode" :options="sidos" @change="gugunList"></b-form-select>
+        <b-form-select
+          v-model="sidoCode"
+          :options="sidos"
+          @change="gugunList"
+        ></b-form-select>
       </div>
 
       <div class="form-group col-md-2">
@@ -18,16 +22,17 @@
         <span>지금 가고 싶은 여행지를 선택해주세요</span>
       </div>
       <div class="button-group filters-button-group" id="filters-button-group">
-        <button
+        <app-button
+          type="theme"
           id="btn-select-all"
           class="button is-checked"
           data-filter="*"
           value="0"
           @click="clickTheme($event)"
-        >
-          전체
-        </button>
-        <button
+          >전체
+        </app-button>
+        <app-button
+          type="theme"
           id="btn-select-hotspot"
           class="button"
           data-filter=".hotspot"
@@ -35,28 +40,70 @@
           @click="clickTheme($event)"
         >
           관광지
-        </button>
-        <button class="button" data-filter=".culture" value="14" @click="clickTheme($event)">
+        </app-button>
+        <app-button
+          type="theme"
+          class="button"
+          data-filter=".culture"
+          value="14"
+          @click="clickTheme($event)"
+        >
           문화시설
-        </button>
-        <button class="button" data-filter=".festival" value="15" @click="clickTheme($event)">
+        </app-button>
+        <app-button
+          type="theme"
+          class="button"
+          data-filter=".festival"
+          value="15"
+          @click="clickTheme($event)"
+        >
           행사/공연
-        </button>
-        <button class="button" data-filter=".course" value="25" @click="clickTheme($event)">
+        </app-button>
+        <app-button
+          type="theme"
+          class="button"
+          data-filter=".course"
+          value="25"
+          @click="clickTheme($event)"
+        >
           여행코스
-        </button>
-        <button class="button" data-filter=".sports" value="28" @click="clickTheme($event)">
+        </app-button>
+        <app-button
+          type="theme"
+          class="button"
+          data-filter=".sports"
+          value="28"
+          @click="clickTheme($event)"
+        >
           레포츠
-        </button>
-        <button class="button" data-filter=".hotel" value="32" @click="clickTheme($event)">
+        </app-button>
+        <app-button
+          type="theme"
+          class="button"
+          data-filter=".hotel"
+          value="32"
+          @click="clickTheme($event)"
+        >
           숙박
-        </button>
-        <button class="button" data-filter=".shopping" value="38" @click="clickTheme($event)">
+        </app-button>
+        <app-button
+          type="theme"
+          class="button"
+          data-filter=".shopping"
+          value="38"
+          @click="clickTheme($event)"
+        >
           쇼핑
-        </button>
-        <button class="button" data-filter=".food" value="39" @click="clickTheme($event)">
+        </app-button>
+        <app-button
+          type="theme"
+          class="button"
+          data-filter=".food"
+          value="39"
+          @click="clickTheme($event)"
+        >
           음식점
-        </button>
+        </app-button>
       </div>
     </div>
   </div>
@@ -65,10 +112,15 @@
 <script>
 import { mapState, mapActions, mapMutations } from "vuex";
 
+// import AppInput from "@/components/user/AppInput";
+import AppButton from "@/components/user/AppButton";
+// import AppCard from "@/components/common/AppCard";
+
 const locationStore = "locationStore";
 
 export default {
   name: "LocationSearch",
+  components: { AppButton },
   data() {
     return {
       sidoCode: null,
@@ -87,7 +139,11 @@ export default {
 
   methods: {
     ...mapActions(locationStore, ["getSido", "getGugun", "getLocationList"]),
-    ...mapMutations(locationStore, ["CLEAR_SIDO_LIST", "CLEAR_GUGUN_LIST", "CLEAR_LOCATION_LIST"]),
+    ...mapMutations(locationStore, [
+      "CLEAR_SIDO_LIST",
+      "CLEAR_GUGUN_LIST",
+      "CLEAR_LOCATION_LIST",
+    ]),
     // sidoList() {
     //   this.getSido();
     // },
@@ -101,7 +157,11 @@ export default {
       console.log(this.sidoCode);
       console.log(this.gugunCode);
       if (this.gugunCode)
-        this.getLocationList({ sidoCode: this.sidoCode, gugunCode: this.gugunCode, themeCode: 0 });
+        this.getLocationList({
+          sidoCode: this.sidoCode,
+          gugunCode: this.gugunCode,
+          themeCode: 0,
+        });
     },
     clickTheme(event) {
       // console.log("this :", event.target.value);
@@ -117,4 +177,7 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss">
+@import "@/assets/styles/User/_card.scss";
+@import "@/assets/styles/User/_button.scss";
+</style>

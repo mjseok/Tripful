@@ -6,17 +6,16 @@
       variant="transparent"
       class="nav justify-content-center"
     >
-      <b-navbar-brand href="#">
-        <router-link to="/">Tripful</router-link>
+      <b-navbar-brand id="nav" href="#" class="nav justify-content-start">
+        <router-link to="/"
+          ><img
+            src="@/assets/logo2.png"
+            alt=""
+            width="20%"
+            style="text-align: 'left'"
+        /></router-link>
+        <!-- <router-link to="/">Tripful</router-link> -->
       </b-navbar-brand>
-      <b-nav-item href="#">
-        <app-input></app-input>
-      </b-nav-item>
-      <b-nav-item href="#">
-        <router-link :to="{ name: 'map' }" class="link">
-          <button>검색!</button>
-        </router-link>
-      </b-nav-item>
       <b-navbar-toggle target="nav-collapse">햄버거</b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
@@ -97,12 +96,9 @@
 import { mapState, mapGetters, mapActions } from "vuex";
 
 const userStore = "userStore";
-import AppInput from "@/components/common/AppInput";
 export default {
   name: "TheNavBar",
-  components: {
-    AppInput,
-  },
+  components: {},
   data() {
     return {};
   },
@@ -131,4 +127,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+#nav {
+  text-align: left;
+}
+</style>

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <the-nav-bar></the-nav-bar>
-    <router-view />
+    <router-view class="main" />
     <the-footer></the-footer>
   </div>
 </template>
@@ -43,5 +43,9 @@ nav a {
 
 nav a.router-link-exact-active {
   color: #294c60;
+}
+
+.main {
+  min-height: calc(100vh - 400px);
 }
 </style>

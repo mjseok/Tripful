@@ -4,9 +4,28 @@ import VueRouter from "vue-router";
 import ScheduleView from "@/views/ScheduleView";
 import IndexView from "@/views/IndexView";
 import LocationDetail from "@/components/spot/LocationDetail";
-
+import store from "@/store";
 Vue.use(VueRouter);
 
+const onlyAuthUser = async (to, from, next) => {
+  const checkUserInfo = store.getters["userStore/checkUserInfo"];
+  const checkToken = store.getters["userStore/checkToken"];
+  let token = sessionStorage.getItem("access-token");
+  console.log("로그인 처리 전", checkUserInfo, token);
+
+  if (checkUserInfo != null && token) {
+    console.log("토큰 유효성 체크하러 가자!!!!");
+    await store.dispatch("memberStore/getUserInfo", token);
+  }
+  if (!checkToken || checkUserInfo === null) {
+    alert("로그인이 필요한 페이지입니다..");
+    // next({ name: "login" });
+    router.push({ name: "login" });
+  } else {
+    console.log("로그인 했다!!!!!!!!!!!!!.");
+    next();
+  }
+};
 const routes = [
   {
     path: "/",
@@ -62,12 +81,51 @@ const routes = [
         path: "community",
         name: "community",
         component: () => import("@/views/CommunityView"),
-        children: [
-          {
-            path: "write",
-            name: "boardWrite",
-          },
-        ],
+        //children으로 하는거 일단 보류
+        // children: [
+        //   {
+        //     path: "write",
+        //     name: "boardWrite",
+        //   },
+        //   {
+        //     path: "view/:boardid",
+        //     name: "boardView",
+        //     component: () => import("@/components/board/BoardView"),
+        //   },
+        // ],
+      },
+      {
+        path: "/view/:boardid",
+        name: "boardView",
+        component: () => import("@/components/board/BoardView"),
+      },
+      {
+        path: "/modify",
+        name: "boardModify",
+        component: () => import("@/components/board/BoardModify"),
+      },
+      {
+        path: "/write",
+        name: "boardWrite",
+        beforeEnter: onlyAuthUser,
+        component: () => import("@/components/board/BoardWrite"),
+      },
+    ],
+  },
+  {
+    path: "/user",
+    name: "user",
+    component: () => import("@/views/UserView"),
+    children: [
+      {
+        path: "idfind",
+        name: "idfind",
+        component: () => import("@/components/user/UserIdFind"),
+      },
+      {
+        path: "pwdfind",
+        name: "pwdfind",
+        component: () => import("@/components/user/UserPwdFind"),
       },
     ],
   },

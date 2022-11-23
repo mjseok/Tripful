@@ -47,7 +47,7 @@
                   <app-button type="theme" class="my-4" @click="confirm"
                     >Sign In</app-button
                   >
-                  <app-button type="theme" class="my-4" @click="movePage"
+                  <app-button type="theme" class="my-4" @click="signup"
                     >Sign Up</app-button
                   >
                 </div>
@@ -55,10 +55,14 @@
             </template>
             <div class="row mt-3">
               <div class="col-6">
-                <app-button type="theme">아이디 찾기</app-button>
+                <app-button type="theme" @click="idFind"
+                  >아이디 찾기</app-button
+                >
               </div>
               <div class="col-6">
-                <app-button type="theme">비밀번호 찾기</app-button>
+                <app-button type="theme" @click="pwdFind"
+                  >비밀번호 찾기</app-button
+                >
               </div>
             </div>
           </app-card>
@@ -105,8 +109,14 @@ export default {
         this.$router.push({ name: "index" });
       }
     },
-    movePage() {
+    signup() {
       this.$router.push({ name: "signup" });
+    },
+    idFind() {
+      this.$router.push({ name: "idfind" });
+    },
+    pwdFind() {
+      this.$router.push({ name: "pwdfind" });
     },
     gitHubLogin() {},
   },

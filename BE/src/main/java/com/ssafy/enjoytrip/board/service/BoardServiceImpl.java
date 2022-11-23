@@ -25,31 +25,33 @@ public class BoardServiceImpl implements BoardService {
 		return boardMapper.listBoard(map);
 	}
 
-//	@Override
-//	public void writeBoard(Board board) throws Exception {
-//		boardMapper.writeBoard(board);
-//	}
+	@Override
+	public boolean writeBoard(Board board) throws Exception {
+		if(boardMapper.writeBoard(board)==1) return true;
+		return false;
+	}
 //
-//	@Override
-//	public Board getBoard(int boardid) throws Exception {
-//		return boardMapper.getBoard(boardid);
-//	}
+	@Override
+	public Board getBoard(int boardid) throws Exception {
+		return boardMapper.getBoard(boardid);
+	}
 //
 //	@Override
 //	public void updateBoardHit(int boardid) throws Exception {
 //		boardMapper.updateBoardHit(boardid);
 //	}
 //
-//	@Override
-//	public void modifyBoard(Board board) throws Exception {
-//		boardMapper.modifyBoard(board);
-//	}
-//
-//	@Override
-//	public void deleteBoard(int boardid) throws Exception {
-//		boardMapper.deleteBoard(boardid);
-//	}
-//
+	@Override
+	public boolean modifyBoard(Board board) throws Exception {
+		if(boardMapper.modifyBoard(board)==1) return true;
+		return false;
+	}
+
+	@Override
+	public void deleteBoard(int boardid) throws Exception {
+		boardMapper.deleteBoard(boardid);
+	}
+
 //	@Override
 //	public int countBoard() throws Exception {
 //		return boardMapper.countBoard();

@@ -1,7 +1,7 @@
 <template>
   <b-container class="bv-example-row mt-3">
     <b-row class="mb-1">
-      <b-col class="text-right" v-if="isAdmin">
+      <b-col class="text-right" v-if="isAdmin || type === 'community'">
         <b-button variant="outline-primary" @click="moveWrite()"
           >글쓰기</b-button
         >
@@ -9,19 +9,33 @@
     </b-row>
     <b-row>
       <b-col>
-        <b-table hover :items="boards" :fields="fields"> </b-table>
+        <b-table
+          hover
+          :items="boards"
+          :fields="fields"
+          @row-clicked="viewBoard"
+        >
+        </b-table>
       </b-col>
     </b-row>
   </b-container>
 </template>
 
 <script>
-import { boardList } from "@/api/board";
+import { boardLists } from "@/api/board";
+import api from "@/api/http";
 
 import { mapState } from "vuex";
+
 const userStore = "userStore";
 export default {
   name: "BoardList",
+  props: {
+    type: {
+      type: String,
+      description: "community인지 notice인지",
+    },
+  },
   data() {
     return {
       boards: [],
@@ -40,12 +54,17 @@ export default {
   created() {
     let pgno = 1;
     console.log(typeof boardLists);
+    api
+      .get(`board/community/list/${pgno}`)
+      .then(({ data }) => console.log(data + "석민지짱"))
+      .catch((e) => console.log(e));
 
-    boardList(
+    console.log("a");
+    boardLists(
       pgno,
       ({ data }) => {
         console.log(data);
-        // this.boards = data;
+        this.boards = data;
       },
       (error) => {
         console.log(error);
@@ -54,14 +73,14 @@ export default {
   },
   methods: {
     moveWrite() {
-      this.$router.push({ name: "boardwrite" });
+      this.$router.push({ name: "boardWrite" });
     },
-    // viewBoard(board) {
-    //   this.$router.push({
-    //     name: "boardview",
-    //     params: { boardid: board.boardid },
-    //   });
-    // },
+    viewBoard(board) {
+      this.$router.push({
+        name: "boardView",
+        params: { boardid: board.boardid },
+      });
+    },
   },
 };
 </script>
