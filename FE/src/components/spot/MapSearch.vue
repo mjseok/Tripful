@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container contents">
-      <h2 class="mb-4">지도로 검색하기</h2>
+      <h2 class="mb-2">지도로 검색하기</h2>
       <app-input></app-input>
       <!-- <div class="input-group mb-4" style="align-items: center">
         <input

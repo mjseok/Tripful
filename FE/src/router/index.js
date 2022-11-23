@@ -86,11 +86,6 @@ const routes = [
         name: "pwdfind",
         component: () => import("@/components/user/UserPwdFind"),
       },
-      {
-        path: "findresult",
-        name: "findresult",
-        component: () => import("@/components/user/UserFindResult"),
-      },
     ],
   },
   // {
