@@ -15,7 +15,7 @@
                 <large>Sign in with</large>
               </div>
               <div class="btn-wrapper text-center mb-4">
-                <app-button type="neutral" @click="gitHubLogin()">
+                <app-button type="neutral">
                   <b-icon-github />
                   Github
                 </app-button>
@@ -75,7 +75,7 @@ const userStore = "userStore";
 import AppInput from "@/components/user/AppInput";
 import AppButton from "@/components/user/AppButton";
 import AppCard from "@/components/common/AppCard";
-// import UserLogin from "@/components/user/UserLogin";
+
 export default {
   name: "LoginView",
   components: { AppInput, AppButton, AppCard },
@@ -111,7 +111,6 @@ export default {
     gitHubLogin() {},
   },
 };
-// library.add();
 </script>
 
 <style lang="scss">
