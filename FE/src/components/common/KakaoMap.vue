@@ -93,7 +93,7 @@ export default {
         marker.setMap(map);
         markers.push(marker);
 
-        var iwContent = `<div style="padding:3px;">${place.place_name} <br><a href="https://map.kakao.com/link/map/${place.place_name},${place.y},${place.x}" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/${place.place_name},${place.y},${place.x}" style="color:blue" target="_blank">길찾기</a></div>`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+        var iwContent = `<div class="info">${place.place_name} <br /><a href="https://map.kakao.com/link/map/${place.place_name},${place.y},${place.x}" style="color:blue;text-decoration:none" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/${place.place_name},${place.y},${place.x}" style="color:blue;text-decoration:none" target="_blank">길찾기</a></div>`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
           iwPosition = new kakao.maps.LatLng(place.y, place.x); //인포윈도우 표시 위치입니다
 
         // 인포윈도우를 생성합니다
@@ -198,5 +198,10 @@ export default {
   height: 700px;
   display: center;
   left: 10%;
+}
+.info{
+  word-break:break-all;
+  width:200px;
+  height:60px;
 }
 </style>

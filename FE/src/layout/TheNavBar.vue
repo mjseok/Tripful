@@ -11,7 +11,7 @@
           ><img
             src="@/assets/logo2.png"
             alt=""
-            width="20%"
+            width="40%"
             style="text-align: 'left'"
         /></router-link>
         <!-- <router-link to="/">Tripful</router-link> -->
@@ -130,5 +130,8 @@ export default {
 <style>
 #nav {
   text-align: left;
+  max-height:75px;
+  font-size:10px;
+
 }
 </style>
