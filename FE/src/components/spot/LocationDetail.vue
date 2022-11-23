@@ -12,7 +12,7 @@
           <i class="bi bi-building"></i> ADDRESS : {{ location.address }}<br />
           <br />
           <i class="bi bi-info-circle-fill"></i> Details<br />
-          {{ location.desc }}
+          {{ loc.desc }}
         </p>
       </div>
     </div>
@@ -22,7 +22,11 @@
         <i class="bi bi-suit-heart-fill" style="color: inherit"></i>
         &nbsp; 찜 추가하기
       </button>
-      <button class="btn-solid-sm-point" style="display: none" id="btn-unlike-spot">
+      <button
+        class="btn-solid-sm-point"
+        style="display: none"
+        id="btn-unlike-spot"
+      >
         <i class="bi bi-x-lg" style="color: inherit"></i>&nbsp; 찜 취소하기
       </button>
       <button
@@ -36,17 +40,41 @@
       </button>
     </p>
     <!-- </c:if> -->
-    <div class="mb-4 mt-4 col" id="map" style="width: 100%; height: 400px"></div>
+    <div
+      class="mb-4 mt-4 col"
+      id="map"
+      style="width: 100%; height: 400px"
+    ></div>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
+import api from "@/api/http";
 
 const locationStore = "locationStore";
 
 export default {
   name: "LocationDetail",
+  data() {
+    return {
+      loc: {
+        desc: null,
+      },
+    };
+  },
+  mounted() {
+    api
+      .get(`/spot/${this.location.spotid}`)
+      .then((data) => {
+        console.log("data 는 : " + JSON.stringify(data.data));
+        this.loc.desc = data.data.desc;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
+
   computed: {
     ...mapState(locationStore, ["location"]),
     // house() {

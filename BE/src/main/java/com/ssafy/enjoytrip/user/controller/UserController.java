@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -39,7 +40,17 @@ public class UserController {
 	@Autowired
 	UserService userService;
 
-	
+	@GetMapping("/check/{userid}")
+	public ResponseEntity<Integer> idCheck(@PathVariable("userid") String userId) throws Exception {
+		try {
+			System.out.println("idCheck userid : "+ userId);
+			int cnt = userService.idcheck(userId);
+			return new ResponseEntity<Integer>(cnt,HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 	@GetMapping("/mypage")
 	public ModelAndView myPage() {
 		ModelAndView mav = new ModelAndView();
@@ -204,16 +215,29 @@ public class UserController {
 		return mav;
 	}
 	@GetMapping("/findId/{name}/{email}")
-	public User findId(@PathVariable("name")String name,@PathVariable("email")String email) throws Exception {
-		User user = userService.findId(name, email);
-		return user;
+	public ResponseEntity<?> findId(@PathVariable("name")String name,@PathVariable("email")String email) throws Exception {
+		System.out.println("아이디 찾기 name : "+name+" email : "+email);
+		try {
+			User user = userService.findId(name, email);
+			return new ResponseEntity<User>(user,HttpStatus.OK);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 //	update query문이라서 putmapping해야될 것 같은데 그러면 임시비밀번호를 못가져옴... 어떻게 해야하징?
 	@GetMapping("/findPwd/{id}/{email}")
-	public String findPwd(@PathVariable("id")String id,@PathVariable("email")String email) throws Exception {
-		String tempPwd  = userService.findPwd(id, email);
-		System.out.println("tempPwd는  "+tempPwd);
-		return tempPwd;
+	public ResponseEntity<?> findPwd(@PathVariable("id")String id,@PathVariable("email")String email) throws Exception {
+		try {
+			String tempPwd  = userService.findPwd(id, email);
+			System.out.println("tempPwd는  "+tempPwd);
+			return new ResponseEntity<String>(tempPwd,HttpStatus.OK);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	@PostMapping("/update")
 	public ResponseEntity<?> updateUser(@RequestBody User user) throws Exception {

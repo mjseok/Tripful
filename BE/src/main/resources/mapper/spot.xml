@@ -16,7 +16,7 @@
 	</select>
 	
 	<select id="getSpotList" parameterType="map" resultType="Spot">
-		select spotid,title,address,hit,theme,image,lat,lang
+		select spotid,title,address,hit,theme,image,lat,lang,tel
 		from spot
 		where gugunid=#{gugun} and sidoid=#{sido} 
 		<if test="theme != 0">

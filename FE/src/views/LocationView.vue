@@ -1,12 +1,14 @@
 <template>
   <div>
     <location-search></location-search>
-    <div style="width: 50%; float: left">
-      <kakao-map></kakao-map>
-    </div>
-    <div style="width: 50%; float: right">
-      <location-list></location-list>
-    </div>
+    <b-row>
+      <b-col lg="6">
+        <kakao-map></kakao-map>
+      </b-col>
+      <b-col lg="6">
+        <location-list></location-list>
+      </b-col>
+    </b-row>
   </div>
 </template>
 

@@ -1,34 +1,30 @@
 <template>
-  <div>
-    <b-carousel
-      id="carousel-fade"
-      style="text-shadow: 0px 0px 2px #000"
-      fade
-      indicators
-      img-width="1024"
-      img-height="480"
-    >
-      <b-carousel-slide
-        caption="First Slide"
-        :img-src="require(`@/assets/img1.jpg`)"
-        style="height: 800px"
-      ></b-carousel-slide>
-      <b-carousel-slide
-        caption="Second Slide"
-        img-src="https://picsum.photos/1024/480/?image=12"
-        style="height: 800px"
-      ></b-carousel-slide>
-      <b-carousel-slide
-        caption="Third Slide"
-        img-src="https://picsum.photos/1024/480/?image=22"
-        style="height: 800px"
-      ></b-carousel-slide>
-    </b-carousel>
-  </div>
+  <carousel :autoplay="true" :perPage="1">
+    <slide class="slide slide1"> </slide>
+    <slide class="slide slide2"> </slide>
+    <slide class="slide slide3"> </slide>
+  </carousel>
 </template>
 
 <script>
 export default {};
 </script>
 
-<style></style>
+<style>
+.slide {
+  width: 100%;
+  height: 700px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.slide1 {
+  background-image: url("http://localguide.co.kr/wp-content/uploads/2021/01/20190124-x1d-0047.jpeg");
+}
+.slide2 {
+  background-image: url("http://contents.verygoodtour.com/Images/pc/package/submain/dubai3.jpg");
+}
+.slide3 {
+  background-image: url("http://www.gallery.jejupask.com/data/gallery/20200922_50.jpg");
+}
+</style>
