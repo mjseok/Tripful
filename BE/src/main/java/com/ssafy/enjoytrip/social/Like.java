@@ -24,7 +24,7 @@ public class Like {
 	public int getScheduleid() {
 		return scheduleid;
 	}
-
+	
 	public void setScheduleid(int scheduleid) {
 		this.scheduleid = scheduleid;
 	}
@@ -44,4 +44,9 @@ public class Like {
 	public void setUid(int uid) {
 		this.uid = uid;
 	}
+	@Override
+	public String toString() {
+		return "Like [likeid=" + likeid + ", scheduleid=" + scheduleid + ", spotid=" + spotid + ", uid=" + uid + "]";
+	}
+
 }
