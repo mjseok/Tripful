@@ -168,7 +168,7 @@ export default {
       let btn = document.getElementsByClassName("button");
       console.log(btn);
       for (var i = 0; i < btn.length; i++) {
-            btn[i].classList.remove("clicked");
+        btn[i].classList.remove("clicked");
       }
       event.target.classList.add("clicked");
       this.themeCode = event.target.value;
@@ -178,7 +178,7 @@ export default {
           gugunCode: this.gugunCode,
           themeCode: this.themeCode,
         });
-      console.log("EVENT",event.target); 
+      console.log("EVENT", event.target);
     },
   },
 };
@@ -187,7 +187,16 @@ export default {
 <style lang="scss">
 @import "@/assets/styles/User/_card.scss";
 @import "@/assets/styles/User/_button.scss";
-.clicked{
-  background-color:red;
+.clicked {
+  background-color: #e4dccf;
+  color: black;
+}
+.contents {
+  margin-top: 0px;
+  text-align: center;
+  margin-bottom: 0px;
+}
+.button {
+  width: 80px;
 }
 </style>

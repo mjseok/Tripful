@@ -1,5 +1,5 @@
 <template>
-  <b-container class="bv-example-row mt-3">
+  <div class="container contents">
     <b-row class="mb-1">
       <b-col class="text-right" v-if="isAdmin || type === 'community'">
         <b-button variant="outline-primary" @click="moveWrite()"
@@ -18,11 +18,11 @@
         </b-table>
       </b-col>
     </b-row>
-  </b-container>
+  </div>
 </template>
 
 <script>
-import { boardList,noticeList } from "@/api/board";
+import { boardList, noticeList } from "@/api/board";
 import { mapState } from "vuex";
 
 const userStore = "userStore";
@@ -51,30 +51,29 @@ export default {
   },
   created() {
     let pgno = 1;
-    if(this.type==='community'){
-        boardList(
-              pgno,
-              ({ data }) => {
-                console.log(data);
-                this.boards = data;
-              },
-              (error) => {
-                console.log(error);
-              }
-       );
+    if (this.type === "community") {
+      boardList(
+        pgno,
+        ({ data }) => {
+          console.log(data);
+          this.boards = data;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    } else {
+      noticeList(
+        pgno,
+        ({ data }) => {
+          console.log(data);
+          this.boards = data;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
     }
-    else{
-       noticeList(
-              pgno,
-              ({ data }) => {
-                console.log(data);
-                this.boards = data;
-              },
-              (error) => {
-                console.log(error);
-              }
-       );
-    }  
   },
   methods: {
     moveWrite() {

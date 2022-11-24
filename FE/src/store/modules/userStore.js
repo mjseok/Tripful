@@ -58,10 +58,10 @@ const userStore = {
       state.likes = likes;
     },
     SET_LIKES_LIST(state, { likes, spotid }) {
-      likes.forEach((like,index) => {
+      likes.forEach((like, index) => {
         console.log(like);
         if (like.spotid == spotid) {
-          state.likes.splice(index,1);
+          state.likes.splice(index, 1);
         }
       });
     },
@@ -244,7 +244,7 @@ const userStore = {
       commit("SET_IS_LIKES", likes);
     },
     userSetLikes: ({ commit }, { likes, spotid }) => {
-      console.log("액션스 : likes : "+likes+" spotid : "+spotid)
+      console.log("액션스 : likes : " + likes + " spotid : " + spotid);
       commit("SET_LIKES_LIST", { likes, spotid });
     },
   },
