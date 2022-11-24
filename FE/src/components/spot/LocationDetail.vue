@@ -51,12 +51,16 @@
       </app-button>
     </p>
     <!-- </c:if> -->
-    <div class="mb-4 mt-4 col" id="map" style="width: 100%; height: 400px"></div>
+    <div
+      class="mb-4 mt-4 col"
+      id="map"
+      style="width: 100%; height: 400px"
+    ></div>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapState } from "vuex";
+import { mapGetters, mapState, mapActions } from "vuex";
 import api from "@/api/http";
 import AppButton from "@/components/user/AppButton";
 
@@ -113,7 +117,9 @@ export default {
   },
 
   methods: {
+    ...mapActions(userStore, ["userSetLikes"]),
     addLike() {
+      if (this.userInfo == null) this.movePage();
       console.log("info : " + this.userInfo.uid);
       let params = {
         spotid: this.location.spotid,
@@ -129,8 +135,11 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+
+      console.log("체크됨?" + this.isHearted);
     },
     deleteLike() {
+      if (this.userInfo == null) this.movePage();
       console.log("info : " + this.userInfo.uid);
       let params = {
         spotid: this.location.spotid,
@@ -146,16 +155,24 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+      console.log("체크됨?" + this.isHearted);
 
-      this.userSetLikes(this.likes, params.uid);
+      this.userSetLikes({ likes: this.likes, spotid: this.location.spotid });
+    },
+    movePage() {
+      this.$router.push({ name: "login" });
+    },
+    NoImg(e) {
+      e.target.src = require("@/assets/img/noImg.jpg");
     },
   },
- 
-    NoImg(e){
-      e.target.src=require("@/assets/img/noImg.jpg");
-    }
-  
 };
 </script>
 
-<style></style>
+<style>
+.contents {
+  margin-top: 0px;
+  text-align: center;
+  margin-bottom: 0px;
+}
+</style>

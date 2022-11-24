@@ -6,7 +6,7 @@
       variant="transparent"
       class="nav"
     >
-      <b-navbar-brand id="nav" href="#" >
+      <b-navbar-brand id="nav" href="#">
         <router-link to="/"
           ><img
             src="@/assets/logo2.png"
@@ -27,7 +27,9 @@
           <b-nav-item-dropdown right>
             <template #button-content> 관광지 조회 </template>
             <b-nav-item href="#">
-              <router-link :to="{ name: 'spot' }" class="link">지역 별 조회</router-link>
+              <router-link :to="{ name: 'spot' }" class="link"
+                >지역 별 조회</router-link
+              >
             </b-nav-item>
             <b-nav-item href="#"
               ><router-link :to="{ name: 'map' }" class="link">
@@ -37,10 +39,12 @@
           </b-nav-item-dropdown>
 
           <b-nav-item href="#"
-            ><router-link :to="{ name: 'schedule' }" class="link">스케줄</router-link></b-nav-item
+            ><router-link :to="{ name: 'schedule' }" class="link"
+              >스케줄</router-link
+            ></b-nav-item
           >
 
-          <b-nav-item-dropdown right>
+          <!-- <b-nav-item-dropdown right>
             <template #button-content> 커뮤니티 </template>
             <b-nav-item href="#"
               ><router-link :to="{ name: 'community' }" class="link"
@@ -48,41 +52,49 @@
               </router-link></b-nav-item
             >
             <b-nav-item href="#"
-              ><router-link :to="{ name: 'notice' }" class="link">공지사항</router-link></b-nav-item
+              ><router-link :to="{ name: 'notice' }" class="link"
+                >공지사항</router-link
+              ></b-nav-item
             >
+          </b-nav-item-dropdown> -->
+          <b-nav-item href="#"
+            ><router-link :to="{ name: 'community' }" class="link"
+              >커뮤니티
+            </router-link></b-nav-item
+          >
+          <!-- after login -->
+
+          <b-nav-item class="align-self-center" v-if="userInfo">
+            {{ userInfo.name }}({{ userInfo.id }})님 환영합니다.
+          </b-nav-item>
+
+          <b-nav-item-dropdown right v-if="userInfo">
+            <template #button-content> 내 정보 보기 </template>
+            <b-nav-item class="align-self-center">
+              <router-link :to="{ name: 'info' }" class="link align-self-center"
+                >개인 정보 수정</router-link
+              >
+            </b-nav-item>
+            <b-nav-item class="align-self-center">
+              <router-link :to="{ name: 'like' }" class="link align-self-center"
+                >찜하기 목록</router-link
+              >
+            </b-nav-item>
           </b-nav-item-dropdown>
 
-          <!-- after login -->
-          <b-navbar-nav class="ml-auto" v-if="userInfo">
-            <b-nav-item class="align-self-center">
-              {{ userInfo.name }}({{ userInfo.id }})님 환영합니다.
-            </b-nav-item>
-
-            <b-nav-item-dropdown right>
-              <template #button-content> 내 정보 보기 </template>
-              <b-nav-item class="align-self-center">
-                <router-link :to="{ name: 'info' }" class="link align-self-center"
-                  >개인 정보 수정</router-link
-                >
-              </b-nav-item>
-              <b-nav-item class="align-self-center">
-                <router-link :to="{ name: 'like' }" class="link align-self-center"
-                  >찜하기 목록</router-link
-                >
-              </b-nav-item>
-            </b-nav-item-dropdown>
-
-            <b-nav-item class="align-self-center link" @click.prevent="onClickLogout"
-              >로그아웃</b-nav-item
-            >
-          </b-navbar-nav>
+          <b-nav-item
+            class="align-self-center link"
+            @click.prevent="onClickLogout"
+            v-if="userInfo"
+            >로그아웃</b-nav-item
+          >
           <!-- before login -->
 
-          <b-navbar-nav class="ml-auto" v-else>
-            <b-nav-item href="#">
-              <router-link :to="{ name: 'login' }" class="link"> 로그인</router-link>
-            </b-nav-item>
-          </b-navbar-nav>
+          <b-nav-item href="#" v-else>
+            <router-link :to="{ name: 'login' }" class="link">
+              로그인</router-link
+            >
+          </b-nav-item>
           <!-- </b-nav-item-dropdown> -->
         </b-navbar-nav>
       </b-collapse>
@@ -127,8 +139,7 @@ export default {
 
 <style>
 #nav {
-  max-height:75px;
-  font-size:10px;
-
+  max-height: 75px;
+  font-size: 10px;
 }
 </style>
