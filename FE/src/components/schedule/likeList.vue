@@ -5,6 +5,7 @@
       v-if="likes && likes.length != 0"
       class="draggable-container row"
       id="before-schedule"
+      @dragover="dragOver"
     >
       <like-item v-for="(like, index) in likes" :key="index" :like="like" />
     </b-container>
@@ -47,6 +48,32 @@ export default {
   },
   methods: {
     ...mapActions(userStore, ["userLikesInit"]),
+    getDragAfterElement(container, x) {
+      const draggableElements = [
+        ...container.querySelectorAll(".draggable:not(.dragging)"),
+      ];
+      return draggableElements.reduce(
+        (closest, child) => {
+          const box = child.getBoundingClientRect();
+          const offset = x - box.left - box.width / 2;
+          if (offset < 0 && offset > closest.offset) {
+            return { offset: offset, element: child };
+          } else {
+            return closest;
+          }
+        },
+        { offset: Number.NEGATIVE_INFINITY }
+      ).element;
+    },
+    dragOver(e, container) {
+      const afterElement = this.getDragAfterElement(container, e.clientX);
+      const draggable = document.querySelector(".dragging");
+      if (afterElement === undefined) {
+        container.appendChild(draggable);
+      } else {
+        container.insertBefore(draggable, afterElement);
+      }
+    },
   },
 };
 </script>
