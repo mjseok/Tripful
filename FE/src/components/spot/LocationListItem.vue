@@ -1,29 +1,31 @@
 <template>
-  <b-row
-    class="m-2"
+  <div
+    class="card draggable col-3.5 m-1"
+    draggable="true"
+    style="width: 180px"
     @click="selectLocation"
     @mouseover="colorChange(true)"
     @mouseout="colorChange(false)"
     :class="{ 'mouse-over-bgcolor': isColor }"
   >
-    <b-col cols="2" class="text-center align-self-center">
-      <b-img thumbnail :src="location.image" alt="No Image" @error="NoImg"></b-img>
-    </b-col>
-    <b-col cols="8" class="align-self-center">
-      [{{ location.title }}] {{ location.address }}
-    </b-col>
-    <b-col cols="2" class="align-self-center">
-      <app-button
-        type="theme"
-        class="button"
-        data-filter=".food"
-        value="39"
-        @click="detailViewLocation"
-      >
-        자세히보기
-      </app-button>
-    </b-col>
-  </b-row>
+    <img
+      :src="location.image"
+      class="card-img-top"
+      style="height: 160.3px"
+      alt="No Image"
+      @error="NoImg"
+    />
+    <div class="card-body">
+      <p class="card-title">{{ location.title }}</p>
+    </div>
+    <app-button
+      type="theme"
+      class="btn remove-spot m-1 mb-2"
+      @click="detailViewLocation"
+    >
+      자세히보기
+    </app-button>
+  </div>
 </template>
 
 <script>
@@ -66,9 +68,9 @@ export default {
     colorChange(flag) {
       this.isColor = flag;
     },
-    NoImg(e){
-      e.target.src=require("@/assets/img/noImg.jpg");
-    }
+    NoImg(e) {
+      e.target.src = require("@/assets/img/noImg.jpg");
+    },
   },
 };
 </script>

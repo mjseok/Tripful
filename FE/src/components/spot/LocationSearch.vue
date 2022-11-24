@@ -188,11 +188,15 @@ export default {
 @import "@/assets/styles/User/_card.scss";
 @import "@/assets/styles/User/_button.scss";
 .clicked {
-  background-color: red;
+  background-color: #e4dccf;
+  color: black;
 }
 .contents {
   margin-top: 0px;
   text-align: center;
   margin-bottom: 0px;
+}
+.button {
+  width: 80px;
 }
 </style>

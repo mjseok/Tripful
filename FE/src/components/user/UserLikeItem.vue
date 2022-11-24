@@ -1,21 +1,22 @@
 <template>
-  <b-row
-    class="col"
-    @mouseover="colorChange(true)"
-    @mouseout="colorChange(false)"
+  <div
+    class="card"
+    style="width: 180px"
     :class="{ 'mouse-over-bgcolor': isColor }"
-    draggable="true"
   >
-    <b-col col="5" class="text-center align-self-center">
-      <b-img thumbnail :src="like.image" alt="No Image"></b-img>
-    </b-col>
-    <b-col col="5" class="align-self-center"> {{ like.title }} </b-col>
-    <b-col col="2" class="align-self-center">
-      <app-button type="theme" class="button" @click="deleteLike">
-        x
-      </app-button>
-    </b-col>
-  </b-row>
+    <img
+      thumbnail
+      :src="like.image"
+      class="card-img-top"
+      style="height: 160.3px"
+      alt="No Image"
+      @error="NoImg"
+    />
+    <div class="card-body">
+      <p class="card-title">{{ like.title }}</p>
+    </div>
+    <app-button type="theme" class="button" @click="deleteLike"> x </app-button>
+  </div>
 </template>
 
 <script>
@@ -65,15 +66,11 @@ export default {
         spotid: this.like.spotid,
       });
     },
-    // detailViewLocation() {
-    //   // console.log("listRow : ", this.house);
-    //   // this.$store.dispatch("getHouse", this.house);
-    //   this.detailLocation(this.location);
-    //   // 잠깐 페이지 이동 막아두기(지도에 마커 표시 먼저!!)
-    //   this.$router.push("detail");
-    // },
     colorChange(flag) {
       this.isColor = flag;
+    },
+    NoImg(e) {
+      e.target.src = require("@/assets/img/noImg.jpg");
     },
   },
 };

@@ -2,7 +2,7 @@
   <div>
     <div class="container pt-lg-md mt-5">
       <div class="row justify-content-center">
-        <div class="col-lg-5">
+        <div class="col-lg-12">
           <app-card
             shadow
             type="light"
@@ -19,10 +19,18 @@
               <!-- style="display: none" -->
 
               <!-- end of button group -->
-              <div class="grid" id="element-grid"></div>
+              <!-- <div class="grid" id="element-grid"></div> -->
 
-              <b-container v-if="likes && likes.length != 0" class="bv-example-row mt-3">
-                <user-like-item v-for="(like, index) in likes" :key="index" :like="like" />
+              <b-container
+                v-if="likes && likes.length != 0"
+                class="bv-example row mt-3"
+                style="display: flex; justify-content: space-around"
+              >
+                <user-like-item
+                  v-for="(like, index) in likes"
+                  :key="index"
+                  :like="like"
+                />
               </b-container>
               <b-container v-else class="bv-example-row mt-3">
                 <b-row>
@@ -42,8 +50,10 @@
 
 <script>
 import UserLikeItem from "@/components/user/UserLikeItem";
+
 import AppCard from "@/components/common/AppCard";
 import api from "@/api/http";
+
 import { mapGetters, mapState, mapActions } from "vuex";
 const userStore = "userStore";
 export default {

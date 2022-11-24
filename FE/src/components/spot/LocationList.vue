@@ -1,30 +1,29 @@
 <template>
   <div>
     <div class="row filter">
-      <div class="col-lg-12">
+      <div class="col-lg-12 mt-3">
         <!-- Filter -->
 
         <!-- style="display: none" -->
 
         <!-- end of button group -->
-        <div class="grid" id="element-grid"></div>
-
-        <b-container
-          v-if="locations && locations.length != 0"
-          class="bv-example-row mt-3"
-        >
-          <location-list-item
-            v-for="(location, index) in locations"
-            :key="index"
-            :location="location"
-          />
-        </b-container>
-        <b-container v-else class="bv-example-row mt-3">
-          <b-row>
-            <b-col><b-alert show>관광지 정보가 없습니다.</b-alert></b-col>
-          </b-row>
-        </b-container>
-
+        <div class="grid" id="element-grid">
+          <b-container
+            v-if="locations && locations.length != 0"
+            class="bv-example mt-3 row"
+          >
+            <location-list-item
+              v-for="(location, index) in locations"
+              :key="index"
+              :location="location"
+            />
+          </b-container>
+          <b-container v-else class="bv-example-row mt-2">
+            <b-row>
+              <b-col><b-alert show>관광지 정보가 없습니다.</b-alert></b-col>
+            </b-row>
+          </b-container>
+        </div>
         <!-- end of grid -->
         <!-- end of filter -->
       </div>

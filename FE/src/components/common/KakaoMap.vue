@@ -199,9 +199,9 @@ export default {
   display: center;
   left: 10%;
 }
-.info{
-  word-break:break-all;
-  width:200px;
-  height:60px;
+.info {
+  word-break: break-all;
+  width: 200px;
+  height: 60px;
 }
 </style>
