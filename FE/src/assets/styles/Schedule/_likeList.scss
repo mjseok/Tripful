@@ -1,0 +1,114 @@
+.contents {
+  margin-top: 130px;
+  text-align: center;
+  margin-bottom: 100px;
+}
+.draggable-container {
+  padding: 10px;
+  background-color: #b5c1dc57;
+  border-radius: 8px;
+  cursor: move;
+  min-height: 200px;
+}
+
+#after-schedule button {
+  display: none;
+}
+
+.draggable-container .card {
+  margin: 5px;
+  padding: 10px;
+}
+
+.draggable.dragging {
+  opacity: 0.5;
+}
+
+.draggable-container button {
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  font-size: 10px;
+  margin-bottom: 10px;
+  background-color: #ff5574;
+}
+.schedule-container {
+  text-align: left;
+  margin: 10px 0px;
+}
+
+.schedule {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.schedule-header {
+  padding-top: 8rem;
+  padding-bottom: 5rem;
+  text-align: center;
+}
+.modal-schedule {
+  margin-right: 1rem;
+  margin-left: 1rem;
+  pointer-events: all;
+}
+
+/**************************/
+/*     Projects-schedule  */
+/**************************/
+
+.filter .schedule-item {
+  display: inline-block;
+  width: 351px;
+  margin-right: 0.625rem;
+  margin-left: 0.625rem;
+  vertical-align: top;
+}
+.schedule-item {
+  width: 30%;
+  margin-bottom: 3rem;
+}
+
+.schedule-item a {
+  text-decoration: none;
+}
+
+.schedule-item img {
+  margin-bottom: 1.125rem;
+  border-radius: 8px;
+  border: 1px solid #5e6576;
+}
+
+.schedule-item p {
+  text-align: left;
+}
+.schedule-item p button {
+  float: right;
+}
+.schedule-item p strong {
+  font-weight: bold;
+  color: #222222;
+  font-size: xx-large;
+}
+.btn-solid-sm-init {
+  border: 1px solid #ff5574;
+  border-radius: 30px;
+  background-color: #ff5574;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.875rem;
+  line-height: 0;
+  text-decoration: none;
+  transition: all 0.2s;
+  height: 30px;
+  width: 30px;
+}
+.btn-solid-sm-init > i {
+  font-style: normal;
+}
+.btn-solid-sm-init:hover {
+  background-color: transparent;
+  color: #ff5574;
+  /* needs to stay here because of the color property of a tag */
+  text-decoration: none;
+}

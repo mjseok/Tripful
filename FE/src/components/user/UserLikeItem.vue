@@ -1,16 +1,17 @@
 <template>
   <b-row
-    class="m-2"
+    class="col"
     @mouseover="colorChange(true)"
     @mouseout="colorChange(false)"
     :class="{ 'mouse-over-bgcolor': isColor }"
+    draggable="true"
   >
-    <b-col cols="2" class="text-center align-self-center">
-      <!-- <b-img thumbnail :src="location.image" alt="No Image"></b-img> -->
+    <b-col col="5" class="text-center align-self-center">
+      <b-img thumbnail :src="like.image" alt="No Image"></b-img>
     </b-col>
-    <b-col cols="8" class="align-self-center"> {{ like.title }} </b-col>
-    <b-col cols="2" class="align-self-center">
-      <app-button type="theme" class="button" data-filter=".food" value="39" @click="deleteLike">
+    <b-col col="5" class="align-self-center"> {{ like.title }} </b-col>
+    <b-col col="2" class="align-self-center">
+      <app-button type="theme" class="button" @click="deleteLike">
         x
       </app-button>
     </b-col>
