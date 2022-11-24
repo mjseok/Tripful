@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { boardList } from "@/api/board";
+import { boardList, noticeList } from "@/api/board";
 import { mapState } from "vuex";
 
 const userStore = "userStore";
@@ -51,16 +51,29 @@ export default {
   },
   created() {
     let pgno = 1;
-    boardList(
-      pgno,
-      ({ data }) => {
-        console.log(data);
-        this.boards = data;
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    if (this.type === "community") {
+      boardList(
+        pgno,
+        ({ data }) => {
+          console.log(data);
+          this.boards = data;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    } else {
+      noticeList(
+        pgno,
+        ({ data }) => {
+          console.log(data);
+          this.boards = data;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
   },
   methods: {
     moveWrite() {
