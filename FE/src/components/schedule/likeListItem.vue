@@ -6,6 +6,8 @@
     @mouseover="colorChange(true)"
     @mouseout="colorChange(false)"
     :class="{ 'mouse-over-bgcolor': isColor }"
+    @dragstart="dragStart"
+    @dragend="dragEnd"
   >
     <input type="hidden" class="lat" :value="like.lat" />
     <input type="hidden" class="lang" :value="like.lang" />
@@ -34,6 +36,7 @@ import { mapState, mapActions } from "vuex";
 
 const locationStore = "locationStore";
 const userStore = "userStore";
+// let status;
 
 export default {
   name: "LikeItem",
@@ -76,6 +79,41 @@ export default {
     },
     colorChange(flag) {
       this.isColor = flag;
+    },
+    dragStart(e) {
+      e.classList.add("dragging");
+      //       status = e.parentNode.id;
+    },
+    dragEnd(e) {
+      e.classList.remove("dragging");
+      //       if (
+      //         e.parentNode.id == "after-schedule" &&
+      //         status != "after-schedule"
+      //       ) {
+      //         var addLat = e.querySelector(".lat").value;
+      //         var addLang = e.querySelector(".lang").value;
+      //         var title = e.querySelector(".card-title").innerText;
+      //         var addPosition = new kakao.maps.LatLng(addLat, addLang);
+      //         addMarker(addPosition, title);
+      //         addLinePath();
+      //       }
+      //       if (
+      //         e.parentNode.id == "before-schedule" &&
+      //         status != "before-schedule"
+      //       ) {
+      //         var removeLat = draggable.querySelector(".lat").value;
+      //         var removeLang = draggable.querySelector(".lang").value;
+      //         var position = new kakao.maps.LatLng(removeLat, removeLang);
+      //         markers.forEach((marker) => {
+      //           if (marker["position"].equals(position)) {
+      //             var idx = markers.indexOf(marker);
+      //             markers.splice(idx, 1);
+      //             marker["marker"].setMap(null);
+      //             marker["info"].setMap(null);
+      //           }
+      //         });
+      //       }
+      // addLinePath();
     },
   },
 };
