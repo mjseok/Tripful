@@ -21,10 +21,10 @@ public interface BoardService {
 	void deleteBoard(int boardid) throws Exception;
 //
 //	int countBoard() throws Exception;
-//	
-//	List<Board> listNotice(Map<String, Integer> map) throws Exception;
-//
-//	void writeNotice(Board notice) throws Exception;
+	
+	List<Board> listNotice(Map<String, Integer> map) throws Exception;
+
+	boolean writeNotice(Board notice) throws Exception;
 //
 //	Board getNotice(int noticeid) throws Exception;
 //

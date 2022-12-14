@@ -23,11 +23,11 @@ public interface BoardMapper {
 	void deleteBoard(int boardid) throws SQLException;
 
 //	int countBoard() throws SQLException;
-//	
-//	List<Board> listNotice(Map<String, Integer> map) throws SQLException;
-//
-//	void writeNotice(Board notice) throws SQLException;
-//
+	
+	List<Board> listNotice(Map<String, Integer> map) throws SQLException;
+
+	int writeNotice(Board notice) throws SQLException;
+
 //	Board getNotice(int noticeid) throws SQLException;
 //
 //	void updateNoticeHit(int noticeid) throws SQLException;

@@ -5,7 +5,7 @@
         <b-alert show><h3>글작성</h3></b-alert>
       </b-col>
     </b-row>
-    <board-input-item type="register" />
+    <board-input-item type="register" :boardType="this.boardType" />
   </b-container>
 </template>
 
@@ -16,6 +16,10 @@ export default {
   name: "BoardWrite",
   components: {
     BoardInputItem,
+  },
+  created() {
+    this.boardType = this.$route.params.boardType;
+    console.log("보드타입은 : " + this.boardType);
   },
 };
 </script>

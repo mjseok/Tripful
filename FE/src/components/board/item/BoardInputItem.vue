@@ -33,16 +33,10 @@
           ></b-form-textarea>
         </b-form-group>
 
-        <b-button
-          type="submit"
-          variant="primary"
-          class="m-1"
-          v-if="this.type === 'register'"
+        <b-button type="submit" variant="primary" class="m-1" v-if="this.type === 'register'"
           >글작성</b-button
         >
-        <b-button type="submit" variant="primary" class="m-1" v-else
-          >글수정</b-button
-        >
+        <b-button type="submit" variant="primary" class="m-1" v-else>글수정</b-button>
         <b-button type="reset" variant="danger" class="m-1">초기화</b-button>
       </b-form>
     </b-col>
@@ -50,7 +44,7 @@
 </template>
 
 <script>
-import { writeBoard, modifyBoard, getBoard } from "@/api/board";
+import { writeBoard, modifyBoard, getBoard, writeNotice } from "@/api/board";
 import { mapState } from "vuex";
 
 const userStore = "userStore";
@@ -69,8 +63,10 @@ export default {
   },
   props: {
     type: { type: String },
+    boardType: { boardType: String },
   },
   created() {
+    console.log(" : " + this.boardType);
     if (this.type === "modify") {
       let param = this.$route.params.boardid;
       getBoard(
@@ -104,9 +100,7 @@ export default {
         ((msg = "제목 입력해주세요"), (err = false), this.$refs.title.focus());
       err &&
         !this.board.content &&
-        ((msg = "내용 입력해주세요"),
-        (err = false),
-        this.$refs.content.focus());
+        ((msg = "내용 입력해주세요"), (err = false), this.$refs.content.focus());
 
       if (!err) alert(msg);
       else this.type === "register" ? this.registBoard() : this.modifyBoard();
@@ -120,25 +114,44 @@ export default {
     },
     registBoard() {
       console.log("id : " + this.userInfo.uid);
+      console.log("boardType   : " + this.boardType);
       let param = {
         uid: this.userInfo.uid,
         title: this.board.title,
         content: this.board.content,
       };
-      writeBoard(
-        param,
-        ({ data }) => {
-          let msg = "등록 처리시 문제가 발생했습니다.";
-          if (data === "success") {
-            msg = "등록이 완료되었습니다.";
+      if (this.boardType == "community") {
+        writeBoard(
+          param,
+          ({ data }) => {
+            let msg = "등록 처리시 문제가 발생했습니다.";
+            if (data === "success") {
+              msg = "등록이 완료되었습니다.";
+            }
+            alert(msg);
+            this.moveList();
+          },
+          (error) => {
+            console.log(error);
           }
-          alert(msg);
-          this.moveList();
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
+        );
+      } else {
+        console.log("공지사항 아직 등록하면 안됨!!");
+        writeNotice(
+          param,
+          ({ data }) => {
+            let msg = "등록 처리시 문제가 발생했습니다.";
+            if (data === "success") {
+              msg = "등록이 완료되었습니다.";
+            }
+            alert(msg);
+            this.moveList();
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+      }
     },
     modifyBoard() {
       let param = {
@@ -164,7 +177,12 @@ export default {
       );
     },
     moveList() {
-      this.$router.push({ name: "community" });
+      
+      if (this.boardType == "community") {
+        this.$router.push({ name: "community" });
+      }else{
+        this.$router.push({ name: "notice" });
+      }
     },
   },
 };

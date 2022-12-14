@@ -29,13 +29,8 @@ public class BoardController {
 	private Map<String, Integer> map;	
 	private static final String SUCCESS = "success";
 	private static final String FAIL = "fail";
-//	@GetMapping("/notice/list/{pageno}")
-//	public ResponseEntity<List<Board>> listNotice(@PathVariable("pageno") String pageNo) throws Exception{
-//		map = new HashMap<>();
-//		map.put("pgno",Integer.parseInt(pageNo));
-//		List<Board> list = boardService.listNotice(map);
-//		return new ResponseEntity<List<Board>>(list,HttpStatus.OK);
-//	}
+	
+	
 	@GetMapping("/community/list/{pageno}")
 	public ResponseEntity<List<Board>> listBoard(@PathVariable("pageno") String pageNo) throws Exception{
 		System.out.println("여기다");
@@ -79,6 +74,23 @@ public class BoardController {
 		}
 		
 		
+	}
+	
+	// 공지사항 --------------------------------------------------------------------------------------------
+	@GetMapping("/notice/list/{pageno}")
+	public ResponseEntity<List<Board>> listNotice(@PathVariable("pageno") String pageNo) throws Exception{
+		map = new HashMap<>();	
+		map.put("pgno",Integer.parseInt(pageNo));
+		List<Board> list = boardService.listNotice(map);
+		return new ResponseEntity<List<Board>>(list,HttpStatus.OK);
+	}
+	
+	@PostMapping("/notice/register")
+	public ResponseEntity<String> writeNotice(@RequestBody Board board) throws Exception{
+		if (boardService.writeNotice(board)) {
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		}
+		return new ResponseEntity<String>(FAIL, HttpStatus.OK);
 	}
 		
 //	ModelAndView listNotice(@PathVariable("pageno") String pageNo) {

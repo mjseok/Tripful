@@ -34,6 +34,14 @@ function deleteBoard(boardid, success, fail) {
   console.log(boardid);
   api.post(`board/community/delete`, boardid).then(success).catch(fail);
 }
+
+//공지사항 작성하기
+function writeNotice(board, success, fail) {
+  api
+    .post(`board/notice/register`, JSON.stringify(board))
+    .then(success)
+    .catch(fail);
+}
 export {
   boardList,
   noticeList,
@@ -41,4 +49,5 @@ export {
   modifyBoard,
   writeBoard,
   deleteBoard,
+  writeNotice,
 };

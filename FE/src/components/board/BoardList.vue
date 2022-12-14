@@ -2,20 +2,12 @@
   <div class="container contents">
     <b-row class="mb-1">
       <b-col class="text-right" v-if="isAdmin || type === 'community'">
-        <b-button variant="outline-primary" @click="moveWrite()"
-          >글쓰기</b-button
-        >
+        <b-button variant="outline-primary" @click="moveWrite()">글쓰기</b-button>
       </b-col>
     </b-row>
     <b-row>
       <b-col>
-        <b-table
-          hover
-          :items="boards"
-          :fields="fields"
-          @row-clicked="viewBoard"
-        >
-        </b-table>
+        <b-table hover :items="boards" :fields="fields" @row-clicked="viewBoard"> </b-table>
       </b-col>
     </b-row>
   </div>
@@ -77,7 +69,7 @@ export default {
   },
   methods: {
     moveWrite() {
-      this.$router.push({ name: "boardWrite" });
+      this.$router.push({ name: "boardWrite", params: { boardType: this.type } });
     },
     viewBoard(board) {
       this.$router.push({

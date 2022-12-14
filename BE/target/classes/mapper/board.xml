@@ -30,7 +30,7 @@
 		order by b.boardid desc limit #{start},#{spl}
 	</select>
 	
-	<select id="listNotice" parameterType="map">
+	<select id="listNotice" parameterType="map" resultType="board">
 		select n.noticeid, n.uid, n.title, n.content, u.name, date_format(n.date, '%Y.%m.%d') as date, n.hit
 		from notice as n join user as u on n.uid = u.uid
 		order by n.noticeid desc limit #{start},#{spl}
@@ -58,4 +58,9 @@
 		insert into board (uid, title, content, date)
 		values (#{uid}, #{title}, #{content}, now())
 	</insert>
+	<insert id="writeNotice" parameterType="board">
+		insert into notice (uid, title, content, date)
+		values (#{uid}, #{title}, #{content}, now())
+	</insert>
+	
 </mapper>

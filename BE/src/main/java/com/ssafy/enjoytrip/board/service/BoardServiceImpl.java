@@ -57,21 +57,23 @@ public class BoardServiceImpl implements BoardService {
 //		return boardMapper.countBoard();
 //	}
 //
-//	@Override
-//	public List<Board> listNotice(Map<String, Integer> map) throws Exception {
-//		int pgno = map.get("pgno");
-//		int spl = 15;
-//		int start = (pgno - 1) * spl;
-//		map.put("start", start);
-//		map.put("spl", spl);
-//		return boardMapper.listNotice(map);
-//	}
-//
-//	@Override
-//	public void writeNotice(Board notice) throws Exception {
-//		boardMapper.writeNotice(notice);
-//	}
-//
+	@Override
+	public List<Board> listNotice(Map<String, Integer> map) throws Exception {
+		int pgno = map.get("pgno");
+		int spl = 15;
+		int start = (pgno - 1) * spl;
+		map.put("start", start);
+		map.put("spl", spl);
+		return boardMapper.listNotice(map);
+	}
+
+	@Override
+	public boolean writeNotice(Board notice) throws Exception {
+		
+		if(boardMapper.writeNotice(notice)==1) return true;
+		return false;
+	}
+
 //	@Override
 //	public Board getNotice(int noticeid) throws Exception {
 //		return boardMapper.getNotice(noticeid);
