@@ -7,7 +7,24 @@
     </b-row>
     <b-row>
       <b-col>
-        <b-table hover :items="boards" :fields="fields" @row-clicked="viewBoard"> </b-table>
+        <b-table
+          v-if="this.type === 'community'"
+          hover
+          :items="boards"
+          :fields="boardFields"
+          @row-clicked="viewBoard"
+          :type="type"
+        >
+        </b-table>
+        <b-table
+          v-if="this.type === 'notice'"
+          hover
+          :items="notices"
+          :fields="noticeFields"
+          :type="type"
+          @row-clicked="viewBoard"
+        >
+        </b-table>
       </b-col>
     </b-row>
   </div>
@@ -29,8 +46,16 @@ export default {
   data() {
     return {
       boards: [],
-      fields: [
+      boardFields: [
         { key: "boardid", label: "글번호", tdClass: "tdClass" },
+        { key: "title", label: "제목", tdClass: "tdSubject" },
+        { key: "name", label: "작성자", tdClass: "tdClass" },
+        { key: "date", label: "작성일", tdClass: "tdClass" },
+        { key: "hit", label: "조회수", tdClass: "tdClass" },
+      ],
+      notices: [],
+      noticeFields: [
+        { key: "noticeid", label: "글번호", tdClass: "tdClass" },
         { key: "title", label: "제목", tdClass: "tdSubject" },
         { key: "name", label: "작성자", tdClass: "tdClass" },
         { key: "date", label: "작성일", tdClass: "tdClass" },
@@ -59,7 +84,8 @@ export default {
         pgno,
         ({ data }) => {
           console.log(data);
-          this.boards = data;
+          this.notices = data;
+          console.log("notices : " + this.notices);
         },
         (error) => {
           console.log(error);
@@ -71,10 +97,10 @@ export default {
     moveWrite() {
       this.$router.push({ name: "boardWrite", params: { boardType: this.type } });
     },
-    viewBoard(board) {
+    viewBoard(data) {
       this.$router.push({
         name: "boardView",
-        params: { boardid: board.boardid },
+        params: { boardid: data.boardid, noticeid: data.noticeid, boardType: this.type },
       });
     },
   },

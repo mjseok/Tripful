@@ -68,21 +68,24 @@ export default {
   created() {
     console.log(" : " + this.boardType);
     if (this.type === "modify") {
-      let param = this.$route.params.boardid;
-      getBoard(
-        param,
-        ({ data }) => {
-          console.log(data);
-          // this.article.articleno = data.article.articleno;
-          // this.article.userid = data.article.userid;
-          // this.article.subject = data.article.subject;
-          // this.article.content = data.article.content;
-          this.board = data;
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
+      if (this.boardType == "community") {
+        let param = this.$route.params.boardid;
+        getBoard(
+          param,
+          ({ data }) => {
+            console.log(data);
+            // this.article.articleno = data.article.articleno;
+            // this.article.userid = data.article.userid;
+            // this.article.subject = data.article.subject;
+            // this.article.content = data.article.content;
+            this.board = data;
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+      }
+
       this.isUserid = true;
     }
   },
@@ -177,10 +180,9 @@ export default {
       );
     },
     moveList() {
-      
       if (this.boardType == "community") {
         this.$router.push({ name: "community" });
-      }else{
+      } else {
         this.$router.push({ name: "notice" });
       }
     },

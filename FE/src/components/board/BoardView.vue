@@ -10,16 +10,10 @@
         <b-button variant="outline-primary" @click="moveList">목록</b-button>
       </b-col>
       <b-col class="text-right" v-if="userInfo && userInfo.uid === board.uid">
-        <b-button
-          variant="outline-info"
-          size="sm"
-          @click="moveModifyArticle"
-          class="mr-2"
+        <b-button variant="outline-info" size="sm" @click="moveModifyArticle" class="mr-2"
           >글수정</b-button
         >
-        <b-button variant="outline-danger" size="sm" @click="deleteArticle"
-          >글삭제</b-button
-        >
+        <b-button variant="outline-danger" size="sm" @click="deleteArticle">글삭제</b-button>
       </b-col>
     </b-row>
     <b-row class="mb-1">
@@ -42,7 +36,7 @@
 
 <script>
 // import moment from "moment";
-import { getBoard, deleteBoard } from "@/api/board";
+import { getBoard, deleteBoard, getNotice } from "@/api/board";
 import { mapState } from "vuex";
 
 const userStore = "userStore";
@@ -57,30 +51,55 @@ export default {
   computed: {
     ...mapState(userStore, ["userInfo"]),
     message() {
-      if (this.board.content)
-        return this.board.content.split("\n").join("<br>");
+      if (this.board.content) return this.board.content.split("\n").join("<br>");
       return "";
     },
   },
   created() {
-    let param = this.$route.params.boardid;
-    getBoard(
-      param,
-      ({ data }) => {
-        console.log(data);
-        this.board = data;
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    let boardType = this.$route.params.boardType;
+    if (boardType == "community") {
+      let param = this.$route.params.boardid;
+      console.log("param : " + param);
+      getBoard(
+        param,
+        ({ data }) => {
+          console.log(data);
+          this.board = data;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    } else {
+      let param = this.$route.params.noticeid;
+      console.log("param : " + param);
+      getNotice(
+        param,
+        ({ data }) => {
+          console.log(data);
+          this.board = data;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
   },
   methods: {
     moveModifyArticle() {
-      this.$router.replace({
-        name: "boardModify",
-        params: { boardid: this.board.boardid },
-      });
+      let boardType = this.$route.params.boardType;
+      if (boardType == "community") {
+        this.$router.replace({
+          name: "boardModify",
+          params: { boardid: this.board.boardid },
+        });
+      } else {
+        this.$router.replace({
+          name: "boardModify",
+          params: { boardid: this.board.boardid },
+        });
+      }
+
       //   this.$router.push({ path: `/board/modify/${this.article.articleno}` });
     },
 
@@ -111,7 +130,12 @@ export default {
       }
     },
     moveList() {
-      this.$router.push({ name: "community" });
+      let boardType = this.$route.params.boardType;
+      if (boardType == "community") {
+        this.$router.push({ name: "community" });
+      } else {
+        this.$router.push({ name: "notice" });
+      }
     },
   },
   // filters: {

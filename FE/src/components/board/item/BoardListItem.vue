@@ -1,8 +1,14 @@
 <template>
   <b-tr>
-    <b-td>{{ boardid }}</b-td>
-    <b-th class="text-left">
+    <b-td v-if="type === 'community'">{{ boardid }}</b-td>
+    <b-td v-if="type === 'notice'">{{ noticeid }}</b-td>
+    <b-th class="text-left" v-if="type === 'community'">
       <router-link :to="{ name: 'boardView', params: { boardid: boardid } }">{{
+        title
+      }}</router-link>
+    </b-th>
+    <b-th class="text-left" v-if="type === 'notice'">
+      <router-link :to="{ name: 'boardView', params: { noticeid: noticeid } }">{{
         title
       }}</router-link>
     </b-th>
@@ -18,6 +24,7 @@ import moment from "moment";
 export default {
   name: "BoardListItem",
   props: {
+    noticeid: Number,
     boardid: Number,
     name: String,
     title: String,

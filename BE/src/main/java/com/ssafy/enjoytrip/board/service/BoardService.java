@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.ssafy.enjoytrip.board.Board;
+import com.ssafy.enjoytrip.board.Notice;
 
 
 public interface BoardService {
@@ -22,12 +23,12 @@ public interface BoardService {
 //
 //	int countBoard() throws Exception;
 	
-	List<Board> listNotice(Map<String, Integer> map) throws Exception;
+	List<Notice> listNotice(Map<String, Integer> map) throws Exception;
 
-	boolean writeNotice(Board notice) throws Exception;
-//
-//	Board getNotice(int noticeid) throws Exception;
-//
+	boolean writeNotice(Notice notice) throws Exception;
+
+	Notice getNotice(int noticeid) throws Exception;
+
 //	void updateNoticeHit(int noticeid) throws Exception;
 //
 //	void modifyNotice(Board notice) throws Exception;
