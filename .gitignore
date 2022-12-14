@@ -1,6 +1,9 @@
 BE/target/classes/META-INF/maven/com.ssafy/enjoytrip_spring_team_09/pom.properties
 .project 
 
+# env File
+*/.env
+
 # Created by https://www.toptal.com/developers/gitignore/api/windows,git,java,eclipse,vue,vuejs
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,git,java,eclipse,vue,vuejs
 
