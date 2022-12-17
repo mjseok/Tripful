@@ -19,8 +19,22 @@
     <b-row class="mb-1">
       <b-col>
         <b-card
+          v-if="board.boardid == undefined"
+          :header-html="`<h3>${board.noticeid}.
+          ${board.title} [${board.hit}]</h3><div><h6>${board.name}</div><div>${board.date}</h6></div>`"
+          class="mb-2"
+          border-variant="dark"
+          no-body
+        >
+          <b-card-body class="text-left">
+            <div v-html="message"></div>
+          </b-card-body>
+        </b-card>
+
+        <b-card
+          v-else
           :header-html="`<h3>${board.boardid}.
-          ${board.title} [${board.hit}]</h3><div><h6>${board.author}</div><div>${board.date}</h6></div>`"
+          ${board.title} [${board.hit}]</h3><div><h6>${board.name}</div><div>${board.date}</h6></div>`"
           class="mb-2"
           border-variant="dark"
           no-body
@@ -36,7 +50,7 @@
 
 <script>
 // import moment from "moment";
-import { getBoard, deleteBoard, getNotice } from "@/api/board";
+import { getBoard, deleteBoard, getNotice, deleteNotice } from "@/api/board";
 import { mapState } from "vuex";
 
 const userStore = "userStore";
@@ -91,12 +105,12 @@ export default {
       if (boardType == "community") {
         this.$router.replace({
           name: "boardModify",
-          params: { boardid: this.board.boardid },
+          params: { boardid: this.board.boardid, boardType: "community" },
         });
       } else {
         this.$router.replace({
           name: "boardModify",
-          params: { boardid: this.board.boardid },
+          params: { boardid: this.board.noticeid, boardType: "notice" },
         });
       }
 
@@ -104,29 +118,55 @@ export default {
     },
 
     deleteArticle() {
+      let boardType = this.$route.params.boardType;
       if (confirm("정말로 삭제?")) {
-        deleteBoard(
-          this.board.boardid,
-          ({ data }) => {
-            console.log("data : " + data);
-            // let msg = "삭제 처리시 문제가 발생했습니다.";
-            // if (data === "success") {
-            //   msg = "삭제가 완료되었습니다.";
-            // }
+        if (boardType == "community") {
+          deleteBoard(
+            this.board.boardid,
+            ({ data }) => {
+              console.log("data : " + data);
+              // let msg = "삭제 처리시 문제가 발생했습니다.";
+              // if (data === "success") {
+              //   msg = "삭제가 완료되었습니다.";
+              // }
 
-            let msg = "삭제 처리시 문제가 발생했습니다.";
-            alert(msg);
-            this.moveList();
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
+              // let msg = "삭제 처리시 문제가 발생했습니다.";
+              // alert(msg);
+              this.moveList();
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
 
-        this.$router.replace({
-          name: "boardList",
-          params: { boardid: this.board.boardid },
-        });
+          this.$router.replace({
+            name: "boardList",
+            params: { boardid: this.board.boardid, boardType: "community" },
+          });
+        } else {
+          deleteNotice(
+            this.board.noticeid,
+            ({ data }) => {
+              console.log("data : " + data);
+              // let msg = "삭제 처리시 문제가 발생했습니다.";
+              // if (data === "success") {
+              //   msg = "삭제가 완료되었습니다.";
+              // }
+
+              // let msg = "삭제 처리시 문제가 발생했습니다.";
+              // alert(msg);
+              this.moveList();
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
+
+          this.$router.replace({
+            name: "boardList",
+            params: { boardid: this.board.boardid, boardType: "notice" },
+          });
+        }
       }
     },
     moveList() {

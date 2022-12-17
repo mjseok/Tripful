@@ -73,8 +73,6 @@ public class BoardController {
 			//에러 코드 바꿔야됨
 			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 		}
-		
-		
 	}
 	
 	// 공지사항 --------------------------------------------------------------------------------------------
@@ -100,7 +98,27 @@ public class BoardController {
 		System.out.println("공지사항 얻어오기 끝냄");
 		return new ResponseEntity<Notice>(notice,HttpStatus.OK);
 	}
-		
+	@PostMapping("/notice/modify")
+	public ResponseEntity<String> modifyNotice(@RequestBody Notice notice) throws Exception{
+		if (boardService.modifyNotice(notice)) {
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		}
+		return new ResponseEntity<String>(FAIL, HttpStatus.OK);
+	}	
+	@PostMapping("/notice/delete")
+	public ResponseEntity<?> deleteNotice(@RequestBody int noticeid) throws Exception{
+//		System.out.println("보다 : "+board);
+		try {
+			System.out.println("삭제 하자~ : "+noticeid);
+			boardService.deleteNotice(noticeid);
+			return new ResponseEntity<Void>(HttpStatus.OK);
+			
+		} catch (Exception e) {
+			//에러 코드 바꿔야됨
+			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+		}
+	}
+	
 //	ModelAndView listNotice(@PathVariable("pageno") String pageNo) {
 //		System.out.println("pageNo : "+pageNo);
 //		ModelAndView mav = new ModelAndView();

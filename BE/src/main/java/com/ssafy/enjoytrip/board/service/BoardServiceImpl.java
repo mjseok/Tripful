@@ -86,16 +86,18 @@ public class BoardServiceImpl implements BoardService {
 //		boardMapper.updateNoticeHit(noticeid);
 //	}
 //
-//	@Override
-//	public void modifyNotice(Board notice) throws Exception {
-//		boardMapper.modifyNotice(notice);
-//	}
-//
-//	@Override
-//	public void deleteNotice(int noticeid) throws Exception {
-//		boardMapper.deleteNotice(noticeid);
-//	}
-//
+	@Override
+	public boolean modifyNotice(Notice notice) throws Exception {
+		System.out.println("변경하는 notice : "+notice);
+		if(boardMapper.modifyNotice(notice)==1) return true;
+		return false;
+	}
+
+	@Override
+	public void deleteNotice(int noticeid) throws Exception {
+		boardMapper.deleteNotice(noticeid);
+	}
+
 //	@Override
 //	public int countNotice() throws Exception {
 //		return boardMapper.countNotice();

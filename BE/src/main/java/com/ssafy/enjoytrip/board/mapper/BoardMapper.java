@@ -32,11 +32,11 @@ public interface BoardMapper {
 	Notice getNotice(int noticeid) throws SQLException;
 
 //	void updateNoticeHit(int noticeid) throws SQLException;
-//
-//	void modifyNotice(Board notice) throws SQLException;
-//
-//	void deleteNotice(int noticeid) throws SQLException;
-//
+
+	int modifyNotice(Notice notice) throws SQLException;
+
+	void deleteNotice(int noticeid) throws SQLException;
+
 //	int countNotice() throws SQLException;
 	
 }

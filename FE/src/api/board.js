@@ -8,6 +8,7 @@ function boardList(pgno, success, fail) {
 
 //게시글 하나 가져오기
 function getBoard(boardid, success, fail) {
+  console.log("community 번호"+boardid);
   console.log(boardid);
   api.get(`board/community/${boardid}`).then(success).catch(fail);
 }
@@ -48,7 +49,19 @@ function getNotice(noticeid, success, fail) {
   console.log("공지사항 번호"+noticeid);
   api.get(`board/notice/${noticeid}`).then(success).catch(fail);
 }
-
+//공지사항 수정하기
+function modifyNotice(notice, success, fail) {
+  // console.log(boardid);
+  api
+    .post(`board/notice/modify`, JSON.stringify(notice))
+    .then(success)
+    .catch(fail);
+}
+//공지사항 삭제하기
+function deleteNotice(noticeid, success, fail) {
+  console.log(noticeid);
+  api.post(`board/notice/delete`, noticeid).then(success).catch(fail);
+}
 export {
   boardList,
   noticeList,
@@ -58,4 +71,6 @@ export {
   deleteBoard,
   writeNotice,
   getNotice,
+  modifyNotice,
+  deleteNotice,
 };

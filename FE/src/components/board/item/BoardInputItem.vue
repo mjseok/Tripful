@@ -44,7 +44,14 @@
 </template>
 
 <script>
-import { writeBoard, modifyBoard, getBoard, writeNotice } from "@/api/board";
+import {
+  writeBoard,
+  modifyBoard,
+  writeNotice,
+  getNotice,
+  getBoard,
+  modifyNotice,
+} from "@/api/board";
 import { mapState } from "vuex";
 
 const userStore = "userStore";
@@ -66,9 +73,28 @@ export default {
     boardType: { boardType: String },
   },
   created() {
+    console.log("title : " + this.board.title);
     console.log(" : " + this.boardType);
     if (this.type === "modify") {
-      if (this.boardType == "community") {
+      if (this.boardType == "notice") {
+        console.log("notice일때 ");
+        let param = this.$route.params.boardid;
+        getNotice(
+          param,
+          ({ data }) => {
+            console.log(data);
+            this.board.boardid = data.noticeid;
+            this.board.uid = data.uid;
+            this.board.title = data.title;
+            this.board.content = data.content;
+            // this.board = data;
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+      } else {
+        console.log("community 일때 ");
         let param = this.$route.params.boardid;
         getBoard(
           param,
@@ -157,27 +183,51 @@ export default {
       }
     },
     modifyBoard() {
-      let param = {
-        boardid: this.board.boardid,
-        // uid: this.board.uid,
-        title: this.board.title,
-        content: this.board.content,
-      };
-      modifyBoard(
-        param,
-        ({ data }) => {
-          let msg = "수정 처리시 문제가 발생했습니다.";
-          if (data === "success") {
-            msg = "수정이 완료되었습니다.";
+      if (this.boardType == "community") {
+        let param = {
+          boardid: this.board.boardid,
+          // uid: this.board.uid,
+          title: this.board.title,
+          content: this.board.content,
+        };
+        modifyBoard(
+          param,
+          ({ data }) => {
+            let msg = "수정 처리시 문제가 발생했습니다.";
+            if (data === "success") {
+              msg = "수정이 완료되었습니다.";
+            }
+            alert(msg);
+            // 현재 route를 /list로 변경.
+            this.moveList();
+          },
+          (error) => {
+            console.log(error);
           }
-          alert(msg);
-          // 현재 route를 /list로 변경.
-          this.moveList();
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
+        );
+      } else {
+        let param = {
+          noticeid: this.board.boardid,
+          // uid: this.board.uid,
+          title: this.board.title,
+          content: this.board.content,
+        };
+        modifyNotice(
+          param,
+          ({ data }) => {
+            let msg = "수정 처리시 문제가 발생했습니다.";
+            if (data === "success") {
+              msg = "수정이 완료되었습니다.";
+            }
+            alert(msg);
+            // 현재 route를 /list로 변경.
+            this.moveList();
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+      }
     },
     moveList() {
       if (this.boardType == "community") {

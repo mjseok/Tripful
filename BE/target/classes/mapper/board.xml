@@ -62,4 +62,13 @@
 		from notice as n join user as u on n.uid = u.uid
 		where n.noticeid = #{noticeid}
 	</select>
+	<update id="modifyNotice" parameterType="notice">
+	update notice
+	set title = #{title}, content = #{content}, date = now()
+	where noticeid = #{noticeid}
+	</update>
+	<delete id="deleteNotice" parameterType="int">
+		delete from notice
+		where noticeid = #{noticeid}
+	</delete>
 </mapper>

@@ -31,10 +31,10 @@ public interface BoardService {
 
 //	void updateNoticeHit(int noticeid) throws Exception;
 //
-//	void modifyNotice(Board notice) throws Exception;
-//
-//	void deleteNotice(int noticeid) throws Exception;
-//
+	boolean modifyNotice(Notice notice) throws Exception;
+
+	void deleteNotice(int noticeid) throws Exception;
+
 //	int countNotice() throws Exception;
 
 }
