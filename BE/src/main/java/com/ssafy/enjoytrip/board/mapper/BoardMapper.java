@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.ssafy.enjoytrip.board.Board;
+import com.ssafy.enjoytrip.board.Notice;
 
 @Mapper
 public interface BoardMapper {
@@ -23,19 +24,19 @@ public interface BoardMapper {
 	void deleteBoard(int boardid) throws SQLException;
 
 //	int countBoard() throws SQLException;
-//	
-//	List<Board> listNotice(Map<String, Integer> map) throws SQLException;
-//
-//	void writeNotice(Board notice) throws SQLException;
-//
-//	Board getNotice(int noticeid) throws SQLException;
-//
+	
+	List<Notice> listNotice(Map<String, Integer> map) throws SQLException;
+
+	int writeNotice(Notice notice) throws SQLException;
+
+	Notice getNotice(int noticeid) throws SQLException;
+
 //	void updateNoticeHit(int noticeid) throws SQLException;
-//
-//	void modifyNotice(Board notice) throws SQLException;
-//
-//	void deleteNotice(int noticeid) throws SQLException;
-//
+
+	int modifyNotice(Notice notice) throws SQLException;
+
+	void deleteNotice(int noticeid) throws SQLException;
+
 //	int countNotice() throws SQLException;
 	
 }

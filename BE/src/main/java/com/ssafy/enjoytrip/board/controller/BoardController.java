@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.enjoytrip.board.Board;
+import com.ssafy.enjoytrip.board.Notice;
 import com.ssafy.enjoytrip.board.service.BoardService;
 import com.ssafy.enjoytrip.user.User;
 
@@ -29,13 +30,8 @@ public class BoardController {
 	private Map<String, Integer> map;	
 	private static final String SUCCESS = "success";
 	private static final String FAIL = "fail";
-//	@GetMapping("/notice/list/{pageno}")
-//	public ResponseEntity<List<Board>> listNotice(@PathVariable("pageno") String pageNo) throws Exception{
-//		map = new HashMap<>();
-//		map.put("pgno",Integer.parseInt(pageNo));
-//		List<Board> list = boardService.listNotice(map);
-//		return new ResponseEntity<List<Board>>(list,HttpStatus.OK);
-//	}
+	
+	
 	@GetMapping("/community/list/{pageno}")
 	public ResponseEntity<List<Board>> listBoard(@PathVariable("pageno") String pageNo) throws Exception{
 		System.out.println("여기다");
@@ -77,10 +73,52 @@ public class BoardController {
 			//에러 코드 바꿔야됨
 			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 		}
-		
-		
 	}
-		
+	
+	// 공지사항 --------------------------------------------------------------------------------------------
+	@GetMapping("/notice/list/{pageno}")
+	public ResponseEntity<List<Notice>> listNotice(@PathVariable("pageno") String pageNo) throws Exception{
+		map = new HashMap<>();	
+		map.put("pgno",Integer.parseInt(pageNo));
+		List<Notice> list = boardService.listNotice(map);
+		return new ResponseEntity<List<Notice>>(list,HttpStatus.OK);
+	}
+	
+	@PostMapping("/notice/register")
+	public ResponseEntity<String> writeNotice(@RequestBody Notice notice) throws Exception{
+		if (boardService.writeNotice(notice)) {
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		}
+		return new ResponseEntity<String>(FAIL, HttpStatus.OK);
+	}
+	@GetMapping("/notice/{noticeid}")
+	public ResponseEntity<Notice> getNotice(@PathVariable("noticeid") int noticeid) throws Exception{
+		System.out.println("공지사항 얻어오기");
+		Notice notice = boardService.getNotice(noticeid);
+		System.out.println("공지사항 얻어오기 끝냄");
+		return new ResponseEntity<Notice>(notice,HttpStatus.OK);
+	}
+	@PostMapping("/notice/modify")
+	public ResponseEntity<String> modifyNotice(@RequestBody Notice notice) throws Exception{
+		if (boardService.modifyNotice(notice)) {
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		}
+		return new ResponseEntity<String>(FAIL, HttpStatus.OK);
+	}	
+	@PostMapping("/notice/delete")
+	public ResponseEntity<?> deleteNotice(@RequestBody int noticeid) throws Exception{
+//		System.out.println("보다 : "+board);
+		try {
+			System.out.println("삭제 하자~ : "+noticeid);
+			boardService.deleteNotice(noticeid);
+			return new ResponseEntity<Void>(HttpStatus.OK);
+			
+		} catch (Exception e) {
+			//에러 코드 바꿔야됨
+			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+		}
+	}
+	
 //	ModelAndView listNotice(@PathVariable("pageno") String pageNo) {
 //		System.out.println("pageNo : "+pageNo);
 //		ModelAndView mav = new ModelAndView();

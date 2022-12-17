@@ -142,13 +142,15 @@ const userStore = {
       await findById(
         decodeToken.id,
         ({ data }) => {
+          console.log("Data : " + data);
           if (data.message === "success") {
             commit("SET_USER_INFO", data.userInfo);
             // console.log("3. getUserInfo data >> ", data);
           } else {
             console.log("유저 정보 없음!!!!");
           }
-          if (data.userInfo.admin) {
+          if (data.userInfo.isadmin == 1) {
+            console.log("관리자 입니다~~~~");
             commit("SET_IS_ADMIN", true);
           } else {
             commit("SET_IS_ADMIN", false);

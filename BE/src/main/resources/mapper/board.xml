@@ -12,7 +12,7 @@
 		<result column="hit" property="hit" />
 		<collection property="user" resultMap="User"/>
 	</resultMap>
-	<resultMap type="Board" id="notice">
+	<resultMap type="Notice" id="notice">
 		<result column="noticeid" property="noticeid" />
 		<result column="title" property="title" />
 		<result column="content" property="content" />
@@ -29,18 +29,7 @@
 		from board as b join user as u on b.uid = u.uid
 		order by b.boardid desc limit #{start},#{spl}
 	</select>
-	
-	<select id="listNotice" parameterType="map">
-		select n.noticeid, n.uid, n.title, n.content, u.name, date_format(n.date, '%Y.%m.%d') as date, n.hit
-		from notice as n join user as u on n.uid = u.uid
-		order by n.noticeid desc limit #{start},#{spl}
-	</select>
 	<select id="getBoard" parameterType="Integer" resultType="board"  >
-		select b.boardid, u.uid, b.title, b.content, u.name, b.date, b.hit
-		from board as b join user as u on b.uid = u.uid
-		where b.boardid = #{boardid}
-	</select>
-	<select id="getNotice" parameterType="Integer" resultType="board"  >
 		select b.boardid, u.uid, b.title, b.content, u.name, b.date, b.hit
 		from board as b join user as u on b.uid = u.uid
 		where b.boardid = #{boardid}
@@ -58,4 +47,28 @@
 		insert into board (uid, title, content, date)
 		values (#{uid}, #{title}, #{content}, now())
 	</insert>
+	
+	<select id="listNotice" parameterType="map" resultType="notice">
+		select n.noticeid, n.uid, n.title, n.content, u.name, date_format(n.date, '%Y.%m.%d') as date, n.hit
+		from notice as n join user as u on n.uid = u.uid
+		order by n.noticeid desc limit #{start},#{spl}
+	</select>
+	<insert id="writeNotice" parameterType="notice">
+		insert into notice (uid, title, content, date)
+		values (#{uid}, #{title}, #{content}, now())
+	</insert>
+	<select id="getNotice" parameterType="Integer" resultType="notice">
+		select n.noticeid, u.uid, n.title, n.content, u.name, n.date, n.hit
+		from notice as n join user as u on n.uid = u.uid
+		where n.noticeid = #{noticeid}
+	</select>
+	<update id="modifyNotice" parameterType="notice">
+	update notice
+	set title = #{title}, content = #{content}, date = now()
+	where noticeid = #{noticeid}
+	</update>
+	<delete id="deleteNotice" parameterType="int">
+		delete from notice
+		where noticeid = #{noticeid}
+	</delete>
 </mapper>
