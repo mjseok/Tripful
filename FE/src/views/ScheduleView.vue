@@ -8,8 +8,9 @@
       <em style="font-size: smaller">최대 8개까지 등록 가능합니다.</em>
       <!-- <p class="schedule-container">내가 찜한 장소</p> -->
       <like-list></like-list>
+      <!-- <spot-like-list></spot-like-list> -->
       <!-- <div class="draggable-container row" id="before-schedule"></div> -->
-      <div class="row">
+      <!-- <div class="row">
         <p class="schedule-container col">나의 스케줄</p>
         <div class="col schedule">
           <button
@@ -21,7 +22,7 @@
             스케줄 등록
           </button>
         </div>
-      </div>
+      </div> -->
       <!-- Details Modal -->
       <div
         id="staticBackdrop"
@@ -89,15 +90,16 @@
         </div>
         <!-- end of modal-dialog -->
       </div>
-
-      <div class="draggable-container row" id="after-schedule"></div>
+      <!-- <div class="draggable-container row" id="after-schedule"></div> -->
     </div>
   </div>
 </template>
 
 <script>
 import KakaoMap from "@/components/common/KakaoMap";
+// import likeList from "@/components/schedule/likeList";
 import likeList from "@/components/schedule/likeList";
+
 import api from "@/api/http";
 import { mapState, mapActions } from "vuex";
 
