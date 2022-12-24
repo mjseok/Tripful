@@ -8,10 +8,7 @@
 
         <!-- end of button group -->
         <div class="grid" id="element-grid">
-          <b-container
-            v-if="locations && locations.length != 0"
-            class="bv-example mt-3 row"
-          >
+          <b-container v-if="locations && locations.length != 0" class="bv-example mt-3 row">
             <location-list-item
               v-for="(location, index) in locations"
               :key="index"
@@ -29,29 +26,25 @@
       </div>
       <!-- end of col -->
     </div>
-    <div
-      class="row"
-      id="pagination-div"
-      v-if="locations && locations.length != 0"
-    >
+    <div class="row" id="pagination-div" v-if="locations && locations.length != 0">
       <ul class="pagination justify-content-center" id="pagination-contents">
-        <li class="page-item"><a class="page-link" href="#">이전</a></li>
+        <li class="page-item"><a class="page-link" @click="pagination($event)">이전</a></li>
         <li class="page-item active first-item">
-          <a class="page-link page-num" href="#">1</a>
+          <a class="page-link page-num" @click="pagination">1</a>
         </li>
         <li class="page-item">
-          <a class="page-link page-num" href="#">2</a>
+          <a class="page-link page-num" @click="pagination">2</a>
         </li>
         <li class="page-item">
-          <a class="page-link page-num" href="#">3</a>
+          <a class="page-link page-num" @click="pagination">3</a>
         </li>
         <li class="page-item">
-          <a class="page-link page-num" href="#">4</a>
+          <a class="page-link page-num" @click="pagination">4</a>
         </li>
         <li class="page-item">
-          <a class="page-link page-num" href="#">5</a>
+          <a class="page-link page-num" @click="pagination">5</a>
         </li>
-        <li class="page-item"><a class="page-link" href="#">다음</a></li>
+        <li class="page-item"><a class="page-link" @click="pagination">다음</a></li>
       </ul>
     </div>
     <!-- end of row -->
@@ -70,16 +63,30 @@ export default {
     LocationListItem,
   },
   data() {
-    return {};
+    return {
+      num: "",
+    };
   },
   computed: {
-    ...mapState(locationStore, ["sidos", "guguns", "locations"]),
+    ...mapState(locationStore, ["sidos", "guguns", "locations", "sidoId", "gugunId"]),
     // houses() {
     //   return this.$store.state.houses;
     // },
   },
   methods: {
     ...mapActions(locationStore, ["getLocationList"]),
+    pagination(event) {
+      console.log("this는 :" + event.target.textContent);
+      let pageno = event.target.textContent;
+      console.log(this.sidoId + " , " + this.gugunId);
+      this.getLocationList({
+        sidoCode: this.sidoId,
+        gugunCode: this.gugunId,
+        themeCode: 0,
+        pageno: pageno,
+      });
+      console.log("권태윤 바보");
+    },
   },
 };
 </script>

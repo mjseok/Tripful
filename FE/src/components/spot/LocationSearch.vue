@@ -3,11 +3,7 @@
     <h2 class="mb-2">지역별 관광지 조회</h2>
     <div class="row col-md-12 justify-content-center mb-2">
       <div class="form-group col-md-2">
-        <b-form-select
-          v-model="sidoCode"
-          :options="sidos"
-          @change="gugunList"
-        ></b-form-select>
+        <b-form-select v-model="sidoCode" :options="sidos" @change="gugunList"></b-form-select>
       </div>
 
       <div class="form-group col-md-2">
@@ -143,6 +139,8 @@ export default {
       "CLEAR_SIDO_LIST",
       "CLEAR_GUGUN_LIST",
       "CLEAR_LOCATION_LIST",
+      "SET_SIDO_ID",
+      "SET_GUGUN_ID",
     ]),
     // sidoList() {
     //   this.getSido();
@@ -156,12 +154,16 @@ export default {
     searchLocation() {
       console.log(this.sidoCode);
       console.log(this.gugunCode);
-      if (this.gugunCode)
+      this.SET_SIDO_ID(this.sidoCode);
+      this.SET_GUGUN_ID(this.gugunCode);
+      if (this.gugunCode) {
         this.getLocationList({
           sidoCode: this.sidoCode,
           gugunCode: this.gugunCode,
           themeCode: 0,
+          pageno: 1,
         });
+      }
     },
     clickTheme(event) {
       // console.log("this :", event.target.value);
@@ -177,6 +179,7 @@ export default {
           sidoCode: this.sidoCode,
           gugunCode: this.gugunCode,
           themeCode: this.themeCode,
+          pageno: 1,
         });
       console.log("EVENT", event.target);
     },

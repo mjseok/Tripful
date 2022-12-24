@@ -3,6 +3,8 @@ import { sidoList, gugunList, locationList } from "@/api/location.js";
 const locationStore = {
   namespaced: true,
   state: {
+    sidoId: null,
+    gugunId:null,
     sidos: [{ value: null, text: "선택하세요" }],
     guguns: [{ value: null, text: "선택하세요" }],
     locations: [],
@@ -38,6 +40,14 @@ const locationStore = {
       console.log("location : "+location);
       state.location = location;
     },
+    SET_SIDO_ID(state, id) {
+      console.log("시도 아이디 세팅 : "+id);
+      state.sidoId = id;
+    },
+    SET_GUGUN_ID(state, id) {
+      console.log("구군 아이디 세팅 : "+id);
+      state.gugunId = id;
+    },
   },
   actions: {
     getSido: ({ commit }) => {
@@ -65,13 +75,13 @@ const locationStore = {
         }
       );
     },
-    getLocationList: ({ commit }, { sidoCode, gugunCode,themeCode }) => {
+    getLocationList: ({ commit }, { sidoCode, gugunCode,themeCode,pageno }) => {
       console.log("list sidoCode : " + sidoCode + " gugunCode : " + gugunCode);
       const params = {
         sidoid: sidoCode,
         gugunid: gugunCode,
         theme:themeCode,
-        pageno: 1,
+        pageno: pageno,
       };
       locationList(
         params,
